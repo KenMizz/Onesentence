@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Onesentence</string>
+    <string name="about">about</string>
+    <string name="settings">settings</string>
+    <string name="about_info">Author: KenMizz\nThis is my first app, if you really like it, please rate 5 stars!</string>
+    <string name="confirmButton">Confirm</string>
+    <string name="emptyCard">This place is empty, maybe you want to add something?</string>
+</resources>

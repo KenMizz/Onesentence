@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">一句话</string>
+    <string name="about">关于</string>
+    <string name="about_info">作者: KenMizz\n如果你喜欢这个软件，请给个五星好评哦</string>
+    <string name="confirmButton">确认</string>
+    <string name="emptyCard">这个地方看起来空空的，你需要加一点新东西吗？</string>
+</resources>
