@@ -35,15 +35,9 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddMessage(v);
+                //TODO
             }
         });
-    }
-
-
-    public void AddMessage(View v) {
-        Intent intent = new Intent(this, AddMessageActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //TODO
+                            //pass
                         }
                     })
                     .show();
