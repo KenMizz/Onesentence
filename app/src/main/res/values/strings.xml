@@ -4,4 +4,5 @@
     <string name="about_info">Author: KenMizz\nThis is my first app, if you really like it, please rate 5 stars!</string>
     <string name="confirmButton">Confirm</string>
     <string name="emptyCard">This place is empty, maybe you want to add something?</string>
+    <string name="newsentence">new sentence</string>
 </resources>

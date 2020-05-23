@@ -5,4 +5,5 @@
     <string name="about_info">作者: KenMizz\n如果你喜欢这个软件，请给个五星好评哦</string>
     <string name="confirmButton">确认</string>
     <string name="emptyCard">这个地方看起来空空的，你需要加一点新东西吗？</string>
+    <string name="newsentence">新的句子</string>
 </resources>

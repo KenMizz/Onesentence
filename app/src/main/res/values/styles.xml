@@ -13,4 +13,16 @@
         <item name="colorAccent">#484848</item>
     </style>
 
+    <style name="AlertDialogLight" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="colorPrimary">#FAFAFA</item>
+        <item name="colorPrimaryDark">#C7C7C7</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <style name="AlertDialogDark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">#FAFAFA</item>
+        <item name="colorPrimaryDark">#C7C7C7</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
 </resources>
