@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void AddMessage(View v) {
         Intent intent = new Intent(this, AddMessageActivity.class);
-        intent.putExtra("text", R.string.app_name);
         startActivity(intent);
     }
 
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //pass
+                            //TODO
                         }
                     })
                     .show();

@@ -25,9 +25,5 @@ public class AddMessageActivity extends AppCompatActivity {
 
         }
         setContentView(R.layout.activity_add_message);
-        Intent intent = getIntent();
-        TextView text = findViewById(R.id.textView);
-        String data = intent.getStringExtra("text");
-        text.setText(data);
     }
 }
