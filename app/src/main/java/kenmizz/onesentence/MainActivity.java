@@ -2,8 +2,10 @@ package kenmizz.onesentence;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +16,20 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Map;
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView mRecylerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       //TODO: add new sentence
+                        String text = Objects.requireNonNull(editText.getText()).toString();
+                        if(!text.isEmpty()) {
+                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                            if(sharedPreferences.contains(text)) {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists).toString(), Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(text, text);
+                                editor.apply();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.add).toString() + text, Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 })
                 .show();
