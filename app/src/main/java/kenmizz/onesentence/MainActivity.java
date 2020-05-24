@@ -3,16 +3,19 @@ package kenmizz.onesentence;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +52,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
         }
+        final TextInputEditText editText = new TextInputEditText(this);
+        editText.setHint(R.string.sentence);
+        dialog.setView(editText);
         dialog.setTitle(R.string.newsentence)
+                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TextView textView = findViewById(R.id.emptyView);
+                        textView.setText(editText.getText());
+                    }
+                })
                 .show();
     }
 

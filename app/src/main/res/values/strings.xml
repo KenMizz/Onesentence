@@ -5,4 +5,6 @@
     <string name="confirmButton">Confirm</string>
     <string name="emptyCard">This place is empty, maybe you want to add something?</string>
     <string name="newsentence">new sentence</string>
+    <string name="add">Add</string>
+    <string name="sentence">Sentence</string>
 </resources>

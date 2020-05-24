@@ -14,14 +14,14 @@
     </style>
 
     <style name="AlertDialogLight" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="colorPrimary">#FAFAFA</item>
-        <item name="colorPrimaryDark">#C7C7C7</item>
-        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#000000</item>
     </style>
 
     <style name="AlertDialogDark" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="colorPrimary">#FAFAFA</item>
-        <item name="colorPrimaryDark">#C7C7C7</item>
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
         <item name="colorAccent">#FFFFFF</item>
     </style>
 
