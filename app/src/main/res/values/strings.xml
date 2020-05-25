@@ -8,4 +8,5 @@
     <string name="sentence">Sentence</string>
     <string name="KeyExists">already Exists，you might wanna add something else?</string>
     <string name="AlreadyAdd">Add</string>
+    <string name="ok">ok</string>
 </resources>

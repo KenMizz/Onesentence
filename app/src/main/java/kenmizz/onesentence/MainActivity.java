@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         }
         dialog.setTitle(R.string.about)
                 .setView(getLayoutInflater().inflate(R.layout.about, null))
+                .setPositiveButton(R.string.ok, null)
                 .show();
     }
 
