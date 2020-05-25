@@ -15,7 +15,8 @@
 这种感觉是好的
 
 # 下载
-**等待完成**
+[Github Actions](https://github.com/KenMizz/Onesentence/actions)<br>
+正式的下载方式将会在本项目完成后推出
 
 # 自行打包
 先clone本仓库<br>
