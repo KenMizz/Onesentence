@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String SHARED_PREFS = "sentencesPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
                         if(!text.isEmpty()) {
                             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                             if(sharedPreferences.contains(text)) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists).toString(), Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             } else {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(text, text);
                                 editor.apply();
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd).toString() + text, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
