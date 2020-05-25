@@ -87,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void showAboutDialog() {
+        MaterialAlertDialogBuilder dialog;
+        if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
+            dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
+        } else {
+            dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
+        }
+        dialog.setTitle(R.string.about)
+                .setView(getLayoutInflater().inflate(R.layout.about, null))
+                .show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -98,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if(itemId == R.id.option) {
-            Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
+            showAboutDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
