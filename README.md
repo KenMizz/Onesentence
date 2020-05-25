@@ -30,5 +30,5 @@ git clone https://github.com/KenMizz/OneSentence
 等待完成后，你会在目录下的``app/build/outputs/apk/``得到``app-debug.apk``
 ### 使用Android Studio
 通过Android Studio打开本仓库，然后找到在Android Studio找到Build，选择apk选项<br>
-![image.png](https://i.loli.net/2020/05/25/1lcsTukn6rNGhSU.png)<br>
+![](./assets/androidstudio_build.png)<br>
 等待完成后，在目录下的``app/build/outputs/apk/``得到``app-debug.apk``
