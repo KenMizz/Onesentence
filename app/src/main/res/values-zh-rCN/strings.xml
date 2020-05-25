@@ -7,6 +7,6 @@
     <string name="newsentence">新的句子</string>
     <string name="add">"添加 "</string>
     <string name="sentence">句子</string>
-    <string name="KeyExists">已经存在</string>
+    <string name="KeyExists">已经存在，要不要换点别的？</string>
     <string name="AlreadyAdd">"已添加 "</string>
 </resources>

@@ -6,6 +6,6 @@
     <string name="newsentence">new sentence</string>
     <string name="add">"Add "</string>
     <string name="sentence">Sentence</string>
-    <string name="KeyExists">already Exists</string>
+    <string name="KeyExists">already Exists，you might wanna add something else?</string>
     <string name="AlreadyAdd">Add</string>
 </resources>
