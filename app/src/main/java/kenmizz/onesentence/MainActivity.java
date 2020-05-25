@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(text, text);
                                 editor.apply();
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.add).toString() + text, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd).toString() + text, Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }

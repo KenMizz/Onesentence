@@ -7,4 +7,5 @@
     <string name="add">"Add "</string>
     <string name="sentence">Sentence</string>
     <string name="KeyExists">already Exists</string>
+    <string name="AlreadyAdd">Add</string>
 </resources>
