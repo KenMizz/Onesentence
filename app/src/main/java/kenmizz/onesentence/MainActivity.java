@@ -2,6 +2,7 @@ package kenmizz.onesentence;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -19,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 addMessage();
             }
         });
+        loadSentences();
     }
 
     public int getDarkMode() {
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString(text, text);
                                 editor.apply();
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                                recreate();
                             }
                         }
                     }
@@ -98,6 +104,25 @@ public class MainActivity extends AppCompatActivity {
                 .setView(getLayoutInflater().inflate(R.layout.about, null))
                 .setPositiveButton(R.string.ok, null)
                 .show();
+    }
+
+    public void loadSentences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        Map<String, ?>Sentences = sharedPreferences.getAll();
+        if(!Sentences.isEmpty()) {
+            TextView emptyView = findViewById(R.id.emptyView);
+            ((ViewGroup)emptyView.getParent()).removeView(emptyView);
+            ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
+            for(Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
+                sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+            }
+            mRecylerView = findViewById(R.id.RecyclerView);
+            mLayoutManager = new LinearLayoutManager(this);
+            mAdapter = new SentenceItemAdapter(sentencesList);
+            mRecylerView.setHasFixedSize(true);
+            mRecylerView.setLayoutManager(mLayoutManager);
+            mRecylerView.setAdapter(mAdapter);
+        }
     }
 
     @Override

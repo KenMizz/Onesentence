@@ -9,6 +9,6 @@ public class SentenceItem {
     }
 
     public String getSentence() {
-        return  Sentence;
+        return Sentence;
     }
 }
