@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString(text, text);
                                 editor.apply();
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                                loadSentences();
+                                recreate();
                             }
                         }
                     }
