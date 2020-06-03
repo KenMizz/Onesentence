@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,13 @@ import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView mRecylerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
+
 
     public static final String SHARED_PREFS = "sentencesPref";
 
@@ -43,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         setContentView(R.layout.activity_main);
+        loadSentencesList();
+        setUpSentencesView();
         FloatingActionButton addButton = findViewById(R.id.floatingActionButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 addMessage();
             }
         });
-        loadSentences();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     public int getDarkMode() {
@@ -81,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString(text, text);
                                 editor.apply();
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                                recreate(); //TODO: implement a better way instead of recreate
+                                //recreate(); //TODO: implement a better way instead of recreate;
                             }
                         }
                     }
@@ -102,26 +116,27 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void loadSentences() {
+    public void loadSentencesList() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Map<String, ?>Sentences = sharedPreferences.getAll();
         if(!Sentences.isEmpty()) {
             TextView emptyView = findViewById(R.id.emptyView);
-            ((ViewGroup)emptyView.getParent()).removeView(emptyView);
-            ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
-            for(Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
+            ((ViewGroup) emptyView.getParent()).removeView(emptyView);
+            for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                 sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
             }
-            RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            RecyclerView.Adapter mAdapter = new SentenceItemAdapter(sentencesList);
+        }
+    }
+    public void setUpSentencesView() {
+            mRecylerView = findViewById(R.id.RecyclerView);
+            mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            mAdapter = new SentenceItemAdapter(sentencesList);
             mRecylerView.setHasFixedSize(true);
             mRecylerView.setLayoutManager(mLayoutManager);
             mRecylerView.setAdapter(mAdapter);
             SwipeController swipeController = new SwipeController();
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
             itemTouchHelper.attachToRecyclerView(mRecylerView);
-        }
     }
 
     @Override
