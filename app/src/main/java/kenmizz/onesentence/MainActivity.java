@@ -28,10 +28,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecylerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     public static final String SHARED_PREFS = "sentencesPref";
 
     @Override
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString(text, text);
                                 editor.apply();
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                                recreate();
+                                recreate(); //TODO: implement a better way instead of recreate
                             }
                         }
                     }
@@ -115,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
             for(Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                 sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
             }
-            mRecylerView = findViewById(R.id.RecyclerView);
-            mLayoutManager = new LinearLayoutManager(this);
-            mAdapter = new SentenceItemAdapter(sentencesList);
+            RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            RecyclerView.Adapter mAdapter = new SentenceItemAdapter(sentencesList);
             mRecylerView.setHasFixedSize(true);
             mRecylerView.setLayoutManager(mLayoutManager);
             mRecylerView.setAdapter(mAdapter);
