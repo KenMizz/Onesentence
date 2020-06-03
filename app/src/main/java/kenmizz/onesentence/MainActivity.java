@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
-
-
     public static final String SHARED_PREFS = "sentencesPref";
 
     @Override
@@ -65,10 +62,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        syncWithSharedPrefs();
     }
 
     public int getDarkMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    }
+
+    public void syncWithSharedPrefs() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for(SentenceItem item : sentencesList) {
+            editor.putString(item.getSentence(), item.getSentence());
+        }
+        editor.apply();
     }
 
     public void addSentenceDialog() {
