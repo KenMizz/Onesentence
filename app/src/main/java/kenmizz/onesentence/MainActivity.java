@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
         syncWithSharedPrefs();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        syncWithSharedPrefs();
+    }
+
     public int getDarkMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
