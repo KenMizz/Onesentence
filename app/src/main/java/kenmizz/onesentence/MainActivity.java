@@ -134,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
             mRecylerView.setHasFixedSize(true);
             mRecylerView.setLayoutManager(mLayoutManager);
             mRecylerView.setAdapter(mAdapter);
-            SwipeController swipeController = new SwipeController();
+            /*SwipeController swipeController = new SwipeController();
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-            itemTouchHelper.attachToRecyclerView(mRecylerView);
+            itemTouchHelper.attachToRecyclerView(mRecylerView);*/
     }
 
     @Override
