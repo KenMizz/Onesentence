@@ -2,6 +2,7 @@ package kenmizz.onesentence;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -112,11 +113,14 @@ public class MainActivity extends AppCompatActivity {
                 sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
             }
             RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             RecyclerView.Adapter mAdapter = new SentenceItemAdapter(sentencesList);
             mRecylerView.setHasFixedSize(true);
             mRecylerView.setLayoutManager(mLayoutManager);
             mRecylerView.setAdapter(mAdapter);
+            SwipeController swipeController = new SwipeController();
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+            itemTouchHelper.attachToRecyclerView(mRecylerView);
         }
     }
 
