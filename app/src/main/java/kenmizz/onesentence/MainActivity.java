@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMessage();
+                addSentenceDialog();
             }
         });
     }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
-    public void addMessage() {
+    public void addSentenceDialog() {
         MaterialAlertDialogBuilder dialog;
         if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
@@ -91,11 +91,8 @@ public class MainActivity extends AppCompatActivity {
                             if(sharedPreferences.contains(text)) {
                                 Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             } else {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(text, text);
-                                editor.apply();
+                                addSentence(editText.getText().toString());
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                                //recreate(); //TODO: implement a better way instead of recreate;
                             }
                         }
                     }
@@ -120,23 +117,35 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Map<String, ?>Sentences = sharedPreferences.getAll();
         if(!Sentences.isEmpty()) {
-            TextView emptyView = findViewById(R.id.emptyView);
-            ((ViewGroup) emptyView.getParent()).removeView(emptyView);
             for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                 sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
             }
+            TextView emptyView = findViewById(R.id.emptyView);
+            if(emptyView.getVisibility() == View.VISIBLE) {
+                emptyView.setVisibility(View.INVISIBLE);
+            }
         }
     }
+
     public void setUpSentencesView() {
-            mRecylerView = findViewById(R.id.RecyclerView);
-            mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            mAdapter = new SentenceItemAdapter(sentencesList);
-            mRecylerView.setHasFixedSize(true);
-            mRecylerView.setLayoutManager(mLayoutManager);
-            mRecylerView.setAdapter(mAdapter);
-            /*SwipeController swipeController = new SwipeController();
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-            itemTouchHelper.attachToRecyclerView(mRecylerView);*/
+        mRecylerView = findViewById(R.id.RecyclerView);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mAdapter = new SentenceItemAdapter(sentencesList);
+        mRecylerView.setHasFixedSize(true);
+        mRecylerView.setLayoutManager(mLayoutManager);
+        mRecylerView.setAdapter(mAdapter);
+        /*SwipeController swipeController = new SwipeController();
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(mRecylerView);*/
+    }
+
+    public void addSentence(String sentence) {
+        sentencesList.add(new SentenceItem(sentence));
+        mAdapter.notifyItemInserted(sentencesList.size() - 1);
+        TextView emptyView = findViewById(R.id.emptyView);
+        if(emptyView.getVisibility() == View.VISIBLE) {
+            emptyView.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
