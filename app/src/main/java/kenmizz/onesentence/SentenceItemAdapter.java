@@ -1,5 +1,6 @@
 package kenmizz.onesentence;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
     private ArrayList<SentenceItem> sentenceItemArrayList;
+
 
     static class SentenceViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
@@ -42,5 +44,14 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     @Override
     public int getItemCount() {
         return sentenceItemArrayList.size();
+    }
+
+    public ArrayList<SentenceItem> getSentenceItemArrayList() {
+        return sentenceItemArrayList;
+    }
+
+    public void deleteSentence(int position) {
+        sentenceItemArrayList.remove(position);
+        notifyItemRemoved(position);
     }
 }

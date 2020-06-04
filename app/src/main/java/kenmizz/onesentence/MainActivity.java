@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,11 +31,12 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecylerView;
-    private RecyclerView.Adapter mAdapter;
+    private SentenceItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
     public static final String SHARED_PREFS = "sentencesPref";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void syncWithSharedPrefs() {
+        Log.d(TAG, "sync with SharedPrefs..");
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        for(SentenceItem item : sentencesList) {
+        editor.clear(); //in order to fully sync with local ArrayList
+        for(SentenceItem item : mAdapter.getSentenceItemArrayList()) {
             editor.putString(item.getSentence(), item.getSentence());
         }
         editor.apply();
@@ -147,9 +151,9 @@ public class MainActivity extends AppCompatActivity {
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
-        /*SwipeController swipeController = new SwipeController();
+        SwipeController swipeController = new SwipeController(mAdapter, getWindow().getDecorView().getRootView());
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-        itemTouchHelper.attachToRecyclerView(mRecylerView);*/
+        itemTouchHelper.attachToRecyclerView(mRecylerView);
     }
 
     public void addSentence(String sentence) {
