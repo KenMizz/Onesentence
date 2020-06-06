@@ -15,4 +15,5 @@
     <string name="light_mode">Light mode</string>
     <string name="dark_mode">Dark mode</string>
     <string name="widget_configure">Widget configure</string>
+    <string name="description">Onesentence\nv1.0\nMade by KenMizz</string>
 </resources>

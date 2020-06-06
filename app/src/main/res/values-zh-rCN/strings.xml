@@ -16,4 +16,5 @@
     <string name="light_mode">日间模式</string>
     <string name="dark_mode">暗黑模式</string>
     <string name="widget_configure">微件配置</string>
+    <string name="description">一句话\nv1.0\nKenMizz制作</string>
 </resources>

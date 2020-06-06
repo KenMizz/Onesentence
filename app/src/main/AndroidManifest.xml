@@ -8,10 +8,12 @@
         android:roundIcon="@mipmap/app_icon_around"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SentenceWidgetConfiguration"
+        <activity android:name=".AboutActivity"></activity>
+        <activity
+            android:name=".SentenceWidgetConfiguration"
             android:label="@string/widget_configure">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
         <activity

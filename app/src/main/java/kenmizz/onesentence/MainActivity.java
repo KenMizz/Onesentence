@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configPref";
     private static final String TAG = "MainActivity";
+
+    private final String COOLAPK_URL = "http://www.coolapk.com/u/618459";
+    private final String GITHUB_URL = "https://github.com/KenMizz/Onesentence";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +133,31 @@ public class MainActivity extends AppCompatActivity {
         } else {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
         }
+        View view = getLayoutInflater().inflate(R.layout.about, null);
         dialog.setTitle(R.string.about)
-                .setView(getLayoutInflater().inflate(R.layout.about, null))
+                .setView(view)
                 .setPositiveButton(R.string.ok, null)
                 .show();
+        ImageView coolApkview = view.findViewById(R.id.coolApkView);
+        ImageView githubView = view.findViewById(R.id.githubView);
+        coolApkview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = COOLAPK_URL;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+        githubView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = GITHUB_URL;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
 
