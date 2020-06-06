@@ -6,6 +6,7 @@
     android:minResizeWidth="30dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
-    android:widgetCategory="home_screen">
+    android:widgetCategory="home_screen"
+    android:configure="kenmizz.onesentence.SentenceWidgetConfiguration">
 
 </appwidget-provider>

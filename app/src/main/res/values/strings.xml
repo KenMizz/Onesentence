@@ -14,4 +14,5 @@
     <string name="follow_system">Follow System</string>
     <string name="light_mode">Light mode</string>
     <string name="dark_mode">Dark mode</string>
+    <string name="widget_configure">Widget configure</string>
 </resources>

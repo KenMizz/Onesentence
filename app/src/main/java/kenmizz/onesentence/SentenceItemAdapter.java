@@ -1,6 +1,6 @@
 package kenmizz.onesentence;
 
-import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
     private ArrayList<SentenceItem> sentenceItemArrayList;
+    private boolean isItemClickable = false;
 
 
     static class SentenceViewHolder extends RecyclerView.ViewHolder {
@@ -24,8 +25,9 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList) {
+    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, boolean isItemClickable) {
         sentenceItemArrayList = sentenceList;
+        this.isItemClickable = isItemClickable;
     }
 
     @NonNull
@@ -36,9 +38,17 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SentenceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SentenceViewHolder holder, final int position) {
         SentenceItem currentItem = sentenceItemArrayList.get(position);
         holder.mTextView.setText(currentItem.getSentence());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isItemClickable) {
+                    Log.d("Adapter", "Click " + sentenceItemArrayList.get(position).getSentence());
+                }
+            }
+        });
     }
 
     @Override

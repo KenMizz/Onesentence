@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     public void setUpSentencesView() {
         mRecylerView = findViewById(R.id.RecyclerView);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter = new SentenceItemAdapter(sentencesList);
+        mAdapter = new SentenceItemAdapter(sentencesList, false);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
