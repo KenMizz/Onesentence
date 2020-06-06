@@ -3,7 +3,6 @@
 
 > 一句话，或许可以带给你极大的动力
 
-**项目仍在开发中**<br>
 ![](./assets/chinese_light.png)
 ![](./assets/chinese_dark.png)
 
@@ -17,7 +16,6 @@
 
 # 下载
 [Github Actions](https://github.com/KenMizz/Onesentence/actions)<br>
-**正式的下载方式将会在本项目完成后推出**
 
 # 自行打包
 先clone本仓库<br>
