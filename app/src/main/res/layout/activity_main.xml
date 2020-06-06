@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/emptyCard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -19,30 +29,22 @@
         app:backgroundTint="#FFFFFF"
         app:srcCompat="@drawable/ic_add" />
 
-    <TextView
-        android:id="@+id/emptyView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/emptyCard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:layout_width="411dp"
+        android:layout_height="724dp"
         tools:ignore="MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="2dp"
             android:layout_margin="4dp"
+            android:padding="2dp"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="81dp" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
