@@ -11,4 +11,8 @@
     <string name="AlreadyAdd">"已添加 "</string>
     <string name="ok">好的</string>
     <string name="remove">移除</string>
+    <string name="theme">主题</string>
+    <string name="follow_system">跟随系统</string>
+    <string name="light_mode">日间模式</string>
+    <string name="dark_mode">暗黑模式</string>
 </resources>

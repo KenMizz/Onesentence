@@ -3,7 +3,7 @@
     android:initialLayout="@layout/sentence_widget"
     android:minHeight="40dp"
     android:minWidth="110dp"
-    android:minResizeWidth="40dp"
+    android:minResizeWidth="30dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen">

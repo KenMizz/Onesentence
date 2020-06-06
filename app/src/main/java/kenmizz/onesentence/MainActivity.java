@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
     public static final String SHARED_PREFS = "sentencesPref";
+    public static final String CONFIG_PREFS = "configPref";
     private static final String TAG = "MainActivity";
 
     @Override
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+
     public void loadSentencesList() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Map<String, ?>Sentences = sharedPreferences.getAll();
@@ -175,10 +177,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == R.id.option) {
-            //Toast.makeText(this, R.string.about, Toast.LENGTH_SHORT).show();
-            showAboutDialog();
-            return true;
+        switch(itemId) {
+            default:
+                return true;
+
+            case R.id.about:
+                showAboutDialog();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

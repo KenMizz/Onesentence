@@ -10,4 +10,8 @@
     <string name="AlreadyAdd">Add</string>
     <string name="ok">ok</string>
     <string name="remove">Remove</string>
+    <string name="theme">Theme</string>
+    <string name="follow_system">Follow System</string>
+    <string name="light_mode">Light mode</string>
+    <string name="dark_mode">Dark mode</string>
 </resources>
