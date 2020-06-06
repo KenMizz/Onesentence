@@ -15,6 +15,7 @@
 这种感觉是好的
 
 # 下载
+[Github Releases](https://github.com/KenMizz/Onesentence/releases) **建议**<br>
 [Github Actions](https://github.com/KenMizz/Onesentence/actions)<br>
 
 # 自行打包
