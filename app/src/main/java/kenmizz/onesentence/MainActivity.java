@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private SentenceItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
+    ArrayList<SentenceItem> sentencesList = new ArrayList<>();
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configPref";
     private static final String TAG = "MainActivity";
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    @SuppressLint("InflateParams")
     public void showAboutDialog() {
         MaterialAlertDialogBuilder dialog;
         if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
