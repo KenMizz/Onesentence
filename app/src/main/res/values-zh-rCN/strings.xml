@@ -3,7 +3,7 @@
     <string name="app_name">一句话</string>
     <string name="about">关于</string>
     <string name="confirmButton">确认</string>
-    <string name="emptyCard">这个地方看起来空空的，你需要加一点新东西吗？</string>
+    <string name="emptyCard">加一条新句子吧</string>
     <string name="newsentence">新的句子</string>
     <string name="add">"添加 "</string>
     <string name="sentence">句子</string>

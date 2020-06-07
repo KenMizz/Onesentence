@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -143,18 +142,16 @@ public class MainActivity extends AppCompatActivity {
         coolApkview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = COOLAPK_URL;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(COOLAPK_URL));
                 startActivity(intent);
             }
         });
         githubView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = GITHUB_URL;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(GITHUB_URL));
                 startActivity(intent);
             }
         });

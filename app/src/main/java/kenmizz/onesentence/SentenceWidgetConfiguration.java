@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         }
         loadSentencesList();
         setUpSentencesView();
-
     }
 
     public void loadSentencesList() {
