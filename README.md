@@ -16,7 +16,7 @@
 
 # 下载
 [Coolapk酷安](https://www.coolapk.com/apk/265746)<br>
-[Github Releases](https://github.com/KenMizz/Onesentence/releases) **建议**<br>
+[Github Releases](https://github.com/KenMizz/Onesentence/releases)<br>
 [Github Actions](https://github.com/KenMizz/Onesentence/actions)<br>
 
 # 自行打包
