@@ -111,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String text = Objects.requireNonNull(editText.getText()).toString();
                         if(!text.isEmpty()) {
-                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                            if(sharedPreferences.contains(text)) {
+                            if(sentencesList.contains(text)) {
                                 Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             } else {
                                 addSentence(editText.getText().toString());
