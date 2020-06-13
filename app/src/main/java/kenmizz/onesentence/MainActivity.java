@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private SentenceItemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    ArrayList<SentenceItem> sentencesList = new ArrayList<>();
+    ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configPref";
     private static final String TAG = "MainActivity";
@@ -111,13 +111,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String text = Objects.requireNonNull(editText.getText()).toString();
                         if(!text.isEmpty()) {
-                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                            if(sharedPreferences.contains(text)) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
-                            } else {
-                                addSentence(editText.getText().toString());
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                            for(SentenceItem item : sentencesList) {
+                                if(item.getSentence().equals(text)) {
+                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
+                            addSentence(editText.getText().toString());
+                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 })
