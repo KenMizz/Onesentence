@@ -3,11 +3,11 @@
     <string name="app_name">一句话</string>
     <string name="about">关于</string>
     <string name="confirmButton">确认</string>
-    <string name="emptyCard">加一条新句子吧</string>
+    <string name="ListEmpty">试着加一条新句子吧</string>
     <string name="newsentence">新的句子</string>
     <string name="add">"添加 "</string>
     <string name="sentence">句子</string>
-    <string name="KeyExists">已经存在，要不要换点别的？</string>
+    <string name="KeyExists">已经存在，要不要加点别的句子？</string>
     <string name="AlreadyAdd">"已添加 "</string>
     <string name="ok">好的</string>
     <string name="remove">移除</string>
@@ -17,4 +17,5 @@
     <string name="dark_mode">暗黑模式</string>
     <string name="widget_configure">微件配置</string>
     <string name="description">一句话\nv1.0\nKenMizz制作</string>
+    <string name="configure_empty">这里好空啊。。。</string>
 </resources>
