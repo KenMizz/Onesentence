@@ -2,11 +2,11 @@
     <string name="app_name">Onesentence</string>
     <string name="about">about</string>
     <string name="confirmButton">Confirm</string>
-    <string name="emptyCard">This place looks empty</string>
+    <string name="ListEmpty">Let\'s add a new sentence</string>
     <string name="newsentence">New sentence</string>
     <string name="add">"Add "</string>
     <string name="sentence">Sentence</string>
-    <string name="KeyExists">already Exists，you might wanna add something else?</string>
+    <string name="KeyExists">already Exists，you might want to add something else?</string>
     <string name="AlreadyAdd">Add</string>
     <string name="ok">ok</string>
     <string name="remove">Remove</string>
@@ -16,4 +16,5 @@
     <string name="dark_mode">Dark mode</string>
     <string name="widget_configure">Widget configure</string>
     <string name="description">Onesentence\nv1.0\nMade by KenMizz</string>
+    <string name="configure_empty">It\'s quiet empty here....</string>
 </resources>
