@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -57,6 +59,10 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         if(!Sentences.isEmpty()) {
             for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                 sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+            }
+            TextView emptyView = findViewById(R.id.configure_emptyView);
+            if(emptyView.getVisibility() == View.VISIBLE) {
+                emptyView.setVisibility(View.INVISIBLE);
             }
         }
     }
