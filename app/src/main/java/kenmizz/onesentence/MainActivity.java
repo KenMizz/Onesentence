@@ -126,36 +126,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    public void showAboutDialog() {
+    public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog;
         if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
         } else {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
         }
-        View view = getLayoutInflater().inflate(R.layout.about, null);
-        dialog.setTitle(R.string.about)
-                .setView(view)
-                .setPositiveButton(R.string.ok, null)
-                .show();
-        ImageView coolApkview = view.findViewById(R.id.coolApkView);
-        ImageView githubView = view.findViewById(R.id.githubView);
-        coolApkview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(COOLAPK_URL));
-                startActivity(intent);
-            }
-        });
-        githubView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(GITHUB_URL));
-                startActivity(intent);
-            }
-        });
+        View view = getLayoutInflater().inflate(layoutId, null);
+        switch(layoutId) {
+            case R.layout.about:
+                dialog.setTitle(R.string.about)
+                        .setView(view)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                ImageView coolApkview = view.findViewById(R.id.coolApkView);
+                ImageView githubView = view.findViewById(R.id.githubView);
+                coolApkview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(COOLAPK_URL));
+                        startActivity(intent);
+                    }
+                });
+                githubView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(GITHUB_URL));
+                        startActivity(intent);
+                    }
+                });
+                break;
+
+            case R.layout.theme:
+                dialog.setTitle(R.string.theme)
+                        .setView(view)
+                        .show();
+        }
     }
 
 
@@ -209,8 +218,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.about:
-                showAboutDialog();
+                showAppDialog(R.layout.about);
                 break;
+
+            case R.id.themes:
+                showAppDialog(R.layout.theme);
         }
         return super.onOptionsItemSelected(item);
     }

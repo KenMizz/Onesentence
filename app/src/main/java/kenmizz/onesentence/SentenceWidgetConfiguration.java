@@ -21,7 +21,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
 
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String WIDGET_PREFS = "widgetsPref";
-    public static final String SENTENCE_TEXT = "句";
+    public static final String SENTENCE_TEXT = "等待初始化。。。";
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override

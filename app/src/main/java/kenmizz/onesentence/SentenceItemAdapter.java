@@ -56,30 +56,30 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SentenceViewHolder holder, final int position) {
-        SentenceItem currentItem = sentenceItemArrayList.get(position);
+    SentenceItem currentItem = sentenceItemArrayList.get(position);
         holder.mTextView.setText(currentItem.getSentence());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isItemClickable) {
-                    Log.d("Adapter", "Click " + sentenceItemArrayList.get(position).getSentence());
-                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activityContext);
-                    String sentence = sentenceItemArrayList.get(position).getSentence();
-                    RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
-                    views.setCharSequence(R.id.SentenceTextView, "setText", sentence);
-                    appWidgetManager.updateAppWidget(widgetId, views);
-                    SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
-                    editor.apply();
-                    Intent resultValue = new Intent();
-                    resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-                    mActivity.setResult(Activity.RESULT_OK, resultValue);
-                    mActivity.finish();
-                }
+        @Override
+        public void onClick(View v) {
+            if(isItemClickable) {
+                Log.d("Adapter", "Click " + sentenceItemArrayList.get(position).getSentence());
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activityContext);
+                String sentence = sentenceItemArrayList.get(position).getSentence();
+                RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
+                views.setCharSequence(R.id.SentenceTextView, "setText", sentence);
+                appWidgetManager.updateAppWidget(widgetId, views);
+                SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
+                editor.apply();
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+                mActivity.setResult(Activity.RESULT_OK, resultValue);
+                mActivity.finish();
             }
-        });
-    }
+        }
+    });
+}
 
     @Override
     public int getItemCount() {
