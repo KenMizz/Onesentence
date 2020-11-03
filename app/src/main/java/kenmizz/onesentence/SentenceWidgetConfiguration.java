@@ -22,19 +22,12 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String WIDGET_PREFS = "widgetsPref";
     public static final String SENTENCE_TEXT = "句";
+
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switch(getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                setTheme(R.style.AppThemeDark);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-                setTheme(R.style.AppTheme);
-
-        }
         setContentView(R.layout.activity_sentence_widget_configuration);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

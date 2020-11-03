@@ -26,13 +26,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.937"
-        app:backgroundTint="#FFFFFF"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_add"
+        android:contentDescription="@string/add" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="411dp"
-        android:layout_height="724dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView

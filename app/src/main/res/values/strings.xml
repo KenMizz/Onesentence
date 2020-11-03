@@ -8,13 +8,12 @@
     <string name="sentence">Sentence</string>
     <string name="KeyExists">already Exists，you might want to add something else?</string>
     <string name="AlreadyAdd">Add</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="remove">Remove</string>
     <string name="theme">Theme</string>
     <string name="follow_system">Follow System</string>
     <string name="light_mode">Light mode</string>
     <string name="dark_mode">Dark mode</string>
     <string name="widget_configure">Widget configure</string>
-    <string name="description">Onesentence\nv1.0\nMade by KenMizz</string>
     <string name="configure_empty">It\'s quiet empty here....</string>
 </resources>

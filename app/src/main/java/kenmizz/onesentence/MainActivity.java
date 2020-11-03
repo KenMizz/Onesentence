@@ -8,17 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -33,17 +31,19 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecylerView;
     private SentenceItemAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configPref";
     private static final String TAG = "MainActivity";
 
-    private final String COOLAPK_URL = "http://www.coolapk.com/u/618459";
-    private final String GITHUB_URL = "https://github.com/KenMizz/Onesentence";
+    public enum NIGHTMODE {
+        DEFAULT, DARK, BLACK
+    }
+
+    //private final String COOLAPK_URL = "http://www.coolapk.com/u/618459";
+    //private final String GITHUB_URL = "https://github.com/KenMizz/Onesentence";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +96,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSentenceDialog() {
-        MaterialAlertDialogBuilder dialog;
-        if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        /*if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
         } else {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
-        }
+        }*/
         final TextInputEditText editText = new TextInputEditText(this);
         editText.setHint(R.string.sentence);
         dialog.setView(editText);
@@ -127,12 +127,12 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("InflateParams")
     public void showAppDialog(int layoutId) {
-        MaterialAlertDialogBuilder dialog;
-        if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        /*if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
         } else {
             dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
-        }
+        }*/
         View view = getLayoutInflater().inflate(layoutId, null);
         switch(layoutId) {
             case R.layout.about:
@@ -140,51 +140,35 @@ public class MainActivity extends AppCompatActivity {
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
                         .show();
-                ImageView coolApkview = view.findViewById(R.id.coolApkView);
-                ImageView githubView = view.findViewById(R.id.githubView);
-                coolApkview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(COOLAPK_URL));
-                        startActivity(intent);
-                    }
-                });
-                githubView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(GITHUB_URL));
-                        startActivity(intent);
-                    }
-                });
+                TextView textView = view.findViewById(R.id.versionName);
+                textView.setText(BuildConfig.VERSION_NAME);
                 break;
 
-            case R.layout.theme:
-                dialog.setTitle(R.string.theme)
-                        .setView(view)
-                        .show();
-        }
-    }
-
-
-    public void loadSentencesList() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        Map<String, ?>Sentences = sharedPreferences.getAll();
-        if(!Sentences.isEmpty()) {
-            for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+                /*case R.layout.theme:
+                    dialog.setTitle(R.string.theme)
+                            .setView(view)
+                            .show();*/
             }
-            TextView emptyView = findViewById(R.id.emptyView);
-            if(emptyView.getVisibility() == View.VISIBLE) {
-                emptyView.setVisibility(View.INVISIBLE);
+        }
+
+
+        public void loadSentencesList() {
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            Map<String, ?>Sentences = sharedPreferences.getAll();
+            if(!Sentences.isEmpty()) {
+                for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
+                    sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+                }
+                TextView emptyView = findViewById(R.id.emptyView);
+                if(emptyView.getVisibility() == View.VISIBLE) {
+                    emptyView.setVisibility(View.INVISIBLE);
             }
         }
     }
 
     public void setUpSentencesView() {
-        mRecylerView = findViewById(R.id.RecyclerView);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mAdapter = new SentenceItemAdapter(sentencesList);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
@@ -221,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 showAppDialog(R.layout.about);
                 break;
 
-            case R.id.themes:
-                showAppDialog(R.layout.theme);
+            /*case R.id.themes:
+                showAppDialog(R.layout.theme);*/
         }
         return super.onOptionsItemSelected(item);
     }

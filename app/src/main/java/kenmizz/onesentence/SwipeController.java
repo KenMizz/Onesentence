@@ -1,6 +1,5 @@
 package kenmizz.onesentence;
 
-
 import android.view.View;
 
 import androidx.annotation.NonNull;
