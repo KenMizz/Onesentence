@@ -38,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String CONFIG_PREFS = "configsPref";
     private static final String TAG = "MainActivity";
     private int themeOptions = NIGHTMODE.DEFAULT.ordinal();
+    private int newthemeOptions = 0;
 
     public enum NIGHTMODE {
-        DEFAULT, LIGHT, DARK, BLACK
+        DEFAULT, LIGHT, GREY, DARK
     }
 
     //private final String COOLAPK_URL = "http://www.coolapk.com/u/618459";
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 switch(getUiMode()) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppThemeDark);
+                        setTheme(R.style.AppThemeGrey);
                         break;
 
                     case Configuration.UI_MODE_NIGHT_NO:
@@ -62,8 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case 1:
-                //TODO: Finish this
+                setTheme(R.style.AppTheme);
+                break;
 
+            case 2:
+                setTheme(R.style.AppThemeGrey);
+                break;
+
+            case 3:
+                setTheme(R.style.AppThemeDark);
         }
         setContentView(R.layout.activity_main);
         setUpConfigurations(SENTENCES_PREFS);
@@ -95,8 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void syncWithSharedPrefs() {
         Log.d(TAG, "sync with SharedPrefs..");
-        SharedPreferences sharedPreferences = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor configEditor = configsPrefs.edit();
+        configEditor.putInt("themeOptions", themeOptions);
+        configEditor.apply();
+        SharedPreferences.Editor editor = sentencesPrefs.edit();
         editor.clear(); //in order to fully sync with local ArrayList
         for(SentenceItem item : mAdapter.getSentenceItemArrayList()) {
             editor.putString(item.getSentence(), item.getSentence());
@@ -106,11 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void addSentenceDialog() {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
-        /*if(getDarkMode() == Configuration.UI_MODE_NIGHT_YES) {
-            dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogDark);
-        } else {
-            dialog = new MaterialAlertDialogBuilder(this, R.style.AlertDialogLight);
-        }*/
         final TextInputEditText editText = new TextInputEditText(this);
         editText.setHint(R.string.sentence);
         dialog.setView(editText);
@@ -137,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint({"InflateParams", "NonConstantResourceId"})
     public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
-        View view = getLayoutInflater().inflate(layoutId, null);
+        final View view = getLayoutInflater().inflate(layoutId, null);
         switch(layoutId) {
             case R.layout.about:
                 dialog.setTitle(R.string.about)
@@ -152,8 +159,43 @@ public class MainActivity extends AppCompatActivity {
                 case R.layout.themes:
                     dialog.setTitle(R.string.theme)
                             .setView(view)
+                            .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if(newthemeOptions != themeOptions) {
+                                        themeOptions = newthemeOptions;
+                                        syncWithSharedPrefs();
+                                        recreate();
+                                    }
+                                }
+                            })
                             .show();
-                    RadioGroup group = view.findViewById(R.id.ThemeRadioGroup);
+                    final RadioGroup group = view.findViewById(R.id.ThemeRadioGroup);
+                    group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                            switch (radioGroup.getCheckedRadioButtonId()) {
+                                default:
+                                    newthemeOptions = NIGHTMODE.DEFAULT.ordinal();
+                                    break;
+
+                                case R.id.follow_system:
+                                    newthemeOptions = NIGHTMODE.DEFAULT.ordinal();
+                                    break;
+
+                                case R.id.light_mode:
+                                    newthemeOptions = NIGHTMODE.LIGHT.ordinal();
+                                    break;
+
+                                case R.id.grey_mode:
+                                    newthemeOptions = NIGHTMODE.GREY.ordinal();
+                                    break;
+
+                                case R.id.dark_mode:
+                                    newthemeOptions = NIGHTMODE.DARK.ordinal();
+                            }
+                        }
+                    });
                     switch(themeOptions) {
                         case 0:
                             group.check(R.id.follow_system);

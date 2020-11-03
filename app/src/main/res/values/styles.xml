@@ -3,6 +3,10 @@
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
     </style>
 
+    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
+    </style>
+
     <style name="AlertDialogThemeDark" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
     </style>
@@ -16,6 +20,11 @@
     </style>
 
     <style name="MaterialRadioButtonOverlay" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorOnSurface">@color/dark</item>
+        <item name="colorSecondary">@color/dark</item>
+    </style>
+
+    <style name="MaterialRadioButtonOverlayGrey" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="colorOnSurface">@color/dark</item>
         <item name="colorSecondary">@color/dark</item>
     </style>

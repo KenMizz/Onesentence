@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/light_grey</item>
+        <item name="colorOnSecondary">@color/dark</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/dark</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlay</item>
+    </style>
+
+    <style name="AppThemeGrey" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryDark">@color/dark_grey</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/dark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogThemeGrey</item>
+        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
+    </style>
+
+    <style name="AppThemeDark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">@color/dark</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/dark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogThemeDark</item>
+        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
+    </style>
+
+</resources>
