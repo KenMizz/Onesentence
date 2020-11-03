@@ -12,9 +12,10 @@
     <string name="ok">好的</string>
     <string name="remove">移除</string>
     <string name="theme">主题</string>
-    <string name="follow_system">跟随系统</string>
-    <string name="light_mode">日间模式</string>
-    <string name="dark_mode">暗黑模式</string>
+    <string name="follow_system">默认（跟随系统）</string>
+    <string name="light_mode">明亮</string>
+    <string name="grey_mode">灰色</string>
     <string name="widget_configure">微件配置</string>
     <string name="configure_empty">空空如也</string>
+    <string name="dark_mode">黑色</string>
 </resources>
