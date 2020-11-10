@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SentenceAttributeDialog">
+
+    <Button
+        android:id="@+id/SentenceAttributeColorPicker"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="48dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="132dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeSlider"
+        app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
+
+    <Button
+        android:id="@+id/SentenceAttributeConfirmButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
+
+    <Space
+        android:id="@+id/space3"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeTextView"
+        app:layout_constraintStart_toStartOf="@+id/SentenceAttributeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeTextView" />
+
+    <Space
+        android:id="@+id/space4"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/SentenceAttributeConfirmButton"
+        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeConfirmButton"
+        app:layout_constraintStart_toStartOf="@+id/SentenceAttributeConfirmButton" />
+
+    <Space
+        android:id="@+id/space5"
+        android:layout_width="306dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sentence_size"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/SentenceAttributeSlider"
+        app:layout_constraintEnd_toStartOf="@+id/SentenceAttributeSlider"
+        app:layout_constraintTop_toTopOf="@+id/SentenceAttributeSlider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/sentence_color"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/SentenceAttributeColorPicker"
+        app:layout_constraintEnd_toStartOf="@+id/SentenceAttributeColorPicker"
+        app:layout_constraintTop_toTopOf="@+id/SentenceAttributeColorPicker"
+        app:layout_constraintVertical_bias="0.619" />
+
+    <TextView
+        android:id="@+id/SentenceAttributeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="句"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.242"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/SentenceAttributeSlider"
+        android:layout_width="189dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:value="10.0"
+        android:valueFrom="10.0"
+        android:valueTo="100.0"
+        app:labelBehavior="floating"
+        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeTextView"
+        app:layout_constraintStart_toStartOf="@+id/SentenceAttributeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/space3"
+        app:thumbColor="@color/white"
+        app:trackColor="@color/white" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

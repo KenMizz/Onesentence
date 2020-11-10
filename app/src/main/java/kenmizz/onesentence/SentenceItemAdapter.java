@@ -1,6 +1,7 @@
 package kenmizz.onesentence;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -62,16 +63,27 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         @Override
         public void onClick(View v) {
             if(isItemClickable) {
+                //Only runs when new appWidget was first initialized
                 Log.d("Adapter", "Click " + sentenceItemArrayList.get(position).getSentence());
+                SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
+                SharedPreferences sentencesAttrPreferences = activityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initalized
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activityContext);
                 String sentence = sentenceItemArrayList.get(position).getSentence();
                 RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
-                views.setCharSequence(R.id.SentenceTextView, "setText", sentence);
-                appWidgetManager.updateAppWidget(widgetId, views);
-                SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                views.setTextViewText(R.id.SentenceTextView, sentence);
                 editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
+                sentencesAttributesEditor.putFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 25);
+                sentencesAttributesEditor.putInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", activityContext.getColor(R.color.white));
                 editor.apply();
+                sentencesAttributesEditor.apply();
+                Intent attributeDialog = new Intent(activityContext, SentenceAttributeDialog.class);
+                attributeDialog.putExtra("widgetId", widgetId);
+                attributeDialog.putExtra("sentence", sentence);
+                PendingIntent pendingIntent = PendingIntent.getActivity(activityContext, widgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT);
+                views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
+                appWidgetManager.updateAppWidget(widgetId, views);
                 Intent resultValue = new Intent();
                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
                 mActivity.setResult(Activity.RESULT_OK, resultValue);
@@ -93,5 +105,10 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     public void deleteSentence(int position) {
         sentenceItemArrayList.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void addSentence(String sentence) {
+        sentenceItemArrayList.add(new SentenceItem(sentence));
+        notifyItemInserted(sentenceItemArrayList.size() - 1);
     }
 }

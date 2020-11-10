@@ -33,4 +33,8 @@
         <item name="colorOnSurface">@color/white</item>
         <item name="colorSecondary">@color/white</item>
     </style>
+
+    <style name="MaterialAlertDialogWithNoTitle" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     private SentenceItemAdapter mAdapter;
 
-    ArrayList<SentenceItem> sentencesList = new ArrayList<SentenceItem>();
+    ArrayList<SentenceItem> sentencesList = new ArrayList<>();
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
+    public static final String SENATTR_PREFS = "SentencesAttributePref";
     private static final String TAG = "MainActivity";
     private int themeOptions = NIGHTMODE.DEFAULT.ordinal();
     private int newthemeOptions = 0;
@@ -88,32 +90,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        syncWithSharedPrefs();
+        syncAllSharedPrefs();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        syncWithSharedPrefs();
+        syncAllSharedPrefs();
     }
 
     public int getUiMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
-    public void syncWithSharedPrefs() {
-        Log.d(TAG, "sync with SharedPrefs..");
+    public void syncAllSharedPrefs() {
+        Log.d(TAG, "syncing with all SharedPrefs");
+        sentencesList = mAdapter.getSentenceItemArrayList();
         SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
         SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor configEditor = configsPrefs.edit();
+        SharedPreferences.Editor sentencesEditor = sentencesPrefs.edit();
         configEditor.putInt("themeOptions", themeOptions);
         configEditor.apply();
-        SharedPreferences.Editor editor = sentencesPrefs.edit();
-        editor.clear(); //in order to fully sync with local ArrayList
-        for(SentenceItem item : mAdapter.getSentenceItemArrayList()) {
-            editor.putString(item.getSentence(), item.getSentence());
+        sentencesEditor.clear();
+        for(SentenceItem sentenceItem: sentencesList) {
+            sentencesEditor.putString(sentenceItem.getSentence(), sentenceItem.getSentence());
         }
-        editor.apply();
+        sentencesEditor.apply();
     }
 
     public void addSentenceDialog() {
@@ -129,12 +132,14 @@ public class MainActivity extends AppCompatActivity {
                         if(!text.isEmpty()) {
                             for(SentenceItem item : sentencesList) {
                                 if(item.getSentence().equals(text)) {
-                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                    //Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), text + getResources().getString(R.string.KeyExists), Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             }
                             addSentence(editText.getText().toString());
-                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.AlreadyAdd) + text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -164,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if(newthemeOptions != themeOptions) {
                                         themeOptions = newthemeOptions;
-                                        syncWithSharedPrefs();
+                                        syncAllSharedPrefs();
                                         recreate();
                                     }
                                 }
@@ -256,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSentence(String sentence) {
-        sentencesList.add(new SentenceItem(sentence));
-        mAdapter.notifyItemInserted(sentencesList.size() - 1);
+        mAdapter.addSentence(sentence);
         TextView emptyView = findViewById(R.id.emptyView);
         if(emptyView.getVisibility() == View.VISIBLE) {
             emptyView.setVisibility(View.INVISIBLE);

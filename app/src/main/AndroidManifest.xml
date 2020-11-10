@@ -8,6 +8,7 @@
         android:roundIcon="@mipmap/app_icon_around"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" />
         <activity
             android:name=".SentenceWidgetConfiguration"
             android:label="@string/widget_configure">
