@@ -23,11 +23,41 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public static final String WIDGET_PREFS = "widgetsPref";
     public static final String SENTENCE_TEXT = "句";
 
+    private int themeOptions = MainActivity.NIGHTMODE.DEFAULT.ordinal();
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences config = getSharedPreferences(MainActivity.CONFIG_PREFS, MODE_PRIVATE);
+        if(!config.contains("themeOptions")) {
+            SharedPreferences.Editor configedit = config.edit();
+            configedit.putInt("themeOptions", themeOptions);
+            configedit.apply();
+        }
+        themeOptions = config.getInt("themeOptions", MainActivity.NIGHTMODE.DEFAULT.ordinal());
+        switch(themeOptions) {
+            case 0:
+                switch(getUiMode()) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        setTheme(R.style.AppThemeGrey);
+                        break;
+
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        setTheme(R.style.AppTheme);
+                }
+                break;
+            case 1:
+                setTheme(R.style.AppTheme);
+                break;
+
+            case 2:
+                setTheme(R.style.AppThemeGrey);
+                break;
+
+            case 3:
+                setTheme(R.style.AppThemeDark);
+        }
         setContentView(R.layout.activity_sentence_widget_configuration);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -44,6 +74,10 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         }
         loadSentencesList();
         setUpSentencesView();
+    }
+
+    public int getUiMode() {
+        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
     public void loadSentencesList() {

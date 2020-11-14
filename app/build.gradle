@@ -8,8 +8,8 @@ android {
         applicationId "kenmizz.onesentence"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.2"
+        versionCode 3
+        versionName "1.2-f1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
