@@ -132,14 +132,12 @@ public class MainActivity extends AppCompatActivity {
                         if(!text.isEmpty()) {
                             for(SentenceItem item : sentencesList) {
                                 if(item.getSentence().equals(text)) {
-                                    //Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
-                                    Toast.makeText(getApplicationContext(), text + getResources().getString(R.string.KeyExists), Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                                     return;
                                 }
                             }
                             addSentence(editText.getText().toString());
-                            //Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.AlreadyAdd) + text, Toast.LENGTH_SHORT).show();
+                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 })

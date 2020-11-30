@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.appwidget.AppWidgetManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.slider.Slider;
+import com.google.android.material.textfield.TextInputEditText;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
@@ -23,6 +27,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     SharedPreferences sentenceAttrPreferences;
 
     private static final String TAG = "SentenceAttribute";
+    TextInputEditText SentenceAttributeSetenceEditText;
     TextView SentenceAttributeTextView;
     Slider SentenceAttributeSlider;
     Button SentenceAtrributeColorPicker;
@@ -47,11 +52,13 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         SentenceAttributeSlider = findViewById(R.id.SentenceAttributeSlider);
         SentenceAtrributeColorPicker = findViewById(R.id.SentenceAttributeColorPicker);
         SentenceAtrributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
+        SentenceAttributeSetenceEditText = findViewById(R.id.SentenceAttributeEditText);
         setUpDialog();
     }
 
     public void setUpDialog() {
         Log.d(TAG, "Setting up dialog for widgetId: " + widgetId +"\nSentence: " + sentence +"\ntextSize: " + textSize +"\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
+        SentenceAttributeSetenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         SentenceAttributeTextView.setTextColor(textColor);
@@ -77,15 +84,33 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
                 Log.d(TAG, "SliderValue: " + slider.getValue() +"");
             }
         });
+        SentenceAttributeSetenceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                SentenceAttributeTextView.setText(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                SentenceAttributeTextView.setText(editable.toString());
+            }
+        });
         SentenceAtrributeConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
                 RemoteViews views = new RemoteViews(getApplicationContext().getPackageName(), R.layout.sentence_widget);
+                views.setTextViewText(R.id.SentenceTextView, SentenceAttributeTextView.getText());
                 views.setTextColor(R.id.SentenceTextView, SentenceAttributeTextView.getCurrentTextColor());
                 views.setTextViewTextSize(R.id.SentenceTextView, TypedValue.COMPLEX_UNIT_SP, SentenceAttributeSlider.getValue());
                 appWidgetManager.updateAppWidget(widgetId, views);
                 SharedPreferences.Editor attrEditor = sentenceAttrPreferences.edit();
+                attrEditor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "sentence", SentenceAttributeTextView.getText().toString());
                 attrEditor.putFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", SentenceAttributeSlider.getValue());
                 attrEditor.putInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", SentenceAttributeTextView.getCurrentTextColor());
                 attrEditor.apply();

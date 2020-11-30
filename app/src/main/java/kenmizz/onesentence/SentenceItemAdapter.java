@@ -74,6 +74,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
                 RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
                 views.setTextViewText(R.id.SentenceTextView, sentence);
                 editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
+                sentencesAttributesEditor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "sentence", sentence);
                 sentencesAttributesEditor.putFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 25);
                 sentencesAttributesEditor.putInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", activityContext.getColor(R.color.white));
                 editor.apply();
