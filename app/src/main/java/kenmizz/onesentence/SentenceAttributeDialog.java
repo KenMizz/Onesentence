@@ -25,6 +25,7 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 public class SentenceAttributeDialog extends AppCompatActivity implements ColorPickerDialogListener {
 
     SharedPreferences sentenceAttrPreferences;
+    SharedPreferences widgetPreferences;
 
     private static final String TAG = "SentenceAttribute";
     TextInputEditText SentenceAttributeSetenceEditText;
@@ -43,9 +44,10 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
+        widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();
         widgetId = extras.getInt("widgetId");
-        sentence = extras.getString("sentence");
+        sentence = widgetPreferences.getString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, SentenceWidgetConfiguration.SENTENCE_TEXT);
         textSize = sentenceAttrPreferences.getFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 25);
         textColor = sentenceAttrPreferences.getInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", getColor(R.color.white));
         SentenceAttributeTextView = findViewById(R.id.SentenceAttributeTextView);
@@ -109,10 +111,12 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
                 views.setTextColor(R.id.SentenceTextView, SentenceAttributeTextView.getCurrentTextColor());
                 views.setTextViewTextSize(R.id.SentenceTextView, TypedValue.COMPLEX_UNIT_SP, SentenceAttributeSlider.getValue());
                 appWidgetManager.updateAppWidget(widgetId, views);
+                SharedPreferences.Editor widgetEditor = widgetPreferences.edit();
                 SharedPreferences.Editor attrEditor = sentenceAttrPreferences.edit();
-                attrEditor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "sentence", SentenceAttributeTextView.getText().toString());
+                widgetEditor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, SentenceAttributeTextView.getText().toString());
                 attrEditor.putFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", SentenceAttributeSlider.getValue());
                 attrEditor.putInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", SentenceAttributeTextView.getCurrentTextColor());
+                widgetEditor.apply();
                 attrEditor.apply();
                 Toast.makeText(getApplicationContext(), R.string.change_success, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "widgetId: " + widgetId +" textSize: " + SentenceAttributeSlider.getValue() + " textColor: " + SentenceAttributeTextView.getCurrentTextColor() +"");

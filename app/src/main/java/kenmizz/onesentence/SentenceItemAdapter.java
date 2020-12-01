@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
+    private static final String TAG = "SentenceItemAdapter";
+
     private ArrayList<SentenceItem> sentenceItemArrayList;
     private boolean isItemClickable = false;
     private Context activityContext;
@@ -64,7 +66,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         public void onClick(View v) {
             if(isItemClickable) {
                 //Only runs when new appWidget was first initialized
-                Log.d("Adapter", "Click " + sentenceItemArrayList.get(position).getSentence());
+                Log.d(TAG, "Click " + sentenceItemArrayList.get(position).getSentence());
                 SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences sentencesAttrPreferences = activityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -74,14 +76,12 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
                 RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
                 views.setTextViewText(R.id.SentenceTextView, sentence);
                 editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
-                sentencesAttributesEditor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "sentence", sentence);
                 sentencesAttributesEditor.putFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 25);
                 sentencesAttributesEditor.putInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", activityContext.getColor(R.color.white));
                 editor.apply();
                 sentencesAttributesEditor.apply();
                 Intent attributeDialog = new Intent(activityContext, SentenceAttributeDialog.class);
                 attributeDialog.putExtra("widgetId", widgetId);
-                attributeDialog.putExtra("sentence", sentence);
                 PendingIntent pendingIntent = PendingIntent.getActivity(activityContext, widgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
                 appWidgetManager.updateAppWidget(widgetId, views);
