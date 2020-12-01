@@ -12,14 +12,13 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -121,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void addSentenceDialog() {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
-        final TextInputEditText editText = new TextInputEditText(this);
-        editText.setHint(R.string.sentence);
-        dialog.setView(editText);
+        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
+        final TextInputEditText editText = view.findViewById(R.id.SentenceAddEditText);
+        dialog.setView(view);
         dialog.setTitle(R.string.newsentence)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
@@ -149,6 +147,29 @@ public class MainActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         final View view = getLayoutInflater().inflate(layoutId, null);
         switch(layoutId) {
+            case R.layout.sentence_edittext:
+                final TextInputEditText editText = findViewById(R.id.SentenceAddEditText);
+                dialog.setTitle(R.string.newsentence)
+                        .setView(view);
+                dialog.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = editText.getText().toString();
+                        if(!text.isEmpty()) {
+                            for(SentenceItem item : sentencesList) {
+                                if(item.getSentence().equals(text)) {
+                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            addSentence(editText.getText().toString());
+                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog.show();
+                break;
+
             case R.layout.about:
                 dialog.setTitle(R.string.about)
                         .setView(view)
