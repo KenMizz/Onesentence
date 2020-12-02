@@ -21,4 +21,6 @@
     <string name="sentence_size">Sentence Size:</string>
     <string name="sentence_color">Sentence Color:</string>
     <string name="change_success">Apply changes successful!</string>
+    <string name="current_version">Current version:</string>
+    <string name="author_name">Made by KenMizz</string>
 </resources>

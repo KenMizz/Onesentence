@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    @SuppressLint({"InflateParams", "NonConstantResourceId"})
+    @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
     public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         final View view = getLayoutInflater().inflate(layoutId, null);
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, null)
                         .show();
                 TextView textView = view.findViewById(R.id.versionName);
-                textView.setText(BuildConfig.VERSION_NAME);
+                textView.setText(getString(R.string.current_version) + "v" + BuildConfig.VERSION_NAME);
                 break;
 
 
@@ -178,10 +178,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onCheckedChanged(RadioGroup radioGroup, int i) {
                             switch (radioGroup.getCheckedRadioButtonId()) {
-                                default:
-                                    newthemeOptions = NIGHTMODE.DEFAULT.ordinal();
-                                    break;
-
                                 case R.id.follow_system:
                                     newthemeOptions = NIGHTMODE.DEFAULT.ordinal();
                                     break;

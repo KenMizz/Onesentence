@@ -11,9 +11,10 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
+        app:layout_constraintVertical_bias="0.276"
         app:srcCompat="@drawable/app_icon_around" />
 
     <TextView
@@ -21,12 +22,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/appIconView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appIconView"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/appIconView"
+        app:layout_constraintTop_toTopOf="@+id/appIconView"
+        app:layout_constraintVertical_bias="0.187" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/author_name"
+        app:layout_constraintStart_toEndOf="@+id/appIconView"
+        app:layout_constraintTop_toBottomOf="@+id/versionName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="@+id/appIconView"
+        app:layout_constraintStart_toStartOf="@+id/appIconView"
+        app:layout_constraintTop_toBottomOf="@+id/appIconView" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
