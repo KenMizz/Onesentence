@@ -1,11 +1,5 @@
 package kenmizz.onesentence;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -19,6 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -147,28 +148,6 @@ public class MainActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         final View view = getLayoutInflater().inflate(layoutId, null);
         switch(layoutId) {
-            case R.layout.sentence_edittext:
-                final TextInputEditText editText = findViewById(R.id.SentenceAddEditText);
-                dialog.setTitle(R.string.newsentence)
-                        .setView(view);
-                dialog.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String text = editText.getText().toString();
-                        if(!text.isEmpty()) {
-                            for(SentenceItem item : sentencesList) {
-                                if(item.getSentence().equals(text)) {
-                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-                            addSentence(editText.getText().toString());
-                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                dialog.show();
-                break;
 
             case R.layout.about:
                 dialog.setTitle(R.string.about)
