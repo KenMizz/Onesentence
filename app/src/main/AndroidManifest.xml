@@ -3,12 +3,13 @@
     package="kenmizz.onesentence">
 
     <application
+        android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon_around"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" />
+        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" android:launchMode="singleInstance"/>
         <activity
             android:name=".SentenceWidgetConfiguration"
             android:label="@string/widget_configure">

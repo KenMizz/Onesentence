@@ -1,8 +1,6 @@
 package kenmizz.onesentence;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +8,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
@@ -58,8 +58,11 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         setUpDialog();
     }
 
+    @SuppressLint("SetTextI18n")
     public void setUpDialog() {
         Log.d(TAG, "Setting up dialog for widgetId: " + widgetId +"\nSentence: " + sentence +"\ntextSize: " + textSize +"\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
+        TextView textView = findViewById(R.id.textView2);
+        textView.setText(getResources().getString(R.string.sentence) + ":"); //So it will be like SentenceString:
         SentenceAttributeSetenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
