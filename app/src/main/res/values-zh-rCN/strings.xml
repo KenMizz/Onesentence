@@ -21,7 +21,7 @@
     <string name="sentence_attributes">句子属性</string>
     <string name="sentence_size">句子大小:</string>
     <string name="sentence_color">句子颜色:</string>
-    <string name="change_success">成功设置</string>
+    <string name="change_success">设置成功</string>
     <string name="current_version">"当前版本: "</string>
     <string name="author_name">作者：平凡的芝士</string>
 </resources>
