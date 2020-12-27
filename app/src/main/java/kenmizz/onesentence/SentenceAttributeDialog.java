@@ -86,7 +86,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
                 SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, slider.getValue());
-                Log.d(TAG, "SliderValue: " + slider.getValue() +"");
+                Log.d(TAG, "wigetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
             }
         });
         SentenceAttributeSetenceEditText.addTextChangedListener(new TextWatcher() {

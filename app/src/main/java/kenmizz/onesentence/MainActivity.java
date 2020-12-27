@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     public void addSentenceDialog() {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
-        final TextInputEditText editText = view.findViewById(R.id.SentenceAddEditText);
+        final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
         dialog.setView(view);
         dialog.setTitle(R.string.newsentence)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {

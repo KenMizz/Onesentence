@@ -65,12 +65,12 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         @Override
         public void onClick(View v) {
             if(isItemClickable) {
-                //Only runs when new appWidget was first initialized
+                //Only runs when new appWidget on initialize
                 Log.d(TAG, "Click " + sentenceItemArrayList.get(position).getSentence());
                 SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences sentencesAttrPreferences = activityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initalized
+                SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initialize
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activityContext);
                 String sentence = sentenceItemArrayList.get(position).getSentence();
                 RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
