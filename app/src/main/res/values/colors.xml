@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFF</color>
-    <color name="light_grey">#C7C7C7</color>
+    <color name="grey_300">#CCCCCC</color>
     <color name="dark">#000000</color>
     <color name="grey">#303030</color>
     <color name="dark_grey">#212121</color>
-    <color name="light_blue">#15ebd9</color>
+    <color name="grey_89">#595959</color>
 </resources>

@@ -10,7 +10,7 @@
     <style name="AlertDialogThemeDark" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
     </style>
-    
+
     <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
     </style>
@@ -36,5 +36,18 @@
 
     <style name="MaterialAlertDialogWithNoTitle" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="windowNoTitle">true</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="PopupMenuStyleDark" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">true</item>
+        <item name="android:popupBackground">@color/dark</item>
+    </style>
+
+    <style name="PopupMenuStyleGrey" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">true</item>
+        <item name="android:popupBackground">@color/grey</item>
+    </style>
+
+
 </resources>
