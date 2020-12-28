@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SentenceAttributeDialog">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/SentenceAttributeConfirmButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
         app:thumbColor="@color/white"
         app:trackColor="@color/white" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/SentenceAttributeColorPicker"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="48dp"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeSlider"
         app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@+id/SentenceAttributeColorPicker"
         app:layout_constraintVertical_bias="0.593" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/SentenceAttributeSlider"
         app:layout_constraintVertical_bias="0.6" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/SentenceAttributeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
         app:layout_constraintVertical_bias="0.242"
         tools:ignore="HardcodedText" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

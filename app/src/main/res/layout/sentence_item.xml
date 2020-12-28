@@ -6,7 +6,7 @@
     android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
     android:clickable="true"
-    app:cardElevation="2dp"
+    app:cardElevation="1dp"
     android:focusable="true">
 
     <RelativeLayout
