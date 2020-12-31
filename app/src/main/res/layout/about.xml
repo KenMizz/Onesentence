@@ -6,38 +6,19 @@
 
     <ImageView
         android:id="@+id/appIconView"
-        android:layout_width="77dp"
-        android:layout_height="83dp"
+        android:layout_width="86dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.276"
+        app:layout_constraintVertical_bias="0.024"
         app:srcCompat="@drawable/app_icon_around" />
 
-    <TextView
-        android:id="@+id/versionName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/appIconView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/appIconView"
-        app:layout_constraintTop_toTopOf="@+id/appIconView"
-        app:layout_constraintVertical_bias="0.187" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/author_name"
-        app:layout_constraintStart_toEndOf="@+id/appIconView"
-        app:layout_constraintTop_toBottomOf="@+id/versionName" />
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
@@ -45,6 +26,17 @@
         app:layout_constraintStart_toStartOf="@+id/appIconView"
         app:layout_constraintTop_toBottomOf="@+id/appIconView" />
 
+    <TextView
+        android:id="@+id/versionView"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="4dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/appIconView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/appIconView"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

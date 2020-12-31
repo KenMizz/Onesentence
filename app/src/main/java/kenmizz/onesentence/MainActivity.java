@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
                         .show();
-                TextView textView = view.findViewById(R.id.versionName);
-                textView.setText(getString(R.string.current_version) + "v" + BuildConfig.VERSION_NAME);
+                TextView textView = view.findViewById(R.id.versionView);
+                textView.setText("v" + BuildConfig.VERSION_NAME);
                 break;
 
 

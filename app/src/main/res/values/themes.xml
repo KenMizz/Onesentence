@@ -17,6 +17,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
+        <item name="colorAccent">@color/white</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogThemeGrey</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
@@ -30,6 +31,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
+        <item name="colorAccent">@color/white</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogThemeDark</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>

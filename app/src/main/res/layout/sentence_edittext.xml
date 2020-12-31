@@ -5,20 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/sentence"
-        app:boxStrokeColor="@color/dark"
-        android:textColorHint="@color/dark"
-        app:hintTextColor="@color/dark"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColorHint="?attr/colorAccent"
+        app:boxStrokeColor="?attr/colorAccent"
 
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        >
+        app:hintTextColor="?attr/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sentenceAddEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
