@@ -22,6 +22,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     private static final String TAG = "SentenceItemAdapter";
 
     private ArrayList<SentenceItem> sentenceItemArrayList;
+    private TextView emptyView;
     private boolean isItemClickable = false;
     private Context activityContext;
     private Activity mActivity;
@@ -38,8 +39,9 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList) {
+    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, TextView emptyView) {
         sentenceItemArrayList = sentenceList;
+        this.emptyView = emptyView;
     }
 
     SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, boolean isItemClickable, Context activityContext, int widgetId, Activity mActivity) {
@@ -106,6 +108,11 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     public void deleteSentence(int position) {
         sentenceItemArrayList.remove(position);
         notifyItemRemoved(position);
+        if(getItemCount() == 0) {
+            if(emptyView.getVisibility() == View.INVISIBLE) {
+                emptyView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     public void addSentence(String sentence) {

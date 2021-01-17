@@ -39,14 +39,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String SENATTR_PREFS = "SentencesAttributePref";
     private static final String TAG = "MainActivity";
     private int themeOptions = NIGHTMODE.DEFAULT.ordinal();
-    private int newthemeOptions = 0;
+    private int newThemeOptions = 0;
 
     public enum NIGHTMODE {
         DEFAULT, LIGHT, GREY, DARK
     }
-
-    //private final String COOLAPK_URL = "http://www.coolapk.com/u/618459";
-    //private final String GITHUB_URL = "https://github.com/KenMizz/Onesentence";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(newthemeOptions != themeOptions) {
-                                        themeOptions = newthemeOptions;
+                                    if(newThemeOptions != themeOptions) {
+                                        themeOptions = newThemeOptions;
                                         syncAllSharedPrefs();
                                         recreate();
                                     }
@@ -179,19 +176,19 @@ public class MainActivity extends AppCompatActivity {
                         public void onCheckedChanged(RadioGroup radioGroup, int i) {
                             switch (radioGroup.getCheckedRadioButtonId()) {
                                 case R.id.follow_system:
-                                    newthemeOptions = NIGHTMODE.DEFAULT.ordinal();
+                                    newThemeOptions = NIGHTMODE.DEFAULT.ordinal();
                                     break;
 
                                 case R.id.light_mode:
-                                    newthemeOptions = NIGHTMODE.LIGHT.ordinal();
+                                    newThemeOptions = NIGHTMODE.LIGHT.ordinal();
                                     break;
 
                                 case R.id.grey_mode:
-                                    newthemeOptions = NIGHTMODE.GREY.ordinal();
+                                    newThemeOptions = NIGHTMODE.GREY.ordinal();
                                     break;
 
                                 case R.id.dark_mode:
-                                    newthemeOptions = NIGHTMODE.DARK.ordinal();
+                                    newThemeOptions = NIGHTMODE.DARK.ordinal();
                             }
                         }
                     });
@@ -245,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter = new SentenceItemAdapter(sentencesList);
+        mAdapter = new SentenceItemAdapter(sentencesList, (TextView) findViewById(R.id.emptyView));
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
