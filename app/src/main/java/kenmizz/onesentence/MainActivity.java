@@ -1,9 +1,14 @@
 package kenmizz.onesentence;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,16 +34,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private SentenceItemAdapter mAdapter;
+    private NotificationManager notificationManager;
 
     ArrayList<SentenceItem> sentencesList = new ArrayList<>();
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
     public static final String SENATTR_PREFS = "SentencesAttributePref";
+    public static final String NOTIFICATION_PREFS = "NotificationsPref";
     private static final String TAG = "MainActivity";
+    public static final String CHANNEL_ID = "OneSentence_NotificationChannel";
     private int themeOptions = NIGHTMODE.DEFAULT.ordinal();
     private int newThemeOptions = 0;
 
@@ -49,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpConfigurations(CONFIG_PREFS);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if(notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+                //create new channel
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription(getString(R.string.channel_description));
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
         switch(themeOptions) {
             case 0:
                 switch(getUiMode()) {
@@ -140,6 +159,25 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void setNotificationDialog(final String sentence) {
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.set_long_time_notification)
+                .setMessage(getResources().getString(R.string.set_setence_notification).replace("sentence", sentence))
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        createLongTimeNotification(sentence);
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        dialogBuilder.show();
+    }
+
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
     public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
@@ -217,9 +255,9 @@ public class MainActivity extends AppCompatActivity {
                 case CONFIG_PREFS:
                     SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
                     if(!config.contains("themeOptions")) {
-                        SharedPreferences.Editor configedit = config.edit();
-                        configedit.putInt("themeOptions", themeOptions);
-                        configedit.apply();
+                        SharedPreferences.Editor configEdit = config.edit();
+                        configEdit.putInt("themeOptions", themeOptions);
+                        configEdit.apply();
                     }
                     themeOptions = config.getInt("themeOptions", NIGHTMODE.DEFAULT.ordinal());
                     break;
@@ -239,10 +277,29 @@ public class MainActivity extends AppCompatActivity {
             }
     }
 
+    public void createLongTimeNotification(String sentence) {
+        int NotificationId = new Random().nextInt();
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .putExtra("id", NotificationId);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.app_icon_around)
+                .setContentTitle(sentence)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setOngoing(true)
+                .addAction(R.drawable.app_icon_around, getString(R.string.remove), pendingIntent);
+        notificationManager.notify(NotificationId, notificationBuilder.build());
+        SharedPreferences NotificationPrefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
+        notificationPrefsEditor.putString(String.valueOf(NotificationId), sentence);
+        notificationPrefsEditor.apply();
+    }
+
     public void setUpSentencesView() {
         RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter = new SentenceItemAdapter(sentencesList, (TextView) findViewById(R.id.emptyView));
+        mAdapter = new SentenceItemAdapter(sentencesList, (TextView) findViewById(R.id.emptyView), true, this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);

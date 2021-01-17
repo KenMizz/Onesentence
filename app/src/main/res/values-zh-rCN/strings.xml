@@ -23,4 +23,10 @@
     <string name="sentence_color">句子颜色:</string>
     <string name="change_success">设置成功</string>
     <string name="author_name">作者：平凡的芝士</string>
+    <string name="channel_description">此通知频道用于显示句子的常驻通知</string>
+    <string name="channel_name">句子常驻通知</string>
+    <string name="set_long_time_notification">设置常驻通知</string>
+    <string name="yes">是的</string>
+    <string name="no">算了</string>
+    <string name="set_setence_notification">你确定你想要设置 sentence 为常驻通知吗？</string>
 </resources>

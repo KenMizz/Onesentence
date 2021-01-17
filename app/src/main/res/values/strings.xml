@@ -22,4 +22,10 @@
     <string name="sentence_color">Sentence Color:</string>
     <string name="change_success">Successfully apply changes</string>
     <string name="author_name">Made by KenMizz</string>
+    <string name="channel_description">This notification channel is only for showing notifcation of sentence</string>
+    <string name="channel_name">Sentence Notification</string>
+    <string name="set_long_time_notification">Set long time Notification</string>
+    <string name="yes">Yes</string>
+    <string name="no">NO</string>
+    <string name="set_setence_notification">You sure you want to set sentence as notification?</string>
 </resources>

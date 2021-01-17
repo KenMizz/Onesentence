@@ -23,9 +23,10 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     private ArrayList<SentenceItem> sentenceItemArrayList;
     private TextView emptyView;
-    private boolean isItemClickable = false;
+    private boolean ItemClickable = false, inMainActivity = false;
     private Context activityContext;
     private Activity mActivity;
+    private MainActivity mainActivity;
 
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -39,14 +40,16 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, TextView emptyView) {
+    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, TextView emptyView, boolean inMainActivity, MainActivity mainActivity) {
         sentenceItemArrayList = sentenceList;
         this.emptyView = emptyView;
+        this.inMainActivity = inMainActivity;
+        this.mainActivity = mainActivity;
     }
 
     SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, boolean isItemClickable, Context activityContext, int widgetId, Activity mActivity) {
         sentenceItemArrayList = sentenceList;
-        this.isItemClickable = isItemClickable;
+        this.ItemClickable = isItemClickable;
         this.activityContext = activityContext;
         this.widgetId = widgetId;
         this.mActivity = mActivity;
@@ -61,12 +64,12 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SentenceViewHolder holder, final int position) {
-    SentenceItem currentItem = sentenceItemArrayList.get(position);
+        SentenceItem currentItem = sentenceItemArrayList.get(position);
         holder.mTextView.setText(currentItem.getSentence());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(isItemClickable) {
+            if(ItemClickable) {
                 //Only runs when new appWidget on initialize
                 Log.d(TAG, "Click " + sentenceItemArrayList.get(position).getSentence());
                 SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
@@ -94,6 +97,13 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
             }
         }
     });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mainActivity.setNotificationDialog(sentenceItemArrayList.get(position).getSentence());
+                return true;
+            }
+        });
 }
 
     @Override

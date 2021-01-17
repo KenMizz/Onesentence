@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kenmizz.onesentence">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/app_icon_around"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" android:launchMode="singleInstance"/>
+        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" android:launchMode="singleInstance" android:excludeFromRecents="true"/>
+        <activity android:name=".NotificationActivity" android:excludeFromRecents="true" android:taskAffinity=""/>
         <activity
             android:name=".SentenceWidgetConfiguration"
             android:label="@string/widget_configure">
@@ -35,6 +38,12 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
+        </receiver>
+        
+        <receiver android:name=".ApplicationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
         </receiver>
     </application>
 
