@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.024"
         app:srcCompat="@drawable/app_icon_around" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/materialTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

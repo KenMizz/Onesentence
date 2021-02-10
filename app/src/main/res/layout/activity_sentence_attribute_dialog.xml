@@ -4,20 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".SentenceAttributeDialog">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/SentenceAttributeConfirmButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirmButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
 
     <Space
         android:id="@+id/space3"
@@ -39,51 +27,76 @@
         android:id="@+id/space5"
         android:layout_width="306dp"
         android:layout_height="101dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
+
+    <Button
+        android:id="@+id/SentenceAttributeConfirmButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmButton"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
+
+    <Button
+        android:id="@+id/SentenceAttributeColorPicker"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="57dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="108dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeSlider"
         app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/SentenceAttributeSlider"
         android:layout_width="189dp"
         android:layout_height="49dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="76dp"
         android:value="10.0"
         android:valueFrom="10.0"
         android:valueTo="100.0"
         app:labelBehavior="floating"
         app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeTextView"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="@+id/SentenceAttributeTextView"
         app:layout_constraintTop_toBottomOf="@+id/space3"
         app:thumbColor="@color/white"
         app:trackColor="@color/white" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/SentenceAttributeColorPicker"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="48dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="116dp"
-        android:backgroundTint="@color/white"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/SentenceAttributeEditText"
+        android:layout_width="189dp"
+        android:layout_height="61dp"
+        android:hint="@string/sentence"
+        app:layout_constraintBottom_toTopOf="@+id/SentenceAttributeSlider"
         app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeSlider"
-        app:layout_constraintTop_toBottomOf="@+id/SentenceAttributeSlider" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/space3"
+        app:layout_constraintVertical_bias="0.323" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="44dp"
         android:text="@string/sentence_color"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/SentenceAttributeColorPicker"
-        app:layout_constraintEnd_toStartOf="@+id/SentenceAttributeColorPicker"
-        app:layout_constraintTop_toTopOf="@+id/SentenceAttributeColorPicker"
-        app:layout_constraintVertical_bias="0.593" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@+id/SentenceAttributeSlider"
         app:layout_constraintVertical_bias="0.6" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/SentenceAttributeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,7 +119,7 @@
         app:layout_constraintVertical_bias="0.242"
         tools:ignore="HardcodedText" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,18 +129,6 @@
         app:layout_constraintEnd_toStartOf="@+id/space3"
         app:layout_constraintTop_toBottomOf="@+id/space3"
         app:layout_constraintVertical_bias="0.793" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/SentenceAttributeEditText"
-        android:layout_width="191dp"
-        android:layout_height="42dp"
-        android:hint="@string/sentence"
-        app:layout_constraintBottom_toTopOf="@+id/SentenceAttributeSlider"
-        app:layout_constraintEnd_toEndOf="@+id/SentenceAttributeSlider"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/space3"
-        app:layout_constraintVertical_bias="0.625" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
