@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SentenceWidgetConfiguration extends AppCompatActivity {
 
-    private ArrayList<SentenceItem> sentencesList = new ArrayList<>();
+    private ArrayList<String> sentencesList = new ArrayList<>();
 
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String WIDGET_PREFS = "widgetsPref";
@@ -85,7 +85,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         Map<String, ?> Sentences = sharedPreferences.getAll();
         if(!Sentences.isEmpty()) {
             for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+                sentencesList.add(Sentence.getValue().toString());
             }
             TextView emptyView = findViewById(R.id.configure_emptyView);
             if(emptyView.getVisibility() == View.VISIBLE) {

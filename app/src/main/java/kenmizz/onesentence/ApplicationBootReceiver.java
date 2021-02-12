@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,10 +19,14 @@ import static kenmizz.onesentence.MainActivity.CHANNEL_ID;
 
 public class ApplicationBootReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "OnesentenceBootReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            Log.i(TAG, "BootReceiver received");
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            Log.i(TAG, "Device's SDK version: " + Build.VERSION.SDK_INT);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //create new channel
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, context.getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(context.getString(R.string.channel_description));

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private SentenceItemAdapter mAdapter;
     private NotificationManager notificationManager;
 
-    ArrayList<SentenceItem> sentencesList = new ArrayList<>();
+    ArrayList<String> sentencesList = new ArrayList<>();
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
     public static final String SENATTR_PREFS = "SentencesAttributePref";
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
-        sentencesList = mAdapter.getSentenceItemArrayList();
+        sentencesList = mAdapter.getSentencesArrayList();
         SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
         SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor configEditor = configsPrefs.edit();
@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         configEditor.putInt("themeOptions", themeOptions);
         configEditor.apply();
         sentencesEditor.clear();
-        for(SentenceItem sentenceItem: sentencesList) {
-            sentencesEditor.putString(sentenceItem.getSentence(), sentenceItem.getSentence());
+        for( String sentence: sentencesList) {
+            sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
     }
@@ -146,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String text = Objects.requireNonNull(editText.getText()).toString();
                         if(!text.isEmpty()) {
-                            for(SentenceItem item : sentencesList) {
-                                if(item.getSentence().equals(text)) {
+                            for(String sentence : sentencesList) {
+                                if(sentence.equals(text)) {
                                     Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     Map<String, ?>Sentences = sentences.getAll();
                     if(!Sentences.isEmpty()) {
                         for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                            sentencesList.add(new SentenceItem(Sentence.getValue().toString()));
+                            sentencesList.add(Sentence.getValue().toString());
                         }
                         TextView emptyView = findViewById(R.id.emptyView);
                         if(emptyView.getVisibility() == View.VISIBLE) {

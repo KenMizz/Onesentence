@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
     private static final String TAG = "SentenceItemAdapter";
 
-    private ArrayList<SentenceItem> sentenceItemArrayList;
+    private ArrayList<String> sentencesArrayList;
     private TextView emptyView;
     private boolean ItemClickable = false, inMainActivity = false;
     private Context activityContext;
@@ -40,15 +40,15 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, TextView emptyView, boolean inMainActivity, MainActivity mainActivity) {
-        sentenceItemArrayList = sentenceList;
+    SentenceItemAdapter(ArrayList<String> sentenceList, TextView emptyView, boolean inMainActivity, MainActivity mainActivity) {
+        sentencesArrayList = sentenceList;
         this.emptyView = emptyView;
         this.inMainActivity = inMainActivity;
         this.mainActivity = mainActivity;
     }
 
-    SentenceItemAdapter(ArrayList<SentenceItem> sentenceList, boolean isItemClickable, Context activityContext, int widgetId, Activity mActivity) {
-        sentenceItemArrayList = sentenceList;
+    SentenceItemAdapter(ArrayList<String> sentenceList, boolean isItemClickable, Context activityContext, int widgetId, Activity mActivity) {
+        sentencesArrayList = sentenceList;
         this.ItemClickable = isItemClickable;
         this.activityContext = activityContext;
         this.widgetId = widgetId;
@@ -64,20 +64,20 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SentenceViewHolder holder, final int position) {
-        SentenceItem currentItem = sentenceItemArrayList.get(position);
-        holder.mTextView.setText(currentItem.getSentence());
+        String currentSentence = sentencesArrayList.get(position);
+        holder.mTextView.setText(currentSentence);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(ItemClickable) {
                 //Only runs when new appWidget on initialize
-                Log.d(TAG, "Click " + sentenceItemArrayList.get(position).getSentence());
+                Log.d(TAG, "Click " + sentencesArrayList.get(position).toString());
                 SharedPreferences sharedPreferences = activityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences sentencesAttrPreferences = activityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initialize
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activityContext);
-                String sentence = sentenceItemArrayList.get(position).getSentence();
+                String sentence = sentencesArrayList.get(position).toString();
                 RemoteViews views = new RemoteViews(activityContext.getPackageName(), R.layout.sentence_widget);
                 views.setTextViewText(R.id.SentenceTextView, sentence);
                 editor.putString(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT, sentence);
@@ -100,7 +100,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                mainActivity.setNotificationDialog(sentenceItemArrayList.get(position).getSentence());
+                mainActivity.setNotificationDialog(sentencesArrayList.get(position).toString());
                 return true;
             }
         });
@@ -108,15 +108,15 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     @Override
     public int getItemCount() {
-        return sentenceItemArrayList.size();
+        return sentencesArrayList.size();
     }
 
-    public ArrayList<SentenceItem> getSentenceItemArrayList() {
-        return sentenceItemArrayList;
+    public ArrayList<String> getSentencesArrayList() {
+        return sentencesArrayList;
     }
 
     public void deleteSentence(int position) {
-        sentenceItemArrayList.remove(position);
+        sentencesArrayList.remove(position);
         notifyItemRemoved(position);
         if(getItemCount() == 0) {
             if(emptyView.getVisibility() == View.INVISIBLE) {
@@ -126,7 +126,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     }
 
     public void addSentence(String sentence) {
-        sentenceItemArrayList.add(new SentenceItem(sentence));
-        notifyItemInserted(sentenceItemArrayList.size() - 1);
+        sentencesArrayList.add(sentence);
+        notifyItemInserted(sentencesArrayList.size() - 1);
     }
 }
