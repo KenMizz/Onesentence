@@ -34,7 +34,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -141,19 +140,23 @@ public class MainActivity extends AppCompatActivity {
         final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
         dialog.setView(view);
         dialog.setTitle(R.string.newsentence)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        //TODO: dont dissmiss
+                    }
+                })
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String text = Objects.requireNonNull(editText.getText()).toString();
+                        String text = editText.getText().toString();
                         if(!text.isEmpty()) {
-                            for(String sentence : sentencesList) {
-                                if(sentence.equals(text)) {
-                                    Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
-                                    return;
-                                }
+                            if(sentencesList.contains(text)) {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                addSentence(editText.getText().toString());
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             }
-                            addSentence(editText.getText().toString());
-                            Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 })
