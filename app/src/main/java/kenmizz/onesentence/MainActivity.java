@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -135,17 +137,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSentenceDialog() {
-        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        final MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
         final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(sentencesList.contains(charSequence.toString())) {
+                    editText.setError(charSequence.toString() + getString(R.string.sentenceExists));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         dialog.setView(view);
         dialog.setTitle(R.string.newsentence)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        //TODO: dont dissmiss
-                    }
-                })
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
