@@ -126,7 +126,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     }
 
     public void addSentence(String sentence) {
-        sentencesArrayList.add(sentence);
+        sentencesArrayList.add(sentencesArrayList.size(), sentence);
         notifyItemInserted(sentencesArrayList.size() - 1);
     }
 }
