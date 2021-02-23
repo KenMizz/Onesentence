@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         switch(themeOptions) {
-            case 0:
+            case 0: 
                 switch(getUiMode()) {
                     case Configuration.UI_MODE_NIGHT_YES:
                         setTheme(R.style.AppThemeGrey);
@@ -166,10 +166,10 @@ public class MainActivity extends AppCompatActivity {
                         String text = editText.getText().toString();
                         if(!text.isEmpty()) {
                             if(sentencesList.contains(text)) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.mainCoordinator), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             } else {
                                 addSentence(editText.getText().toString());
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.mainCoordinator), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -353,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onOptionsItemsTriggered");
         int itemId = item.getItemId();
         switch(itemId) {
             default:

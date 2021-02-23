@@ -3,6 +3,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyle</item>
+        <item name="errorTextColor">@color/dark</item>
     </style>
 
     <style name="AlertDialogThemeGrey" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
@@ -15,6 +16,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
+        <item name="errorTextColor">@color/white</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
@@ -70,6 +72,5 @@
         <item name="overlapAnchor">true</item>
         <item name="android:popupBackground">@color/grey</item>
     </style>
-
 
 </resources>
