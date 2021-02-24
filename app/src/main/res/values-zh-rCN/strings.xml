@@ -31,4 +31,5 @@
     <string name="set_setence_notification">你确定你想要设置 sentence 为常驻通知吗？</string>
     <string name="coolapk">酷安</string>
     <string name="sentenceExists">已经存在。</string>
+    <string name="sentence_list">句子列表</string>
 </resources>

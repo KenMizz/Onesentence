@@ -15,20 +15,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -100,6 +99,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addSentenceDialog();
+            }
+        });
+        ((MaterialToolbar)findViewById(R.id.mainToolbar)).setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+                switch(itemId) {
+                    default:
+                        return false;
+
+                    case R.id.about:
+                        showAppDialog(R.layout.about);
+                        break;
+
+                    case R.id.themes:
+                        showAppDialog(R.layout.themes);
+                }
+                return false;
             }
         });
     }
@@ -341,31 +359,5 @@ public class MainActivity extends AppCompatActivity {
         if(emptyView.getVisibility() == View.VISIBLE) {
             emptyView.setVisibility(View.INVISIBLE);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d(TAG, "onOptionsItemsTriggered");
-        int itemId = item.getItemId();
-        switch(itemId) {
-            default:
-                return true;
-
-            case R.id.about:
-                showAppDialog(R.layout.about);
-                break;
-
-            case R.id.themes:
-                showAppDialog(R.layout.themes);
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

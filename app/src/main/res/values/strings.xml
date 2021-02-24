@@ -30,4 +30,5 @@
     <string name="set_setence_notification">You sure you want to set sentence as notification?</string>
     <string name="coolapk">CoolApk</string>
     <string name="sentenceExists">already exists.</string>
+    <string name="sentence_list">Sentence List</string>
 </resources>
