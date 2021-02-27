@@ -224,6 +224,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle(R.string.about)
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
+                        .setNegativeButton(R.string.opensource_license, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                showAppDialog(R.layout.license);
+                            }
+                        })
                         .setNeutralButton(R.string.coolapk, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -238,6 +244,12 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText("v" + BuildConfig.VERSION_NAME);
                 break;
 
+            case R.layout.license:
+                dialog.setTitle(R.string.opensource_license)
+                        .setView(view)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                break;
 
                 case R.layout.themes:
                     dialog.setTitle(R.string.theme)

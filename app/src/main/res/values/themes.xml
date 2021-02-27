@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/dark</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlay</item>
+        <item name="tabStyle">@style/TabLayoutLight</item>
         <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/white</item>
     </style>

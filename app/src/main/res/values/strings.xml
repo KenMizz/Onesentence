@@ -31,4 +31,5 @@
     <string name="coolapk">CoolApk</string>
     <string name="sentenceExists">already exists.</string>
     <string name="sentence_list">Sentence List</string>
+    <string name="opensource_license">License</string>
 </resources>

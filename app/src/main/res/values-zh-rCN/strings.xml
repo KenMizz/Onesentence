@@ -8,7 +8,7 @@
     <string name="add">"添加 "</string>
     <string name="sentence">句子</string>
     <string name="KeyExists">已经存在，要不要加点别的句子？</string>
-    <string name="AlreadyAdd">"已添加 "</string>
+    <string name="AlreadyAdd">"添加了 "</string>
     <string name="ok">好的</string>
     <string name="remove">移除</string>
     <string name="theme">主题</string>
@@ -32,4 +32,5 @@
     <string name="coolapk">酷安</string>
     <string name="sentenceExists">已经存在。</string>
     <string name="sentence_list">句子列表</string>
+    <string name="opensource_license">开源许可</string>
 </resources>
