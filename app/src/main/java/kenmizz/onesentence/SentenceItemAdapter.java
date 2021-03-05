@@ -100,7 +100,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                mainActivity.setNotificationDialog(sentencesArrayList.get(position).toString());
+                //mainActivity.setNotificationDialog(sentencesArrayList.get(position).toString());
                 return true;
             }
         });

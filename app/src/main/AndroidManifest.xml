@@ -11,22 +11,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SentenceAttributeDialog" android:theme="@style/MaterialAlertDialogWithNoTitle" android:launchMode="singleInstance" android:excludeFromRecents="true"/>
-        <activity android:name=".NotificationActivity" android:excludeFromRecents="true" android:taskAffinity=""/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SentenceAttributeDialog"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/MaterialAlertDialogWithNoTitle" />
+        <activity
+            android:name=".NotificationActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity="" />
         <activity
             android:name=".SentenceWidgetConfiguration"
             android:label="@string/widget_configure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -39,10 +48,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
         </receiver>
-        
         <receiver android:name=".ApplicationBootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>

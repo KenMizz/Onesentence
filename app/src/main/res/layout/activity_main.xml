@@ -1,92 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/mainCoordinator"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCoordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mainToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:title="@string/app_name"
             app:menu="@menu/options_menu"
-            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"/>
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        </com.google.android.material.appbar.MaterialToolbar>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/mainTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_anchor="@+id/relativeLayout"
-        app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/ic_add"
         android:contentDescription="@string/add" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/mainTab"
-        android:layout_marginTop="56dp"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="8dp">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sentence"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sentence_list"/>
-
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="104dp"
-        android:id="@+id/layoutConstrain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/emptyView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ListEmpty"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:scrollbars="vertical"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="81dp" />
-
-        </RelativeLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
