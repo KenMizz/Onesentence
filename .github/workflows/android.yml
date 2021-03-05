@@ -2,7 +2,7 @@ name: Android Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, ui_rewrite ]
   pull_request:
     branches: [ master ]
 
