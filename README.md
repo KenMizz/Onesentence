@@ -1,7 +1,7 @@
 # 一句话
 ![Android Build](https://github.com/KenMizz/Onesentence/workflows/Android%20Build/badge.svg)
 
-> 一句话，或许可以带给你极大的动力
+> 一句话，留给自己
 
 ![](./assets/chinese_light.png)
 ![](./assets/chinese_dark.png)
