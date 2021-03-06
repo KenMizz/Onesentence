@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
     private static final String TAG = "SentenceItemAdapter";
 
-    private ArrayList<String> mSentenceList;
+    private final ArrayList<String> mSentenceList;
+    private TextView mEmptyView;
 
 
     static class SentenceViewHolder extends RecyclerView.ViewHolder {
@@ -25,8 +26,9 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    public SentenceItemAdapter(ArrayList<String> sentenceList) {
+    public SentenceItemAdapter(ArrayList<String> sentenceList, TextView emptyView) {
         mSentenceList = sentenceList;
+        mEmptyView = emptyView;
     }
 
     @NonNull
@@ -45,5 +47,13 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     @Override
     public int getItemCount() {
         return mSentenceList.size();
+    }
+
+    public String getSentence(int position) {
+        return mSentenceList.get(position);
+    }
+
+    public void removeSentence(int position) {
+        mSentenceList.remove(position);
     }
 }

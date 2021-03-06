@@ -77,4 +77,9 @@
         <item name="tabTextColor">@color/dark</item>
         <item name="tabIndicatorColor">@color/dark</item>
     </style>
+
+    <style name="TabLayoutDark" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+    </style>
 </resources>

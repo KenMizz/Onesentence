@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SentenceWidgetConfiguration extends AppCompatActivity {
 
-    private ArrayList<String> sentencesList = new ArrayList<>();
+    private final ArrayList<String> sentencesList = new ArrayList<>();
 
     public static final String SHARED_PREFS = "sentencesPref";
     public static final String WIDGET_PREFS = "widgetsPref";

@@ -10,6 +10,10 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -21,7 +25,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -89,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.mainTabs);
         tabs.setupWithViewPager(viewPager);
         MaterialToolbar mainToolbar = findViewById(R.id.mainToolbar);
+        final FloatingActionButton addButton = findViewById(R.id.addFloatingButton);
         mainToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -109,16 +117,59 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addSentenceDialog();
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 1) { //SentenceList Page
+                    addButton.hide();
+                } else {
+                    addButton.show();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        syncAllSharedPrefs();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        syncAllSharedPrefs();
+    }
+
+    public void syncAllSharedPrefs() {
+        Log.d(TAG, "syncing with all SharedPrefs");
+        SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor configEditor = configsPrefs.edit();
+        SharedPreferences.Editor sentencesEditor = sentencesPrefs.edit();
+        configEditor.putInt("themeOptions", themeOptions);
+        configEditor.apply();
+        sentencesEditor.clear();
+        for( String sentence: sentencesList) {
+            sentencesEditor.putString(sentence, sentence);
+        }
+        sentencesEditor.apply();
     }
 
     public void setUpConfigurations(String PreferencesName) {
@@ -142,6 +193,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         }
+    }
+
+    public void addSentenceDialog() {
+        final MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
+        final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(sentencesList.contains(charSequence.toString())) {
+                    editText.setError(charSequence.toString() + getString(R.string.sentenceExists));
+                }
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        dialog.setView(view);
+        dialog.setTitle(R.string.newsentence)
+                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = editText.getText().toString();
+                        if(!text.isEmpty()) {
+                            if(!sentencesList.contains(text)) {
+                                sentencesList.add(text);
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .show();
     }
 
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
@@ -177,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(newThemeOptions != themeOptions) {
                                     themeOptions = newThemeOptions;
-                                    //syncAllSharedPrefs();
+                                    syncAllSharedPrefs();
                                     recreate();
                                 }
                             }

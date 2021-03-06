@@ -25,6 +25,7 @@
         <item name="materialAlertDialogTheme">@style/AlertDialogThemeGrey</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
+        <item name="tabStyle">@style/TabLayoutDark</item>
         <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
@@ -41,6 +42,7 @@
         <item name="materialAlertDialogTheme">@style/AlertDialogThemeDark</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
+        <item name="tabStyle">@style/TabLayoutDark</item>
         <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
