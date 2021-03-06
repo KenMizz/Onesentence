@@ -97,9 +97,9 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        SentenceItemAdapter mAdapter = new SentenceItemAdapter(sentencesList, true, this, widgetId, this);
+        //SentenceItemAdapter mAdapter = new SentenceItemAdapter(sentencesList, true, this, widgetId, this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
-        mRecylerView.setAdapter(mAdapter);
+        //mRecylerView.setAdapter(mAdapter);
     }
 }
