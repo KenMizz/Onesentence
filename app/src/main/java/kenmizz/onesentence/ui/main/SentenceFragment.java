@@ -52,8 +52,6 @@ public class SentenceFragment extends Fragment {
         }
     }
 
-
-
     public void setUpSentencesView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

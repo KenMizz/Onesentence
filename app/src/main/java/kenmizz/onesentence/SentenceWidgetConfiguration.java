@@ -40,23 +40,23 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
             case 0:
                 switch(getUiMode()) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppThemeGrey);
+                        setTheme(R.style.AppConfigurationTheme_Grey);
                         break;
 
                     case Configuration.UI_MODE_NIGHT_NO:
-                        setTheme(R.style.AppTheme);
+                        setTheme(R.style.AppConfigurationTheme);
                 }
                 break;
             case 1:
-                setTheme(R.style.AppTheme);
+                setTheme(R.style.AppConfigurationTheme);
                 break;
 
             case 2:
-                setTheme(R.style.AppThemeGrey);
+                setTheme(R.style.AppConfigurationTheme_Grey);
                 break;
 
             case 3:
-                setTheme(R.style.AppThemeDark);
+                setTheme(R.style.AppConfigurationTheme_Dark);
         }
         setContentView(R.layout.activity_sentence_widget_configuration);
         Intent intent = getIntent();
@@ -97,9 +97,9 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        //SentenceItemAdapter mAdapter = new SentenceItemAdapter(sentencesList, true, this, widgetId, this);
+        SentenceItemAdapter sentenceItemAdapter = new SentenceItemAdapter(sentencesList, widgetId, true, getApplicationContext(), this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
-        //mRecylerView.setAdapter(mAdapter);
+        mRecylerView.setAdapter(sentenceItemAdapter);
     }
 }
