@@ -42,6 +42,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     public void onBindViewHolder(@NonNull SentenceItemAdapter.SentenceViewHolder holder, int position) {
         String currentSentence = mSentenceList.get(position);
         holder.mTextView.setText(currentSentence);
+        notifyItemInserted(position);
     }
 
     @Override
@@ -54,6 +55,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
     }
 
     public void removeSentence(int position) {
+        notifyItemRemoved(position);
         mSentenceList.remove(position);
     }
 }
