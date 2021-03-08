@@ -3,7 +3,6 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,35 +14,31 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Random;
+
+import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SentenceItemAdapter mAdapter;
-    private NotificationManager notificationManager;
+    ArrayList<String> sentencesList = new ArrayList<String>();
 
-    ArrayList<String> sentencesList = new ArrayList<>();
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
     public static final String SENATTR_PREFS = "SentencesAttributePref";
@@ -61,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpConfigurations(CONFIG_PREFS);
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if(notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
-                //create new channel
+                //create new channel if channel not exists
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(getString(R.string.channel_description));
                 notificationManager.createNotificationChannel(channel);
@@ -81,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         setTheme(R.style.AppTheme);
                 }
                 break;
+
             case 1:
                 setTheme(R.style.AppTheme);
                 break;
@@ -94,12 +90,57 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
         setUpConfigurations(SENTENCES_PREFS);
-        setUpSentencesView();
-        FloatingActionButton addButton = findViewById(R.id.floatingActionButton);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.mainTabs);
+        tabs.setupWithViewPager(viewPager);
+        MaterialToolbar mainToolbar = findViewById(R.id.mainToolbar);
+        final FloatingActionButton addButton = findViewById(R.id.addFloatingButton);
+        mainToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+                switch (itemId) {
+
+                    default:
+                        return true;
+
+                    case R.id.about:
+                        showAppDialog(R.layout.about);
+                        break;
+
+                    case R.id.themes:
+                        showAppDialog(R.layout.themes);
+                }
+                return true;
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 addSentenceDialog();
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 1) { //SentenceList Page
+                    addButton.hide();
+                } else {
+                    addButton.show();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
@@ -116,13 +157,8 @@ public class MainActivity extends AppCompatActivity {
         syncAllSharedPrefs();
     }
 
-    public int getUiMode() {
-        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    }
-
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
-        sentencesList = mAdapter.getSentencesArrayList();
         SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
         SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor configEditor = configsPrefs.edit();
@@ -134,6 +170,29 @@ public class MainActivity extends AppCompatActivity {
             sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
+    }
+
+    public void setUpConfigurations(String PreferencesName) {
+        switch (PreferencesName) {
+            case CONFIG_PREFS:
+                SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
+                if(!config.contains("themeOptions")) {
+                    SharedPreferences.Editor configEdit = config.edit();
+                    configEdit.putInt("themeOptions", themeOptions);
+                    configEdit.apply();
+                }
+                themeOptions = config.getInt("themeOptions", NIGHTMODE.DEFAULT.ordinal());
+                break;
+
+            case SENTENCES_PREFS:
+                SharedPreferences sentences = getSharedPreferences(PreferencesName, MODE_PRIVATE);
+                Map<String, ?> Sentences = sentences.getAll();
+                if(!Sentences.isEmpty()) {
+                    for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
+                        sentencesList.add(Sentence.getValue().toString());
+                    }
+                }
+        }
     }
 
     public void addSentenceDialog() {
@@ -153,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -165,35 +225,16 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String text = editText.getText().toString();
                         if(!text.isEmpty()) {
-                            if(sentencesList.contains(text)) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getResources().getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                            if(!sentencesList.contains(text)) {
+                                sentencesList.add(text);
+                                Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             } else {
-                                addSentence(editText.getText().toString());
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getResources().getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
                 })
                 .show();
-    }
-
-    public void setNotificationDialog(final String sentence) {
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.set_long_time_notification)
-                .setMessage(getResources().getString(R.string.set_setence_notification).replace("sentence", sentence))
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        createLongTimeNotification(sentence);
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-        dialogBuilder.show();
     }
 
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
@@ -221,150 +262,68 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
-                case R.layout.themes:
-                    dialog.setTitle(R.string.theme)
-                            .setView(view)
-                            .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(newThemeOptions != themeOptions) {
-                                        themeOptions = newThemeOptions;
-                                        syncAllSharedPrefs();
-                                        recreate();
-                                    }
+            case R.layout.themes:
+                dialog.setTitle(R.string.theme)
+                        .setView(view)
+                        .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(newThemeOptions != themeOptions) {
+                                    themeOptions = newThemeOptions;
+                                    syncAllSharedPrefs();
+                                    recreate();
                                 }
-                            })
-                            .show();
-                    final RadioGroup group = view.findViewById(R.id.ThemeRadioGroup);
-                    group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                            switch (radioGroup.getCheckedRadioButtonId()) {
-                                case R.id.follow_system:
-                                    newThemeOptions = NIGHTMODE.DEFAULT.ordinal();
-                                    break;
-
-                                case R.id.light_mode:
-                                    newThemeOptions = NIGHTMODE.LIGHT.ordinal();
-                                    break;
-
-                                case R.id.grey_mode:
-                                    newThemeOptions = NIGHTMODE.GREY.ordinal();
-                                    break;
-
-                                case R.id.dark_mode:
-                                    newThemeOptions = NIGHTMODE.DARK.ordinal();
                             }
-                        }
-                    });
-                    switch(themeOptions) {
-                        case 0:
-                            group.check(R.id.follow_system);
-                            break;
+                        })
+                        .show();
+                final RadioGroup group = view.findViewById(R.id.ThemeRadioGroup);
+                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        switch (radioGroup.getCheckedRadioButtonId()) {
+                            case R.id.follow_system:
+                                newThemeOptions = NIGHTMODE.DEFAULT.ordinal();
+                                break;
 
-                        case 1:
-                            group.check(R.id.light_mode);
-                            break;
+                            case R.id.light_mode:
+                                newThemeOptions = NIGHTMODE.LIGHT.ordinal();
+                                break;
 
-                        case 2:
-                            group.check(R.id.grey_mode);
-                            break;
+                            case R.id.grey_mode:
+                                newThemeOptions = NIGHTMODE.GREY.ordinal();
+                                break;
 
-                        case 3:
-                            group.check(R.id.dark_mode);
-                    }
-            }
-        }
-
-
-        public void setUpConfigurations(String PreferencesName) {
-            switch (PreferencesName) {
-                case CONFIG_PREFS:
-                    SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
-                    if(!config.contains("themeOptions")) {
-                        SharedPreferences.Editor configEdit = config.edit();
-                        configEdit.putInt("themeOptions", themeOptions);
-                        configEdit.apply();
-                    }
-                    themeOptions = config.getInt("themeOptions", NIGHTMODE.DEFAULT.ordinal());
-                    break;
-
-                case SENTENCES_PREFS:
-                    SharedPreferences sentences = getSharedPreferences(PreferencesName, MODE_PRIVATE);
-                    Map<String, ?>Sentences = sentences.getAll();
-                    if(!Sentences.isEmpty()) {
-                        for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                            sentencesList.add(Sentence.getValue().toString());
-                        }
-                        TextView emptyView = findViewById(R.id.emptyView);
-                        if(emptyView.getVisibility() == View.VISIBLE) {
-                            emptyView.setVisibility(View.INVISIBLE);
+                            case R.id.dark_mode:
+                                newThemeOptions = NIGHTMODE.DARK.ordinal();
                         }
                     }
-            }
-    }
+                });
+                switch(themeOptions) {
+                    case 0:
+                        group.check(R.id.follow_system);
+                        break;
 
-    public void createLongTimeNotification(String sentence) {
-        int NotificationId = new Random().nextInt();
-        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                .putExtra("id", NotificationId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_icon_around)
-                .setContentTitle(sentence)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setOngoing(true)
-                .addAction(R.drawable.app_icon_around, getString(R.string.remove), pendingIntent);
-        notificationManager.notify(NotificationId, notificationBuilder.build());
-        SharedPreferences NotificationPrefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
-        notificationPrefsEditor.putString(String.valueOf(NotificationId), sentence);
-        notificationPrefsEditor.apply();
-    }
+                    case 1:
+                        group.check(R.id.light_mode);
+                        break;
 
-    public void setUpSentencesView() {
-        RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter = new SentenceItemAdapter(sentencesList, (TextView) findViewById(R.id.emptyView), true, this);
-        mRecylerView.setHasFixedSize(true);
-        mRecylerView.setLayoutManager(mLayoutManager);
-        mRecylerView.setAdapter(mAdapter);
-        SwipeController swipeController = new SwipeController(mAdapter, getWindow().getDecorView().getRootView());
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-        itemTouchHelper.attachToRecyclerView(mRecylerView);
-    }
+                    case 2:
+                        group.check(R.id.grey_mode);
+                        break;
 
-    public void addSentence(String sentence) {
-        mAdapter.addSentence(sentence);
-        TextView emptyView = findViewById(R.id.emptyView);
-        if(emptyView.getVisibility() == View.VISIBLE) {
-            emptyView.setVisibility(View.INVISIBLE);
+                    case 3:
+                        group.check(R.id.dark_mode);
+                }
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
+    public int getUiMode() {
+        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        switch(itemId) {
-            default:
-                return true;
-
-            case R.id.about:
-                showAppDialog(R.layout.about);
-                break;
-
-            case R.id.themes:
-                showAppDialog(R.layout.themes);
-        }
-        return super.onOptionsItemSelected(item);
+    public ArrayList<String> getSentencesList() {
+        return sentencesList;
     }
+
+
 }

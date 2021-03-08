@@ -11,10 +11,10 @@ import com.google.android.material.snackbar.Snackbar;
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
-class SwipeController extends Callback {
+public class SwipeController extends Callback {
 
-    private SentenceItemAdapter sentenceItemAdapter;
-    private View activityView;
+    private final SentenceItemAdapter sentenceItemAdapter;
+    private final View activityView;
 
     public SwipeController(SentenceItemAdapter mAdapter, View view) {
         sentenceItemAdapter = mAdapter;
@@ -35,10 +35,10 @@ class SwipeController extends Callback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
         showDeleteSnackBar(position);
-        sentenceItemAdapter.deleteSentence(position);
+        sentenceItemAdapter.removeSentence(position);
     }
 
     public void showDeleteSnackBar(int position) {
-        Snackbar.make(activityView, activityView.getResources().getText(R.string.remove) + " " + sentenceItemAdapter.getSentencesArrayList().get(position).toString(), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activityView.getRootView(), activityView.getResources().getText(R.string.remove) + " " + sentenceItemAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
     }
 }
