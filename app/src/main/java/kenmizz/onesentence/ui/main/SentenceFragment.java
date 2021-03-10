@@ -55,7 +55,7 @@ public class SentenceFragment extends Fragment {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceItemAdapter mAdapter = new SentenceItemAdapter(mSentenceList, (TextView)getView().findViewById(R.id.emptyView));
+        SentenceItemAdapter mAdapter = new SentenceItemAdapter(mSentenceList, (TextView)getView().findViewById(R.id.emptyView), getContext());
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);

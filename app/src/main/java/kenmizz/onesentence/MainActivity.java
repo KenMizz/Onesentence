@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNeutralButton(R.string.coolapk, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                String coolApkUrl = "http://www.coolapk.com/u/618459";
+                                String coolApkUrl = "https://www.coolapk.com/apk/kenmizz.onesentence";
                                 Intent urlIntent = new Intent(Intent.ACTION_VIEW);
                                 urlIntent.setData(Uri.parse(coolApkUrl));
                                 startActivity(urlIntent);
