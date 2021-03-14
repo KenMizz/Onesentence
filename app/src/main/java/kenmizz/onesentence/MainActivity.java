@@ -30,25 +30,31 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<String>();
+    Map<String, ArrayList<String>> sentenceList = new HashMap<String, ArrayList<String>>();
 
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
     public static final String SENATTR_PREFS = "SentencesAttributePref";
     public static final String NOTIFICATION_PREFS = "NotificationsPref";
+    public static final String SENTENCE_LIST_FILE = "sentenceList.json";
     private static final String TAG = "MainActivity";
     public static final String CHANNEL_ID = "OneSentence_NotificationChannel";
-    private int themeOptions = NIGHTMODE.DEFAULT.ordinal();
+    private int themeOptions = ThemeMode.DEFAULT.ordinal();
     private int newThemeOptions = 0;
 
-    public enum NIGHTMODE {
+    public enum ThemeMode {
         DEFAULT, LIGHT, GREY, DARK
     }
 
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setUpConfigurations(SENTENCES_PREFS);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.mainTabs);
         tabs.setupWithViewPager(viewPager);
@@ -120,27 +126,11 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addSentenceDialog();
-            }
-        });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if(position == 1) { //SentenceList Page
-                    addButton.hide();
+                if(viewPager.getCurrentItem() == 1) {
+                    addSentenceListDialog();
                 } else {
-                    addButton.show();
+                    addSentenceDialog();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
@@ -170,6 +160,17 @@ public class MainActivity extends AppCompatActivity {
             sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
+        File sentenceListFile = new File(getApplicationContext().getFilesDir(), SENTENCE_LIST_FILE);
+        try {
+            if(!sentenceListFile.isFile()) {
+                boolean fileCreate = sentenceListFile.createNewFile();
+                if(!fileCreate) {
+                    Log.e(TAG, "Can't create sentenceListFile!");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setUpConfigurations(String PreferencesName) {
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     configEdit.putInt("themeOptions", themeOptions);
                     configEdit.apply();
                 }
-                themeOptions = config.getInt("themeOptions", NIGHTMODE.DEFAULT.ordinal());
+                themeOptions = config.getInt("themeOptions", ThemeMode.DEFAULT.ordinal());
                 break;
 
             case SENTENCES_PREFS:
@@ -192,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         sentencesList.add(Sentence.getValue().toString());
                     }
                 }
+            break;
         }
     }
 
@@ -226,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                         String text = editText.getText().toString();
                         if(!text.isEmpty()) {
                             if(!sentencesList.contains(text)) {
-                                sentencesList.add(text);
+                                sentencesList.add(sentencesList.size(), text);
                                 Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             } else {
                                 Snackbar.make(getWindow().getDecorView().getRootView(), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
@@ -235,6 +237,45 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    public void addSentenceListDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
+        final TextInputEditText editText = view.findViewById(R.id.sentenceListAddEditText);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String text = charSequence.toString();
+                if(sentenceList.containsKey(text)) {
+                    editText.setError(text + getString(R.string.sentenceExists));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.new_sentence_list)
+                .setView(view)
+                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(!sentenceList.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
+                            sentenceList.put(editText.getText().toString(), new ArrayList<String>());
+                            Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        dialogBuilder.show();
     }
 
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
@@ -282,19 +323,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
                         switch (radioGroup.getCheckedRadioButtonId()) {
                             case R.id.follow_system:
-                                newThemeOptions = NIGHTMODE.DEFAULT.ordinal();
+                                newThemeOptions = ThemeMode.DEFAULT.ordinal();
                                 break;
 
                             case R.id.light_mode:
-                                newThemeOptions = NIGHTMODE.LIGHT.ordinal();
+                                newThemeOptions = ThemeMode.LIGHT.ordinal();
                                 break;
 
                             case R.id.grey_mode:
-                                newThemeOptions = NIGHTMODE.GREY.ordinal();
+                                newThemeOptions = ThemeMode.GREY.ordinal();
                                 break;
 
                             case R.id.dark_mode:
-                                newThemeOptions = NIGHTMODE.DARK.ordinal();
+                                newThemeOptions = ThemeMode.DARK.ordinal();
                         }
                     }
                 });

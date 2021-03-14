@@ -23,7 +23,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public static final String WIDGET_PREFS = "widgetsPref";
     public static final String SENTENCE_TEXT = "句";
 
-    private int themeOptions = MainActivity.NIGHTMODE.DEFAULT.ordinal();
+    private int themeOptions = MainActivity.ThemeMode.DEFAULT.ordinal();
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
@@ -35,7 +35,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
             configedit.putInt("themeOptions", themeOptions);
             configedit.apply();
         }
-        themeOptions = config.getInt("themeOptions", MainActivity.NIGHTMODE.DEFAULT.ordinal());
+        themeOptions = config.getInt("themeOptions", MainActivity.ThemeMode.DEFAULT.ordinal());
         switch(themeOptions) {
             case 0:
                 switch(getUiMode()) {

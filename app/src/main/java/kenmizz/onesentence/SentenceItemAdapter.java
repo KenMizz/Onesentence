@@ -1,11 +1,9 @@
 package kenmizz.onesentence;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -16,24 +14,20 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.ArrayList;
-import java.util.Random;
+
+import kenmizz.onesentence.ui.main.SentenceFragment;
 
 import static android.content.Context.MODE_PRIVATE;
-import static kenmizz.onesentence.MainActivity.CHANNEL_ID;
-import static kenmizz.onesentence.MainActivity.NOTIFICATION_PREFS;
 
 public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
     private static final String TAG = "SentenceItemAdapter";
 
     private ArrayList<String> mSentenceList;
     private TextView mEmptyView;
-    private Context mSentenceContext;
+    private SentenceFragment mSentenceFragment;
 
     private boolean mIsItemClickable = false;
     private int mWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -50,10 +44,10 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    public SentenceItemAdapter(ArrayList<String> sentenceList, TextView emptyView, Context sentenceContext) {
+    public SentenceItemAdapter(ArrayList<String> sentenceList, TextView emptyView, SentenceFragment sentenceFragment) {
         mSentenceList = sentenceList;
         mEmptyView = emptyView;
-        mSentenceContext = sentenceContext;
+        mSentenceFragment = sentenceFragment;
     }
 
     public SentenceItemAdapter(ArrayList<String> sentenceList, int widgetId, boolean isItemClickable, Context activityContext, SentenceWidgetConfiguration activity) {
@@ -86,7 +80,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    setNotificationDialog(currentSentence);
+                    mSentenceFragment.setNotificationDialog(currentSentence);
                     return true;
                 }
             });
@@ -117,24 +111,7 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         }
     }
 
-    public void setNotificationDialog(final String sentence) {
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(mSentenceContext)
-                .setTitle(R.string.set_long_time_notification)
-                .setMessage(mSentenceContext.getResources().getString(R.string.set_setence_notification).replace("sentence", sentence))
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        createLongTimeNotification(sentence);
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-        dialogBuilder.show();
-    }
+
 
     public void setUpWidget(int position) {
         Log.d(TAG, "Click " + mSentenceList.get(position));
@@ -162,24 +139,6 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
         mActivity.finish();
     }
 
-    public void createLongTimeNotification(String sentence) {
-        NotificationManager notificationManager = (NotificationManager)mSentenceContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        int NotificationId = new Random().nextInt();
-        Intent intent = new Intent(mSentenceContext, NotificationActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                .putExtra("id", NotificationId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mSentenceContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mSentenceContext, CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_icon_around)
-                .setContentTitle(sentence)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setOngoing(true)
-                .addAction(R.drawable.app_icon_around, mSentenceContext.getString(R.string.remove), pendingIntent);
-        notificationManager.notify(NotificationId, notificationBuilder.build());
-        SharedPreferences NotificationPrefs = mSentenceContext.getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
-        notificationPrefsEditor.putString(String.valueOf(NotificationId), sentence);
-        notificationPrefsEditor.apply();
-    }
+
 
 }

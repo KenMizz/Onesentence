@@ -33,4 +33,8 @@
     <string name="sentenceExists">已经存在。</string>
     <string name="sentence_list">句子列表</string>
     <string name="opensource_license">开源许可</string>
+    <string name="new_sentence_list">新的句子列表</string>
+    <string name="list_name">句子列表名</string>
+    <string name="successfully_add_sentence_list">成功创建句子列表 _key_</string>
+    <string name="fail_add_sentence_list">句子列表 _key_ 已经存在了</string>
 </resources>

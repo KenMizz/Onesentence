@@ -32,9 +32,8 @@
     <string name="sentenceExists">already exists.</string>
     <string name="sentence_list">Sentence List</string>
     <string name="opensource_license">License</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_sentence_list">New sentence list</string>
+    <string name="list_name">Sentence list name</string>
+    <string name="successfully_add_sentence_list">Successfully create sentence list _key_</string>
+    <string name="fail_add_sentence_list">Sentence list _key_ has already exists</string>
 </resources>
