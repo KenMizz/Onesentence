@@ -37,4 +37,5 @@
     <string name="list_name">句子列表名</string>
     <string name="successfully_add_sentence_list">成功创建句子列表 _key_</string>
     <string name="fail_add_sentence_list">句子列表 _key_ 已经存在了</string>
+    <string name="SentenceListEmpty">试着加一条新句子列表吧</string>
 </resources>

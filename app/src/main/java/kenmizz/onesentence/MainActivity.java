@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSentenceListDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext, null);
         final TextInputEditText editText = view.findViewById(R.id.sentenceListAddEditText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override

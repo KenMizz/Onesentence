@@ -36,4 +36,5 @@
     <string name="list_name">Sentence list name</string>
     <string name="successfully_add_sentence_list">Successfully create sentence list _key_</string>
     <string name="fail_add_sentence_list">Sentence list _key_ has already exists</string>
+    <string name="SentenceListEmpty">Let\'s add a new sentence list</string>
 </resources>
