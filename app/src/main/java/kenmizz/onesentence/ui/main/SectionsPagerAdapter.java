@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 
@@ -24,6 +26,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mActivity = mainActivity;
     }
 
+    @NotNull
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
