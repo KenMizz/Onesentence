@@ -21,26 +21,32 @@
 
     <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
+        <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
+        <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
     <style name="NeturalButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
+        <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
     <style name="PositiveButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
 
     <style name="NegativeButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
 
     <style name="NeturalButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/white</item>
+        <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
 
     <style name="MaterialRadioButtonOverlay" parent="Widget.AppCompat.CompoundButton.RadioButton">
