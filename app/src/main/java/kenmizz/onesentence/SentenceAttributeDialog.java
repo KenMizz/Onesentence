@@ -28,11 +28,11 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     SharedPreferences widgetPreferences;
 
     private static final String TAG = "SentenceAttribute";
-    TextInputEditText SentenceAttributeSetenceEditText;
+    TextInputEditText SentenceAttributeSentenceEditText;
     TextView SentenceAttributeTextView;
     Slider SentenceAttributeSlider;
-    Button SentenceAtrributeColorPicker;
-    Button SentenceAtrributeConfirmButton;
+    Button SentenceAttributeColorPicker;
+    Button SentenceAttributeConfirmButton;
 
     int widgetId;
     String sentence;
@@ -52,9 +52,9 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         textColor = sentenceAttrPreferences.getInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", getColor(R.color.white));
         SentenceAttributeTextView = findViewById(R.id.SentenceAttributeTextView);
         SentenceAttributeSlider = findViewById(R.id.SentenceAttributeSlider);
-        SentenceAtrributeColorPicker = findViewById(R.id.SentenceAttributeColorPicker);
-        SentenceAtrributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
-        SentenceAttributeSetenceEditText = findViewById(R.id.SentenceAttributeEditText);
+        SentenceAttributeColorPicker = findViewById(R.id.SentenceAttributeColorPicker);
+        SentenceAttributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
+        SentenceAttributeSentenceEditText = findViewById(R.id.SentenceAttributeEditText);
         setUpDialog();
     }
 
@@ -63,13 +63,13 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         Log.d(TAG, "Setting up dialog for widgetId: " + widgetId +"\nSentence: " + sentence +"\ntextSize: " + textSize +"\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
         TextView textView = findViewById(R.id.textView2);
         textView.setText(getResources().getString(R.string.sentence) + ":"); //So it will be like SentenceString:
-        SentenceAttributeSetenceEditText.setText(sentence);
+        SentenceAttributeSentenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         SentenceAttributeTextView.setTextColor(textColor);
-        SentenceAtrributeColorPicker.setBackgroundColor(textColor);
+        SentenceAttributeColorPicker.setBackgroundColor(textColor);
         SentenceAttributeSlider.setValue(textSize);
-        SentenceAtrributeColorPicker.setOnClickListener(new View.OnClickListener() {
+        SentenceAttributeColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ColorPickerDialog.newBuilder()
@@ -89,7 +89,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
                 Log.d(TAG, "wigetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
             }
         });
-        SentenceAttributeSetenceEditText.addTextChangedListener(new TextWatcher() {
+        SentenceAttributeSentenceEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -105,9 +105,12 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
                 SentenceAttributeTextView.setText(editable.toString());
             }
         });
-        SentenceAtrributeConfirmButton.setOnClickListener(new View.OnClickListener() {
+        SentenceAttributeConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(SentenceAttributeTextView.getText().toString().trim().length() <= 0) {
+                    SentenceAttributeTextView.setText("句");
+                }
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
                 RemoteViews views = new RemoteViews(getApplicationContext().getPackageName(), R.layout.sentence_widget);
                 views.setTextViewText(R.id.SentenceTextView, SentenceAttributeTextView.getText());
