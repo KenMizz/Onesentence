@@ -9,32 +9,33 @@
     tools:ignore="HardcodedText">
 
     <TextView
-        android:id="@+id/SentenceAttributeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="句"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40sp"/>
-    
+            android:id="@+id/SentenceAttributeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="句"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40sp"/>
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/SentenceAttributeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/SentenceAttributeTextView"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="10sp"
         android:hint="@string/sentence"/>
-    
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sentence"
         android:layout_toStartOf="@id/SentenceAttributeEditText"
-        android:layout_marginTop="107sp"
+        android:layout_below="@id/SentenceAttributeTextView"
+        android:layout_marginTop="30dp"
         tools:ignore="RelativeOverlap" />
-    
+
     <com.google.android.material.slider.Slider
         android:id="@+id/SentenceAttributeSlider"
         android:layout_width="189sp"
@@ -47,13 +48,14 @@
         app:labelBehavior="floating"
         app:thumbColor="@color/white"
         app:trackColor="@color/white"/>
-    
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sentence_size"
         android:layout_toStartOf="@id/SentenceAttributeSlider"
-        android:layout_marginTop="148sp"
+        android:layout_marginTop="73sp"
+        android:layout_below="@id/SentenceAttributeTextView"
         tools:ignore="RelativeOverlap" />
 
     <Button
@@ -69,9 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/SentenceAttributeColorPicker"
         android:text="@string/sentence_color"
+        android:layout_below="@id/SentenceAttributeTextView"
         android:layout_marginEnd="16sp"
-        android:layout_marginTop="200sp"/>
-    
+        android:layout_marginTop="135sp"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/SentenceAttributeConfirmButton"
         android:layout_width="wrap_content"
@@ -82,4 +85,5 @@
         android:layout_below="@id/SentenceAttributeColorPicker"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16sp"/>
+
 </RelativeLayout>
