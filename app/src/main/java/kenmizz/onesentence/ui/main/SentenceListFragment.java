@@ -9,23 +9,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import kenmizz.onesentence.R;
 
 public class SentenceListFragment extends Fragment {
 
-    public static SentenceListFragment newInstance(String param1, String param2) {
-        SentenceListFragment fragment = new SentenceListFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    private HashMap<String, ArrayList<String>> mSentenceCollection = new HashMap<>();
+    public static SentenceListFragment newInstance(HashMap<String, ArrayList<String>> sentenceCollection) {
+        return new SentenceListFragment(sentenceCollection);
+    }
+
+    public SentenceListFragment(HashMap<String, ArrayList<String>> sentenceCollection) {
+        mSentenceCollection = sentenceCollection;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            //TODO
-        }
     }
 
     @Override

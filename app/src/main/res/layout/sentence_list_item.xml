@@ -1,0 +1,21 @@
+<com.github.florent37.expansionpanel.ExpansionHeader
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:expansion_layout="@id/expansionLayout"
+    app:expansion_toggleOnClick="true">
+    
+    <com.github.florent37.expansionpanel.ExpansionLayout
+        android:id="@+id/expansionLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"/>
+
+    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+</com.github.florent37.expansionpanel.ExpansionHeader>
