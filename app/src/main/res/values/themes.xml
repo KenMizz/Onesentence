@@ -2,14 +2,15 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="android:textColor">@color/dark</item>
         <item name="colorPrimaryDark">@color/grey_300</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorAccent">@color/dark</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlay</item>
         <item name="tabStyle">@style/TabLayoutLight</item>
+        <item name="android:textColor">@color/dark</item>
         <item name="android:colorControlActivated">@color/dark</item>
+        <item name="rippleColor">@color/ripple_material_light</item>
         <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/white</item>
     </style>

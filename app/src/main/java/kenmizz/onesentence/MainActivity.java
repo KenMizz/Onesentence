@@ -29,7 +29,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.jaredrummler.android.colorpicker.BuildConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +42,13 @@ import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> sentenceList = new HashMap<String, ArrayList<String>>();
+    HashMap<String, ArrayList<String>> sentenceList = new HashMap<String, ArrayList<String>>(){{
+        put("hi", new ArrayList<String>(){{
+            add("1");
+            add("2");
+            add("3");
+        }});
+    }};
 
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
@@ -348,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         group.check(R.id.light_mode);
                         break;
-
+  
                     case 2:
                         group.check(R.id.grey_mode);
                         break;
