@@ -30,14 +30,17 @@ import kenmizz.onesentence.SwipeController;
 
 public class SentenceListFragment extends Fragment {
     private static final String TAG = "SentenceListFragment";
-    private HashMap<String, ArrayList<String>> mSentenceCollection = new HashMap<>();
 
-    public static SentenceListFragment newInstance(HashMap<String, ArrayList<String>> sentenceCollection) {
-        return new SentenceListFragment(sentenceCollection);
+    private HashMap<String, ArrayList<String>> mSentenceCollection = new HashMap<>();
+    private ArrayList<String> mSentencesList = new ArrayList<>();
+
+    public static SentenceListFragment newInstance(HashMap<String, ArrayList<String>> sentenceCollection, ArrayList<String> sentencesList) {
+        return new SentenceListFragment(sentenceCollection, sentencesList);
     }
 
-    public SentenceListFragment(HashMap<String, ArrayList<String>> sentenceCollection) {
+    public SentenceListFragment(HashMap<String, ArrayList<String>> sentenceCollection, ArrayList<String> sentencesList) {
         mSentenceCollection = sentenceCollection;
+        mSentencesList = sentencesList;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class SentenceListFragment extends Fragment {
         View sentenceListEditDialogView = getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
         RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceListAdapter mAdapter = new SentenceListAdapter(mSentenceCollection.get(key));
+        SentenceListAdapter mAdapter = new SentenceListAdapter(mSentenceCollection.get(key), mSentencesList);
         sentenceListEditDialogRecyclerView.setHasFixedSize(true);
         sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);
         sentenceListEditDialogRecyclerView.setAdapter(mAdapter);

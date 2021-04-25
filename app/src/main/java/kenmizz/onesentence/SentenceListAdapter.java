@@ -2,6 +2,7 @@ package kenmizz.onesentence;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 public class SentenceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<String> mSentenceList = new ArrayList<>();
+    private ArrayList<String> mSentenceCollection = new ArrayList<>();
 
     static class SentenceListViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,20 +21,24 @@ public class SentenceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public SentenceListAdapter(ArrayList<String> sentenceList) {
+    public SentenceListAdapter(ArrayList<String> sentenceList, ArrayList<String> sentenceCollection) {
         mSentenceList = sentenceList;
+        mSentenceCollection = sentenceCollection;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView textView = new TextView(parent.getContext());
-        return new SentenceListViewHolder(textView);
+        CheckBox itemView = new CheckBox(parent.getContext());
+        return new SentenceListViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((TextView)holder.itemView).setText(mSentenceList.get(position));
+        ((CheckBox)holder.itemView).setText(mSentenceList.get(position));
+        if(mSentenceCollection.contains(((CheckBox) holder.itemView).getText().toString())) {
+            ((CheckBox) holder.itemView).setChecked(true);
+        }
     }
 
     @Override

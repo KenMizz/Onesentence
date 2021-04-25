@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return SentenceListFragment.newInstance(mActivity.getSentenceCollection());
+            return SentenceListFragment.newInstance(mActivity.getSentenceCollection(), mActivity.getSentencesList());
         }
         return SentenceFragment.newInstance(mActivity.getSentencesList());
     }
