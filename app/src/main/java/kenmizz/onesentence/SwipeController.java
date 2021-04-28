@@ -8,16 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import kenmizz.onesentence.adapter.SentenceAdapter;
+
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
 public class SwipeController extends Callback {
 
-    private final SentenceItemAdapter sentenceItemAdapter;
+    private final SentenceAdapter sentenceAdapter;
     private final View activityView;
 
-    public SwipeController(SentenceItemAdapter mAdapter, View view) {
-        sentenceItemAdapter = mAdapter;
+    public SwipeController(SentenceAdapter mAdapter, View view) {
+        sentenceAdapter = mAdapter;
         this.activityView = view;
     }
 
@@ -35,10 +37,10 @@ public class SwipeController extends Callback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
         showDeleteSnackBar(position);
-        sentenceItemAdapter.removeSentence(position);
+        sentenceAdapter.removeSentence(position);
     }
 
     public void showDeleteSnackBar(int position) {
-        Snackbar.make(activityView.getRootView(), activityView.getResources().getText(R.string.remove) + " " + sentenceItemAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activityView.getRootView(), activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
     }
 }

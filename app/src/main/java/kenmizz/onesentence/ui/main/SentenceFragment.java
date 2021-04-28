@@ -27,7 +27,7 @@ import java.util.Random;
 
 import kenmizz.onesentence.NotificationActivity;
 import kenmizz.onesentence.R;
-import kenmizz.onesentence.SentenceItemAdapter;
+import kenmizz.onesentence.adapter.SentenceAdapter;
 import kenmizz.onesentence.SwipeController;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -70,7 +70,7 @@ public class SentenceFragment extends Fragment {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceItemAdapter mAdapter = new SentenceItemAdapter(mSentenceList, (TextView)getView().findViewById(R.id.emptyView), this);
+        SentenceAdapter mAdapter = new SentenceAdapter(mSentenceList, (TextView)getView().findViewById(R.id.emptyView), this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);

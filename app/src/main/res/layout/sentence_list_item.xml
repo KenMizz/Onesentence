@@ -53,11 +53,11 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sentenceListItemRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"/>
 
                     <Button
                         android:id="@+id/sentenceListItemEditButton"
@@ -67,7 +67,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="4dp"
                         android:text="@string/edit"
-                        android:textColor="@color/dark" />
+                        android:textColor="@color/dark"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </com.github.florent37.expansionpanel.ExpansionLayout>
         </LinearLayout>

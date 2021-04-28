@@ -1,32 +1,25 @@
 package kenmizz.onesentence.ui.main;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import kenmizz.onesentence.R;
-import kenmizz.onesentence.SentenceItemAdapter;
-import kenmizz.onesentence.SentenceListAdapter;
-import kenmizz.onesentence.SentenceListItemAdapter;
-import kenmizz.onesentence.SwipeController;
+import kenmizz.onesentence.adapter.DialogSentenceListAdapter;
+import kenmizz.onesentence.adapter.SentenceListAdapter;
 
 public class SentenceListFragment extends Fragment {
     private static final String TAG = "SentenceListFragment";
@@ -62,7 +55,7 @@ public class SentenceListFragment extends Fragment {
     public void setUpSentenceListView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.SentenceListRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceListItemAdapter mAdapter = new SentenceListItemAdapter(mSentenceCollection, this);
+        SentenceListAdapter mAdapter = new SentenceListAdapter(mSentenceCollection, mSentencesList, this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
@@ -72,13 +65,19 @@ public class SentenceListFragment extends Fragment {
         View sentenceListEditDialogView = getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
         RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceListAdapter mAdapter = new SentenceListAdapter(mSentenceCollection.get(key), mSentencesList);
+        DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(mSentenceCollection.get(key), mSentencesList);
         sentenceListEditDialogRecyclerView.setHasFixedSize(true);
         sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);
         sentenceListEditDialogRecyclerView.setAdapter(mAdapter);
         new MaterialAlertDialogBuilder(getContext())
                 .setTitle(R.string.edit)
                 .setView(sentenceListEditDialogView)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
                 .show();
     }
 }

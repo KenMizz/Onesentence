@@ -42,12 +42,8 @@ import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> sentenceList = new HashMap<String, ArrayList<String>>(){{
-        put("hi", new ArrayList<String>(){{
-            add("1");
-            add("2");
-            add("3");
-        }});
+    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<String, ArrayList<String>>(){{
+        put("hi", new ArrayList<String>());
     }};
 
     public static final String SENTENCES_PREFS = "sentencesPref";
@@ -257,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String text = charSequence.toString();
-                if(sentenceList.containsKey(text)) {
+                if(sentenceCollection.containsKey(text)) {
                     editText.setError(text + getString(R.string.sentenceExists));
                 }
             }
@@ -273,8 +269,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(!sentenceList.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
-                            sentenceList.put(editText.getText().toString(), new ArrayList<String>());
+                        if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
+                            sentenceCollection.put(editText.getText().toString(), new ArrayList<String>());
                             Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
@@ -372,5 +368,5 @@ public class MainActivity extends AppCompatActivity {
         return sentencesList;
     }
 
-    public HashMap<String, ArrayList<String>> getSentenceCollection() { return sentenceList; }
+    public HashMap<String, ArrayList<String>> getSentenceCollection() { return sentenceCollection; }
 }

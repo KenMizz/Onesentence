@@ -1,4 +1,4 @@
-package kenmizz.onesentence;
+package kenmizz.onesentence.adapter;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -14,16 +14,25 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import kenmizz.onesentence.MainActivity;
+import kenmizz.onesentence.R;
+import kenmizz.onesentence.SentenceAttributeDialog;
+import kenmizz.onesentence.SentenceWidgetConfiguration;
 import kenmizz.onesentence.ui.main.SentenceFragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapter.SentenceViewHolder> {
-    private static final String TAG = "SentenceItemAdapter";
+/**
+ * This adapter is for sentence
+ */
+
+public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.SentenceViewHolder> {
+    private static final String TAG = "SentenceAdapter";
 
     private ArrayList<String> mSentenceList;
     private TextView mEmptyView;
@@ -37,20 +46,22 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     static class SentenceViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
+        CardView mCardView;
 
         public SentenceViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.SentenceView);
+            mCardView = itemView.findViewById(R.id.SentenceCardView);
         }
     }
 
-    public SentenceItemAdapter(ArrayList<String> sentenceList, TextView emptyView, SentenceFragment sentenceFragment) {
+    public SentenceAdapter(ArrayList<String> sentenceList, TextView emptyView, SentenceFragment sentenceFragment) {
         mSentenceList = sentenceList;
         mEmptyView = emptyView;
         mSentenceFragment = sentenceFragment;
     }
 
-    public SentenceItemAdapter(ArrayList<String> sentenceList, int widgetId, boolean isItemClickable, Context activityContext, SentenceWidgetConfiguration activity) {
+    public SentenceAdapter(ArrayList<String> sentenceList, int widgetId, boolean isItemClickable, Context activityContext, SentenceWidgetConfiguration activity) {
         mSentenceList = sentenceList;
         mWidgetId = widgetId;
         mIsItemClickable = isItemClickable;
@@ -60,24 +71,24 @@ public class SentenceItemAdapter extends RecyclerView.Adapter<SentenceItemAdapte
 
     @NonNull
     @Override
-    public SentenceItemAdapter.SentenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SentenceAdapter.SentenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View cardView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sentence_item, parent, false);
         return new SentenceViewHolder(cardView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SentenceItemAdapter.SentenceViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull SentenceAdapter.SentenceViewHolder holder, final int position) {
         final String currentSentence = mSentenceList.get(position);
         holder.mTextView.setText(currentSentence);
         if(mIsItemClickable) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setUpWidget(position);
                 }
             });
         } else {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.mCardView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     mSentenceFragment.setNotificationDialog(currentSentence);

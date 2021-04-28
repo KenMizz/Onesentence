@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Map;
 
+import kenmizz.onesentence.adapter.SentenceAdapter;
+
 public class SentenceWidgetConfiguration extends AppCompatActivity {
 
     private final ArrayList<String> sentencesList = new ArrayList<>();
@@ -97,9 +99,9 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     public void setUpSentencesView() {
         RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        SentenceItemAdapter sentenceItemAdapter = new SentenceItemAdapter(sentencesList, widgetId, true, getApplicationContext(), this);
+        SentenceAdapter sentenceAdapter = new SentenceAdapter(sentencesList, widgetId, true, getApplicationContext(), this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
-        mRecylerView.setAdapter(sentenceItemAdapter);
+        mRecylerView.setAdapter(sentenceAdapter);
     }
 }
