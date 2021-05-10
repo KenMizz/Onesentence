@@ -55,29 +55,17 @@ public class SentenceListFragment extends Fragment {
     public void setUpSentenceListView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.SentenceListRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceListAdapter mAdapter = new SentenceListAdapter(mSentenceCollection, mSentencesList, this);
+        SentenceListAdapter mAdapter = new SentenceListAdapter(this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
     }
 
-    public void createSentenceListEditDialog(String key) {
-        View sentenceListEditDialogView = getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
-        RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(mSentenceCollection.get(key), mSentencesList);
-        sentenceListEditDialogRecyclerView.setHasFixedSize(true);
-        sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);
-        sentenceListEditDialogRecyclerView.setAdapter(mAdapter);
-        new MaterialAlertDialogBuilder(getContext())
-                .setTitle(R.string.edit)
-                .setView(sentenceListEditDialogView)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+    public HashMap<String, ArrayList<String>> getSentenceCollection() {
+        return mSentenceCollection;
+    }
 
-                    }
-                })
-                .show();
+    public ArrayList<String> getSentencesList() {
+        return mSentencesList;
     }
 }

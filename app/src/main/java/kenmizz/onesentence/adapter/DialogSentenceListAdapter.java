@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import kenmizz.onesentence.ui.main.SentenceListFragment;
+
 /**
  * This adapter is for sentence_list_edit dialog
  */
@@ -28,9 +30,9 @@ public class DialogSentenceListAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public DialogSentenceListAdapter(ArrayList<String> sentenceCollectionList, ArrayList<String> sentencesList) {
-        mSentenceCollectionList = sentenceCollectionList;
-        mSentencesList = sentencesList;
+    public DialogSentenceListAdapter(String sentenceListName, SentenceListFragment sentenceListFragment) {
+        mSentenceCollectionList = sentenceListFragment.getSentenceCollection().get(sentenceListName);
+        mSentencesList = sentenceListFragment.getSentencesList();
     }
 
     @NonNull
@@ -54,7 +56,6 @@ public class DialogSentenceListAdapter extends RecyclerView.Adapter<RecyclerView
                 } else {
                     mSentenceCollectionList.remove(buttonView.getText().toString());
                 }
-                Log.d(TAG, String.valueOf(mSentenceCollectionList));
             }
         });
     }

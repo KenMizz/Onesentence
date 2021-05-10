@@ -42,9 +42,7 @@ import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<String, ArrayList<String>>(){{
-        put("hi", new ArrayList<String>());
-    }};
+    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<String, ArrayList<String>>();
 
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
