@@ -41,6 +41,6 @@ public class SwipeController extends Callback {
     }
 
     public void showDeleteSnackBar(int position) {
-        Snackbar.make(activityView.getRootView(), activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activityView.findViewById(R.id.addFloatingButton), activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
     }
 }

@@ -229,9 +229,9 @@ public class MainActivity extends AppCompatActivity {
                         if(!text.isEmpty()) {
                             if(!sentencesList.contains(text)) {
                                 sentencesList.add(sentencesList.size(), text);
-                                Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                             } else {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.addFloatingButton), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                             }
                         }
                     }
