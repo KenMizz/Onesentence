@@ -28,7 +28,7 @@ import java.util.Random;
 import kenmizz.onesentence.NotificationActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
-import kenmizz.onesentence.SwipeController;
+import kenmizz.onesentence.controller.SwipeController;
 
 import static android.content.Context.MODE_PRIVATE;
 import static kenmizz.onesentence.MainActivity.CHANNEL_ID;

@@ -2,14 +2,11 @@ package kenmizz.onesentence.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,12 +86,6 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 holder.mLinearLayout.removeAllViews();
                                 if(!mSentenceCollectionList.isEmpty()) {
-                                    for(String sentence : mSentencesList) {
-                                        if(!mSentenceCollectionList.contains(sentence)) {
-                                            mSentenceCollectionList.remove(sentence);
-                                            Log.d(TAG, "remove " + sentence);
-                                        }
-                                    }
                                     for(String sentenceListString : mSentenceCollectionList) {
                                         TextView stringView = new TextView(mSentenceListFragment.getContext());
                                         stringView.setText(sentenceListString);

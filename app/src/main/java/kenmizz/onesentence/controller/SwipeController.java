@@ -1,4 +1,4 @@
-package kenmizz.onesentence;
+package kenmizz.onesentence.controller;
 
 import android.view.View;
 
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;

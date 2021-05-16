@@ -273,6 +273,9 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
                         }
+                        if(!sentenceCollection.isEmpty()) {
+                            findViewById(R.id.emptyListView).setVisibility(View.INVISIBLE);
+                        }
                     }
                 });
         dialogBuilder.show();

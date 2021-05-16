@@ -1,25 +1,24 @@
 package kenmizz.onesentence.ui.main;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import kenmizz.onesentence.R;
-import kenmizz.onesentence.adapter.DialogSentenceListAdapter;
 import kenmizz.onesentence.adapter.SentenceListAdapter;
+import kenmizz.onesentence.controller.SentenceListSwipeController;
 
 public class SentenceListFragment extends Fragment {
     private static final String TAG = "SentenceListFragment";
@@ -49,13 +48,18 @@ public class SentenceListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setUpSentenceListView();
-        super.onViewCreated(view, savedInstanceState);
+        if(!mSentenceCollection.isEmpty()) {
+            ((TextView)getView().findViewById(R.id.emptyListView)).setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setUpSentenceListView() {
         RecyclerView mRecylerView = getView().findViewById(R.id.SentenceListRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         SentenceListAdapter mAdapter = new SentenceListAdapter(this);
+        SentenceListSwipeController swipeController = new SentenceListSwipeController(this, mAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(mRecylerView);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
@@ -67,5 +71,8 @@ public class SentenceListFragment extends Fragment {
 
     public ArrayList<String> getSentencesList() {
         return mSentencesList;
+    }
+
+    public void removeSentenceCollectionList(String key) {
     }
 }
