@@ -269,9 +269,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
                             sentenceCollection.put(editText.getText().toString(), new ArrayList<String>());
-                            Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
                         } else {
-                            Snackbar.make(getWindow().getDecorView().getRootView(), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });
