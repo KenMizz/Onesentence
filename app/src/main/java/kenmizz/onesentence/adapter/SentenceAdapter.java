@@ -110,10 +110,6 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         return mSentenceList.size();
     }
 
-    public String getSentence(int position) {
-        return mSentenceList.get(position);
-    }
-
     public void removeSentence(int position) {
         notifyItemRemoved(position);
         mSentenceList.remove(position);

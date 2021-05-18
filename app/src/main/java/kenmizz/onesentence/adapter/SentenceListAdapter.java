@@ -71,9 +71,12 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
             @Override
             public void onClick(View v) {
                 View sentenceListEditDialogView = mSentenceListFragment.getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
+                if(!mSentenceCollection.get(sentenceListName).isEmpty()) {
+                    sentenceListEditDialogView.findViewById(R.id.dialogEmptyView).setVisibility(View.INVISIBLE);
+                }
                 RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mSentenceListFragment.getContext(), LinearLayoutManager.VERTICAL, false);
-                final DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(sentenceListName, mSentenceListFragment);
+                final DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(sentenceListName, mSentenceListFragment, sentenceListEditDialogView);
                 sentenceListEditDialogRecyclerView.setHasFixedSize(true);
                 sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);
                 sentenceListEditDialogRecyclerView.setAdapter(mAdapter);

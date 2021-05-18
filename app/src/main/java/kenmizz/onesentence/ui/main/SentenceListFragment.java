@@ -74,5 +74,6 @@ public class SentenceListFragment extends Fragment {
     }
 
     public void removeSentenceCollectionList(String key) {
+        mSentenceCollection.remove(key);
     }
 }

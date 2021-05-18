@@ -1,5 +1,6 @@
 package kenmizz.onesentence.controller;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,5 +41,8 @@ public class SentenceListSwipeController extends Callback {
         String key = ((TextView)viewHolder.itemView.findViewById(R.id.sentenceListNameTextView)).getText().toString();
         mSentenceListFragment.removeSentenceCollectionList(key);
         mSentenceListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+        if(mSentenceListFragment.getSentenceCollection().isEmpty()) {
+            mSentenceListFragment.getView().findViewById(R.id.emptyListView).setVisibility(View.VISIBLE);
+        }
     }
 }
