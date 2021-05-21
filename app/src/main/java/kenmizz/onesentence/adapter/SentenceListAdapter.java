@@ -71,7 +71,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
             @Override
             public void onClick(View v) {
                 View sentenceListEditDialogView = mSentenceListFragment.getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
-                if(!mSentenceCollection.get(sentenceListName).isEmpty()) {
+                if(!mSentencesList.isEmpty()) {
                     sentenceListEditDialogView.findViewById(R.id.dialogEmptyView).setVisibility(View.INVISIBLE);
                 }
                 RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
@@ -87,12 +87,22 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                ArrayList<String> notExistsList = new ArrayList<>();
                                 holder.mLinearLayout.removeAllViews();
                                 if(!mSentenceCollectionList.isEmpty()) {
-                                    for(String sentenceListString : mSentenceCollectionList) {
-                                        TextView stringView = new TextView(mSentenceListFragment.getContext());
-                                        stringView.setText(sentenceListString);
-                                        holder.mLinearLayout.addView(stringView);
+                                    for (String sentenceListString : mSentenceCollectionList) {
+                                        if (mSentencesList.contains(sentenceListString)) {
+                                            TextView stringView = new TextView(mSentenceListFragment.getContext());
+                                            stringView.setText(sentenceListString);
+                                            holder.mLinearLayout.addView(stringView);
+                                        } else {
+                                            notExistsList.add(sentenceListString);
+                                        }
+                                    }
+                                }
+                                if(!notExistsList.isEmpty()) {
+                                    for(String notExistsString : notExistsList) {
+                                        mSentenceCollectionList.remove(notExistsString);
                                     }
                                 }
                             }
