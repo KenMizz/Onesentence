@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         }
         sentencesEditor.apply();
         File sentenceListFile = new File(getApplicationContext().getFilesDir(), SENTENCE_LIST_FILE);
+        //TODO: sentenceCollection save/load
         try {
             if(!sentenceListFile.isFile()) {
                 boolean fileCreate = sentenceListFile.createNewFile();

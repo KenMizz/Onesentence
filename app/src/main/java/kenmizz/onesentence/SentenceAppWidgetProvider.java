@@ -10,6 +10,8 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
+import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
+
 public class SentenceAppWidgetProvider extends AppWidgetProvider {
 
     private static final String TAG = "SentenceWidgetProvider";

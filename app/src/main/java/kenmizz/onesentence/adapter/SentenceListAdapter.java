@@ -49,6 +49,10 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         mSentencesList = mSentenceListFragment.getSentencesList();
     }
 
+    public SentenceListAdapter(HashMap<String, ArrayList<String>> configurationSentenceCollection) {
+        mSentenceCollection = configurationSentenceCollection;
+    }
+
     @NonNull
     @Override
     public SentenceListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -22,6 +22,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
+import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
+
 public class SentenceAttributeDialog extends AppCompatActivity implements ColorPickerDialogListener {
 
     SharedPreferences sentenceAttrPreferences;

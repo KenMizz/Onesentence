@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".widget.SentenceListWidgetConfiguration" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -34,7 +34,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="" />
         <activity
-            android:name=".SentenceWidgetConfiguration"
+            android:name=".widget.SentenceWidgetConfiguration"
             android:label="@string/widget_configure"
             android:theme="@style/AppConfigurationTheme">
             <intent-filter>

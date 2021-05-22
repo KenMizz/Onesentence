@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.SentenceAttributeDialog;
-import kenmizz.onesentence.SentenceWidgetConfiguration;
 import kenmizz.onesentence.ui.main.SentenceFragment;
+import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 import static android.content.Context.MODE_PRIVATE;
 

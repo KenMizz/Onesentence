@@ -1,4 +1,4 @@
-package kenmizz.onesentence;
+package kenmizz.onesentence.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Map;
 
+import kenmizz.onesentence.MainActivity;
+import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
 
 public class SentenceWidgetConfiguration extends AppCompatActivity {
@@ -33,9 +35,9 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences config = getSharedPreferences(MainActivity.CONFIG_PREFS, MODE_PRIVATE);
         if(!config.contains("themeOptions")) {
-            SharedPreferences.Editor configedit = config.edit();
-            configedit.putInt("themeOptions", themeOptions);
-            configedit.apply();
+            SharedPreferences.Editor configEdit = config.edit();
+            configEdit.putInt("themeOptions", themeOptions);
+            configEdit.apply();
         }
         themeOptions = config.getInt("themeOptions", MainActivity.ThemeMode.DEFAULT.ordinal());
         switch(themeOptions) {
@@ -97,11 +99,11 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     }
 
     public void setUpSentencesView() {
-        RecyclerView mRecylerView = findViewById(R.id.RecyclerView);
+        RecyclerView mRecyclerView = findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         SentenceAdapter sentenceAdapter = new SentenceAdapter(sentencesList, widgetId, true, getApplicationContext(), this);
-        mRecylerView.setHasFixedSize(true);
-        mRecylerView.setLayoutManager(mLayoutManager);
-        mRecylerView.setAdapter(sentenceAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(sentenceAdapter);
     }
 }
