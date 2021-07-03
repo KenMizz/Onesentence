@@ -3,7 +3,6 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -14,13 +13,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -41,8 +38,8 @@ import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> sentencesList = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<String, ArrayList<String>>();
+    ArrayList<String> sentencesList = new ArrayList<>();
+    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<>();
 
     public static final String SENTENCES_PREFS = "sentencesPref";
     public static final String CONFIG_PREFS = "configsPref";
@@ -58,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         DEFAULT, LIGHT, GREY, DARK
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,34 +101,27 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         MaterialToolbar mainToolbar = findViewById(R.id.mainToolbar);
         final FloatingActionButton addButton = findViewById(R.id.addFloatingButton);
-        mainToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-                switch (itemId) {
+        mainToolbar.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            switch (itemId) {
 
-                    default:
-                        return true;
+                default:
+                    return true;
 
-                    case R.id.about:
-                        showAppDialog(R.layout.about);
-                        break;
+                case R.id.about:
+                    showAppDialog(R.layout.about);
+                    break;
 
-                    case R.id.themes:
-                        showAppDialog(R.layout.themes);
-                }
-                return true;
+                case R.id.themes:
+                    showAppDialog(R.layout.themes);
             }
+            return true;
         });
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(viewPager.getCurrentItem() == 1) {
-                    addSentenceListDialog();
-                } else {
-                    addSentenceDialog();
-                }
+        addButton.setOnClickListener(view -> {
+            if(viewPager.getCurrentItem() == 1) {
+                addSentenceListDialog();
+            } else {
+                addSentenceDialog();
             }
         });
     }
@@ -223,17 +214,14 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.setView(view);
         dialog.setTitle(R.string.newsentence)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String text = editText.getText().toString();
-                        if(!text.isEmpty()) {
-                            if(!sentencesList.contains(text)) {
-                                sentencesList.add(sentencesList.size(), text);
-                                Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
-                            } else {
-                                Snackbar.make(findViewById(R.id.addFloatingButton), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
-                            }
+                .setPositiveButton(R.string.add, (dialog1, which) -> {
+                    String text = Objects.requireNonNull(editText.getText()).toString();
+                    if(!text.isEmpty()) {
+                        if(!sentencesList.contains(text)) {
+                            sentencesList.add(sentencesList.size(), text);
+                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            Snackbar.make(findViewById(R.id.addFloatingButton), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -265,18 +253,15 @@ public class MainActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.new_sentence_list)
                 .setView(view)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
-                            sentenceCollection.put(editText.getText().toString(), new ArrayList<String>());
-                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
-                        } else {
-                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
-                        }
-                        if(!sentenceCollection.isEmpty()) {
-                            findViewById(R.id.emptyListView).setVisibility(View.INVISIBLE);
-                        }
+                .setPositiveButton(R.string.add, (dialogInterface, i) -> {
+                    if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
+                        sentenceCollection.put(editText.getText().toString(), new ArrayList<>());
+                        Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                    }
+                    if(!sentenceCollection.isEmpty()) {
+                        findViewById(R.id.emptyListView).setVisibility(View.INVISIBLE);
                     }
                 });
         dialogBuilder.show();
@@ -292,55 +277,46 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle(R.string.about)
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
-                        .setNeutralButton(R.string.coolapk, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String coolApkUrl = "https://www.coolapk.com/apk/kenmizz.onesentence";
-                                Intent urlIntent = new Intent(Intent.ACTION_VIEW);
-                                urlIntent.setData(Uri.parse(coolApkUrl));
-                                startActivity(urlIntent);
-                            }
+                        .setNeutralButton(R.string.coolapk, (dialogInterface, i) -> {
+                            String coolApkUrl = "https://www.coolapk.com/apk/kenmizz.onesentence";
+                            Intent urlIntent = new Intent(Intent.ACTION_VIEW);
+                            urlIntent.setData(Uri.parse(coolApkUrl));
+                            startActivity(urlIntent);
                         })
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
-                textView.setText("v" + BuildConfig.VERSION_NAME);
+                textView.setText("v1.5");
                 break;
 
 
             case R.layout.themes:
                 dialog.setTitle(R.string.theme)
                         .setView(view)
-                        .setPositiveButton(R.string.confirmButton, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if(newThemeOptions != themeOptions) {
-                                    themeOptions = newThemeOptions;
-                                    syncAllSharedPrefs();
-                                    recreate();
-                                }
+                        .setPositiveButton(R.string.confirmButton, (dialogInterface, i) -> {
+                            if(newThemeOptions != themeOptions) {
+                                themeOptions = newThemeOptions;
+                                syncAllSharedPrefs();
+                                recreate();
                             }
                         })
                         .show();
                 final RadioGroup group = view.findViewById(R.id.ThemeRadioGroup);
-                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                        switch (radioGroup.getCheckedRadioButtonId()) {
-                            case R.id.follow_system:
-                                newThemeOptions = ThemeMode.DEFAULT.ordinal();
-                                break;
+                group.setOnCheckedChangeListener((radioGroup, i) -> {
+                    switch (radioGroup.getCheckedRadioButtonId()) {
+                        case R.id.follow_system:
+                            newThemeOptions = ThemeMode.DEFAULT.ordinal();
+                            break;
 
-                            case R.id.light_mode:
-                                newThemeOptions = ThemeMode.LIGHT.ordinal();
-                                break;
+                        case R.id.light_mode:
+                            newThemeOptions = ThemeMode.LIGHT.ordinal();
+                            break;
 
-                            case R.id.grey_mode:
-                                newThemeOptions = ThemeMode.GREY.ordinal();
-                                break;
+                        case R.id.grey_mode:
+                            newThemeOptions = ThemeMode.GREY.ordinal();
+                            break;
 
-                            case R.id.dark_mode:
-                                newThemeOptions = ThemeMode.DARK.ordinal();
-                        }
+                        case R.id.dark_mode:
+                            newThemeOptions = ThemeMode.DARK.ordinal();
                     }
                 });
                 switch(themeOptions) {
