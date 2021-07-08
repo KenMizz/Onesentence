@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
-                textView.setText("v1.5");
+                textView.setText(BuildConfig.VERSION_NAME);
                 break;
 
 
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
                             if(newThemeOptions != themeOptions) {
                                 themeOptions = newThemeOptions;
                                 syncAllSharedPrefs();
-                                recreate();
+                                recreate(); //FIXME: this cause could not find Fragment constructor :(
                             }
                         })
                         .show();
