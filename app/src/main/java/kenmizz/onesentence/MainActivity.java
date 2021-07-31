@@ -254,11 +254,13 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(R.string.new_sentence_list)
                 .setView(view)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
-                        sentenceCollection.put(editText.getText().toString(), new ArrayList<>());
-                        Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                    if(!Objects.requireNonNull(editText.getText()).toString().isEmpty()) {
+                        if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
+                            sentenceCollection.put(editText.getText().toString(), new ArrayList<>());
+                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                        } else {
+                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                     if(!sentenceCollection.isEmpty()) {
                         findViewById(R.id.emptyListView).setVisibility(View.INVISIBLE);
