@@ -28,7 +28,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="set_setence_notification">You sure you want to set sentence as notification?</string>
-    <string name="coolapk">CoolApk</string>
+    <string name="coolapk_hyperlink"><a href="http://www.coolapk.com/u/618459">CoolApk</a></string>
     <string name="sentenceExists">already exists.</string>
     <string name="sentence_list">Sentence List</string>
     <string name="opensource_license">License</string>
@@ -39,4 +39,5 @@
     <string name="SentenceListEmpty">Let\'s add a new sentence list</string>
     <string name="edit">Edit</string>
     <string name="dialog_sentence_list_empty">You will need to add sentence first before you put it in the list</string>
+    <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
 </resources>

@@ -29,7 +29,7 @@
     <string name="yes">是的</string>
     <string name="no">算了</string>
     <string name="set_setence_notification">你确定你想要设置 sentence 为常驻通知吗？</string>
-    <string name="coolapk">酷安</string>
+    <string name="coolapk_hyperlink"><a href="http://www.coolapk.com/u/618459">酷安</a></string>
     <string name="sentenceExists">已经存在。</string>
     <string name="sentence_list">句子列表</string>
     <string name="opensource_license">开源许可</string>
@@ -40,4 +40,5 @@
     <string name="SentenceListEmpty">试着加一条新句子列表吧</string>
     <string name="edit">编辑</string>
     <string name="dialog_sentence_list_empty">你需要先添加一条句子才能把它放到句子列表里来哦</string>
+    <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
 </resources>

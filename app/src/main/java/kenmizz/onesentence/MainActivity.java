@@ -3,14 +3,14 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -274,15 +274,15 @@ public class MainActivity extends AppCompatActivity {
         switch(layoutId) {
 
             case R.layout.about:
+                TextView coolApkLinkView = view.findViewById(R.id.coolApkLinkView);
+                TextView githubLinkView = view.findViewById(R.id.githubLinkView);
+                coolApkLinkView.setMovementMethod(LinkMovementMethod.getInstance());
+                githubLinkView.setMovementMethod(LinkMovementMethod.getInstance());
+                coolApkLinkView.setLinkTextColor(Color.BLUE);
+                githubLinkView.setLinkTextColor(Color.BLUE);
                 dialog.setTitle(R.string.about)
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
-                        .setNeutralButton(R.string.coolapk, (dialogInterface, i) -> {
-                            String coolApkUrl = "https://www.coolapk.com/apk/kenmizz.onesentence";
-                            Intent urlIntent = new Intent(Intent.ACTION_VIEW);
-                            urlIntent.setData(Uri.parse(coolApkUrl));
-                            startActivity(urlIntent);
-                        })
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
                 textView.setText(BuildConfig.VERSION_NAME);

@@ -38,5 +38,26 @@
         app:layout_constraintStart_toStartOf="@+id/appIconView"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
 
+    <TextView
+        android:id="@+id/coolApkLinkView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/coolapk_hyperlink"
+        app:layout_constraintEnd_toEndOf="@+id/versionView"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/versionView"
+        app:layout_constraintTop_toBottomOf="@+id/versionView" />
+
+    <TextView
+        android:id="@+id/githubLinkView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/github_hyperlink"
+        app:layout_constraintEnd_toEndOf="@+id/coolApkLinkView"
+        app:layout_constraintStart_toStartOf="@+id/coolApkLinkView"
+        app:layout_constraintTop_toBottomOf="@+id/coolApkLinkView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
