@@ -9,72 +9,77 @@
     tools:ignore="HardcodedText">
 
     <TextView
-            android:id="@+id/SentenceAttributeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="句"
-            android:singleLine="true"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40sp"/>
+        android:id="@+id/SentenceAttributeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="句"
+        android:singleLine="true"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40sp"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/SentenceAttributeEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/SentenceAttributeTextView"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10sp"
-        android:hint="@string/sentence"/>
+        android:hint="@string/sentence"
+        android:minHeight="48dp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/SentenceAttributeEditTextToolTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sentence"
         android:layout_toStartOf="@id/SentenceAttributeEditText"
         android:layout_below="@id/SentenceAttributeTextView"
-        android:layout_marginTop="30dp"
-        tools:ignore="RelativeOverlap" />
+        android:layout_marginTop="30dp" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/SentenceAttributeSlider"
         android:layout_width="189sp"
         android:layout_height="49sp"
         android:layout_below="@id/SentenceAttributeEditText"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/sentence_size"
+        android:stepSize="1.0"
         android:value="10.0"
         android:valueFrom="10.0"
         android:valueTo="100.0"
-        android:layout_centerHorizontal="true"
         app:labelBehavior="floating"
         app:thumbColor="@color/white"
-        app:trackColor="@color/white"/>
+        app:trackColor="@color/dark"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sentence_size"
         android:layout_toStartOf="@id/SentenceAttributeSlider"
-        android:layout_marginTop="73sp"
-        android:layout_below="@id/SentenceAttributeTextView"
-        tools:ignore="RelativeOverlap" />
+        android:layout_marginTop="15sp"
+        android:layout_below="@id/SentenceAttributeEditText" />
 
     <Button
         android:id="@+id/SentenceAttributeColorPicker"
-        android:layout_width="47sp"
+        android:layout_width="48dp"
         android:layout_height="57sp"
+        android:layout_below="@id/SentenceAttributeSlider"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white"
-        android:layout_below="@id/SentenceAttributeSlider"/>
+        android:contentDescription="@string/sentence_color"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/SentenceAttributeColorPicker"
         android:text="@string/sentence_color"
-        android:layout_below="@id/SentenceAttributeTextView"
+        android:layout_below="@id/SentenceAttributeSlider"
         android:layout_marginEnd="16sp"
-        android:layout_marginTop="135sp"/>
+        android:layout_marginTop="35sp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/SentenceAttributeConfirmButton"
