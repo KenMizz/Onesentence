@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/activity_sentence_attribute_dialog.xml" value="0.6" />
+        <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/activity_main.xml" value="0.14739583333333334" />
+        <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/activity_sentence_attribute_dialog.xml" value="0.8" />
         <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/activity_sentence_widget_configuration.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/sentence_item.xml" value="0.14739583333333334" />
         <entry key="..\:/Users/mizzk/Desktop/Coding/Onesentence/app/src/main/res/layout/sentence_widget.xml" value="0.1390625" />
       </map>
     </option>

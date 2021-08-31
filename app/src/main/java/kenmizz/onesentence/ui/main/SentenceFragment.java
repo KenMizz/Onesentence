@@ -38,6 +38,8 @@ public class SentenceFragment extends Fragment {
 
     private ArrayList<String> mSentenceList;
 
+    public SentenceFragment() {}
+
     public static SentenceFragment newInstance(ArrayList<String> sentenceList) {
         SentenceFragment fragment = new SentenceFragment();
         Bundle args = new Bundle();

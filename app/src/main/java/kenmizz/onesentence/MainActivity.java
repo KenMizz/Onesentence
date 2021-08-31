@@ -1,6 +1,7 @@
 package kenmizz.onesentence;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
@@ -296,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
                             if(newThemeOptions != themeOptions) {
                                 themeOptions = newThemeOptions;
                                 syncAllSharedPrefs();
-                                recreate(); //FIXME: this cause could not find Fragment constructor :(
+                                recreate();
                             }
                         })
                         .show();

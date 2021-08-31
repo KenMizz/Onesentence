@@ -51,7 +51,7 @@
         android:valueTo="100.0"
         app:labelBehavior="floating"
         app:thumbColor="@color/white"
-        app:trackColor="@color/dark"
+        app:trackColor="@color/grey"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView

@@ -26,6 +26,8 @@ public class SentenceListFragment extends Fragment {
     private HashMap<String, ArrayList<String>> mSentenceCollection = new HashMap<>();
     private ArrayList<String> mSentencesList = new ArrayList<>();
 
+    public SentenceListFragment() {}
+
     public static SentenceListFragment newInstance(HashMap<String, ArrayList<String>> sentenceCollection, ArrayList<String> sentencesList) {
         return new SentenceListFragment(sentenceCollection, sentencesList);
     }
