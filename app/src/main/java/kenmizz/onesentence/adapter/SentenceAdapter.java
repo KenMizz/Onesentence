@@ -118,7 +118,9 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         }
     }
 
-
+    public String getSentence(int position) {
+        return mSentenceList.get(position);
+    }
 
     public void setUpWidget(int position) {
         Log.d(TAG, "Click " + mSentenceList.get(position));
