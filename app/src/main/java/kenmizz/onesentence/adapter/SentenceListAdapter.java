@@ -39,7 +39,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         public SentenceListViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.sentenceListNameTextView);
-            mLinearLayout= itemView.findViewById(R.id.sentenceListLinearLayout);
+            mLinearLayout= itemView.findViewById(R.id.sentenceListScrollView).findViewById(R.id.sentenceListLinearLayout);
         }
     }
 
@@ -114,6 +114,14 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
                         .show();
             }
         });
+    }
+
+    public void removeSentenceList(String key, int position) {
+       notifyItemRemoved(position);
+       mSentenceCollection.remove(key);
+       if(mSentenceCollection.size() <= 0) {
+           mSentenceListFragment.getView().findViewById(R.id.emptyListView).setVisibility(View.VISIBLE);
+       }
     }
 
     @Override

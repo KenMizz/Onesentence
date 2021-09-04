@@ -41,4 +41,5 @@
     <string name="edit">编辑</string>
     <string name="dialog_sentence_list_empty">你需要先添加一条句子才能把它放到句子列表里来哦</string>
     <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
+    <string name="remove_sentence_list">句子列表 _key_ 移除成功</string>
 </resources>

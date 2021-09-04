@@ -59,7 +59,7 @@ public class SentenceListFragment extends Fragment {
         RecyclerView mRecylerView = getView().findViewById(R.id.SentenceListRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         SentenceListAdapter mAdapter = new SentenceListAdapter(this);
-        SentenceListSwipeController swipeController = new SentenceListSwipeController(this, mAdapter);
+        SentenceListSwipeController swipeController = new SentenceListSwipeController(getView().getRootView(), mAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
         itemTouchHelper.attachToRecyclerView(mRecylerView);
         mRecylerView.setHasFixedSize(true);
