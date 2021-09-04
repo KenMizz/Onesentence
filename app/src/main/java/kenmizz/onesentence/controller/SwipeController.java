@@ -37,6 +37,7 @@ public class SwipeController extends Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
-        Snackbar.make(activityView, activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activityView.findViewById(R.id.addFloatingButton), activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
+        sentenceAdapter.removeSentence(position);
     }
 }
