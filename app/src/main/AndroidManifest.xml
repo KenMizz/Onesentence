@@ -17,7 +17,8 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,13 +37,15 @@
         <activity
             android:name=".widget.SentenceWidgetConfiguration"
             android:label="@string/widget_configure"
-            android:theme="@style/AppConfigurationTheme">
+            android:theme="@style/AppConfigurationTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SentenceAppWidgetProvider">
+        <receiver android:name=".SentenceAppWidgetProvider"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -51,7 +54,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
         </receiver>
-        <receiver android:name=".ApplicationBootReceiver">
+        <receiver android:name=".ApplicationBootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
