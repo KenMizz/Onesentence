@@ -39,7 +39,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         public SentenceListViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.sentenceListNameTextView);
-            mLinearLayout= itemView.findViewById(R.id.sentenceListScrollView).findViewById(R.id.sentenceListLinearLayout);
+            mLinearLayout = itemView.findViewById(R.id.sentenceListLinearLayout);
         }
     }
 
