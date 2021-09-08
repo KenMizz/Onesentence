@@ -1,7 +1,6 @@
 package kenmizz.onesentence;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
@@ -28,10 +27,19 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -60,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUpConfigurations(CONFIG_PREFS);
+        try {
+            setUpConfigurations(CONFIG_PREFS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if(notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
@@ -94,7 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 setTheme(R.style.AppThemeDark);
         }
         setContentView(R.layout.activity_main);
-        setUpConfigurations(SENTENCES_PREFS);
+        try {
+            setUpConfigurations(SENTENCES_PREFS);
+            setUpConfigurations(SENTENCE_LIST_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -152,21 +169,23 @@ public class MainActivity extends AppCompatActivity {
             sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
-        File sentenceListFile = new File(getApplicationContext().getFilesDir(), SENTENCE_LIST_FILE);
-        //TODO: sentenceCollection save/load
+        JSONObject SentenceListToJson = new JSONObject(sentenceCollection);
         try {
-            if(!sentenceListFile.isFile()) {
-                boolean fileCreate = sentenceListFile.createNewFile();
-                if(!fileCreate) {
-                    Log.e(TAG, "Can't create sentenceListFile!");
-                }
-            }
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(SENTENCE_LIST_FILE, MODE_PRIVATE));
+            outputStreamWriter.write(SentenceListToJson.toString());
+            outputStreamWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        File jsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+        if(jsonFile.exists()) {
+            Log.d(TAG, SENTENCE_LIST_FILE + " created");
+        }
+        Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
-    public void setUpConfigurations(String PreferencesName) {
+    public void setUpConfigurations(String PreferencesName) throws IOException {
         switch (PreferencesName) {
             case CONFIG_PREFS:
                 SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
@@ -185,6 +204,41 @@ public class MainActivity extends AppCompatActivity {
                     for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                         sentencesList.add(Sentence.getValue().toString());
                     }
+                }
+            break;
+
+            case SENTENCE_LIST_FILE:
+                File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+                if(!SentenceCollectionJsonFile.exists()) {
+                    boolean createStatus = SentenceCollectionJsonFile.createNewFile();
+                    if(!createStatus) {
+                        Log.e(TAG, "sentenceList.json create failed");
+                    }
+                }
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(SentenceCollectionJsonFile);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+                    StringBuilder contentBuilder = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        contentBuilder.append(line).append("\n");
+                    }
+                    fileInputStream.close();
+                    reader.close();
+                    JSONObject SentenceCollectionJsonObject = new JSONObject(contentBuilder.toString());
+                    Iterator<String> stringIterator = SentenceCollectionJsonObject.keys();
+                    while(stringIterator.hasNext()) {
+                        String key = stringIterator.next();
+                        Log.d(TAG, "key:" + key);
+                        JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
+                        ArrayList<String> value = new ArrayList<String>();
+                        for(int i = 0; i < valueArray.length(); i++) {
+                            value.add(valueArray.getString(i));
+                        }
+                        sentenceCollection.put(key, value);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             break;
         }
@@ -348,4 +402,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public HashMap<String, ArrayList<String>> getSentenceCollection() { return sentenceCollection; }
+
 }
