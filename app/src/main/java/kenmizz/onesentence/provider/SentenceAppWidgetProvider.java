@@ -1,4 +1,4 @@
-package kenmizz.onesentence;
+package kenmizz.onesentence.provider;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -10,6 +10,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
+import kenmizz.onesentence.MainActivity;
+import kenmizz.onesentence.R;
+import kenmizz.onesentence.SentenceAttributeDialog;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 public class SentenceAppWidgetProvider extends AppWidgetProvider {

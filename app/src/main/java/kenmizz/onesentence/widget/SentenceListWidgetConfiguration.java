@@ -1,17 +1,28 @@
 package kenmizz.onesentence.widget;
 
+import static kenmizz.onesentence.MainActivity.SENTENCE_LIST_FILE;
+
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
@@ -68,6 +79,7 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
         if(widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
         }
+        loadSentenceCollection();
         setUpRecyclerView();
     }
 
@@ -76,11 +88,35 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
     }
 
     public void loadSentenceCollection() {
-        //TODO: finish this
+        File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+        try {
+            FileInputStream fileInputStream = new FileInputStream(SentenceCollectionJsonFile);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+            StringBuilder contentBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
+            }
+            fileInputStream.close();
+            reader.close();
+            JSONObject SentenceCollectionJsonObject = new JSONObject(contentBuilder.toString());
+            Iterator<String> stringIterator = SentenceCollectionJsonObject.keys();
+            while(stringIterator.hasNext()) {
+                String key = stringIterator.next();
+                JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
+                ArrayList<String> value = new ArrayList<String>();
+                for(int i = 0; i < valueArray.length(); i++) {
+                    value.add(valueArray.getString(i));
+                }
+                sentenceCollection.put(key, value);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setUpRecyclerView() {
-        RecyclerView mRecylerView = findViewById(R.id.sentenceWidgetConfigurationRecyclerView);
+        RecyclerView mRecylerView = findViewById(R.id.sentenceListWidgetConfigurationRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         SentenceListAdapter mAdapter = new SentenceListAdapter(sentenceCollection);
         mRecylerView.setHasFixedSize(true);

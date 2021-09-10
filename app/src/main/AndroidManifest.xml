@@ -44,8 +44,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SentenceAppWidgetProvider"
-            android:exported="true">
+        <receiver android:name=".provider.SentenceAppWidgetProvider"
+            android:exported="true" android:label="@string/sentence">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -53,6 +53,18 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
+        </receiver>
+        
+        <receiver android:name=".provider.SentenceListAppWidgetProvider"
+            android:exported="true" android:label="@string/sentence_list">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/sentence_list_appwidget_info"/>
         </receiver>
         <receiver android:name=".ApplicationBootReceiver"
             android:exported="true">
