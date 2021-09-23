@@ -77,14 +77,14 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SentenceAdapter.SentenceViewHolder holder, final int position) {
-        final String currentSentence = mSentenceList.get(position);
+    public void onBindViewHolder(@NonNull SentenceAdapter.SentenceViewHolder holder, int position) {
+        final String currentSentence = mSentenceList.get(holder.getAdapterPosition());
         holder.mTextView.setText(currentSentence);
         if(mIsItemClickable) {
             holder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setUpWidget(position);
+                    setUpWidget(holder.getAdapterPosition());
                 }
             });
         } else {
