@@ -41,4 +41,5 @@
     <string name="dialog_sentence_list_empty">You will need to add sentence first before you put it in the list</string>
     <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
     <string name="remove_sentence_list">Sentence list _key_ removed</string>
+    <string name="use">use</string>
 </resources>

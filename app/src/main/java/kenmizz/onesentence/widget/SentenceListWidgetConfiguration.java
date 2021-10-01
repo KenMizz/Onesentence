@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +36,8 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
 
     private int themeOptions = MainActivity.ThemeMode.DEFAULT.ordinal();
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+    public static String SENLIST_PREFS = "sentenceCollectionPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +117,16 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(!sentenceCollection.isEmpty()) {
+            TextView emptyView = findViewById(R.id.ListConfigureEmptyView);
+            emptyView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setUpRecyclerView() {
         RecyclerView mRecylerView = findViewById(R.id.sentenceListWidgetConfigurationRecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        SentenceListAdapter mAdapter = new SentenceListAdapter(sentenceCollection);
+        SentenceListAdapter mAdapter = new SentenceListAdapter(sentenceCollection, true, this);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);

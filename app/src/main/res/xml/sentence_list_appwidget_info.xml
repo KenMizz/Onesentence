@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/sentence_list_widget"
+    android:initialLayout="@layout/sentence_widget"
     android:previewImage="@drawable/preview_image"
     android:minHeight="20dp"
     android:minWidth="90dp"
