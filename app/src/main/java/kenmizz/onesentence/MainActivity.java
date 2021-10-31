@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -231,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                         String key = stringIterator.next();
                         Log.d(TAG, "key:" + key);
                         JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
-                        ArrayList<String> value = new ArrayList<String>();
+                        ArrayList<String> value = new ArrayList<>();
                         for(int i = 0; i < valueArray.length(); i++) {
                             value.add(valueArray.getString(i));
                         }

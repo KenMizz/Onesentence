@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +39,7 @@ import kenmizz.onesentence.widget.SentenceListWidgetConfiguration;
 public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapter.SentenceListViewHolder> {
     private static final String TAG = "SentenceListAdapter";
 
-    private HashMap<String, ArrayList<String>> mSentenceCollection = new HashMap<>();
+    private HashMap<String, ArrayList<String>> mSentenceCollection;
     private ArrayList<String> mSentencesList = new ArrayList<>();
 
     private SentenceListFragment mSentenceListFragment;
