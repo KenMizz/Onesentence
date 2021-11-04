@@ -84,7 +84,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final SentenceListViewHolder holder, int position) {
-        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[position];
+        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[holder.getAdapterPosition()];
         holder.mTextView.setText(sentenceListName);
         Button sentenceListItemEditButton = holder.itemView.findViewById(R.id.sentenceListItemEditButton);
         if(!itemOnConfiguration) {
@@ -146,7 +146,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
             sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setUpWidget(position);
+                    setUpWidget(holder.getAdapterPosition());
                 }
             });
         }
@@ -168,7 +168,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
     public void setUpWidget(int position) {
         Log.d(TAG, "Setting up widget for " + position);
         Random random = new Random();
-        ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position);
+        ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position); //FIXME: position isn't right
         Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet
         SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);
         SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
