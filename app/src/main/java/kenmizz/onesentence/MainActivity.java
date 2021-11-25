@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, null)
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
-                textView.setText(BuildConfig.VERSION_NAME);
+                textView.setText("v" + BuildConfig.VERSION_NAME);
                 break;
 
 

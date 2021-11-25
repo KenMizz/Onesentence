@@ -43,11 +43,11 @@ public class ApplicationBootReceiver extends BroadcastReceiver {
                             .putExtra("id", NotificationId);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, NotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                            .setSmallIcon(R.mipmap.ic_launcher_round)
+                            .setSmallIcon(R.drawable.app_notification_icon_small)
                             .setContentTitle(sentence)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setOngoing(true)
-                            .addAction(R.mipmap.ic_launcher_round, context.getString(R.string.remove), pendingIntent);
+                            .addAction(R.drawable.app_icon_round, context.getString(R.string.remove), pendingIntent);
                     notificationManager.notify(NotificationId, notificationBuilder.build());
                 }
             }
