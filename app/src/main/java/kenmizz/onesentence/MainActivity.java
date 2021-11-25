@@ -228,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
                     Iterator<String> stringIterator = SentenceCollectionJsonObject.keys();
                     while(stringIterator.hasNext()) {
                         String key = stringIterator.next();
-                        Log.d(TAG, "key:" + key);
                         JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
                         ArrayList<String> value = new ArrayList<>();
                         for(int i = 0; i < valueArray.length(); i++) {
@@ -339,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, null)
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
-                textView.setText("v" + BuildConfig.VERSION_NAME);
+                textView.setText(BuildConfig.VERSION_NAME); //comment this when first compile
                 break;
 
 
