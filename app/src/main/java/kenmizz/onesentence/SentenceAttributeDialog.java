@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -44,7 +43,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sentence_attribute_dialog);
+        setContentView(R.layout.sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();
@@ -62,7 +61,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
     @SuppressLint("SetTextI18n")
     public void setUpDialog() {
-        Log.d(TAG, "Setting up dialog for widgetId: " + widgetId + "\nSentence: " + sentence + "\ntextSize: " + textSize + "\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
+        Log.d(TAG, "Setting up dialog for widgetId: " + widgetId + "\nSentence: " + sentence + "\ntextSize: " + textSize + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
         TextView textView = findViewById(R.id.SentenceAttributeEditTextToolTip);
         textView.setText(getResources().getString(R.string.sentence) + ":"); //So it will be like SentenceString:
         SentenceAttributeSentenceEditText.setText(sentence);

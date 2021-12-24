@@ -139,7 +139,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         sentencesAttributesEditor.apply();
         Intent attributeDialog = new Intent(mActivityContext, SentenceAttributeDialog.class);
         attributeDialog.putExtra("widgetId", mWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
         appWidgetManager.updateAppWidget(mWidgetId, views);
         Intent resultValue = new Intent();

@@ -52,6 +52,7 @@
         app:labelBehavior="floating"
         app:thumbColor="@color/white"
         app:trackColor="@color/grey"
+        app:tickColor="@color/white"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
