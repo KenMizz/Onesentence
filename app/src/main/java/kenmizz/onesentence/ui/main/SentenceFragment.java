@@ -111,6 +111,7 @@ public class SentenceFragment extends Fragment {
                 .setSmallIcon(R.drawable.app_notification_icon_small)
                 .setContentTitle(sentence)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setShowWhen(false)
                 .setOngoing(true)
                 .addAction(R.drawable.app_icon_round, getContext().getString(R.string.remove), pendingIntent);
         notificationManager.notify(NotificationId, notificationBuilder.build());

@@ -172,16 +172,16 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet
         SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);
         SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor sentenceListPrefEditer = sentenceListPref.edit();
-        SharedPreferences.Editor sentenceAttributePrefEditer = sentenceAttributePref.edit();
+        SharedPreferences.Editor sentenceListPrefEditor = sentenceListPref.edit();
+        SharedPreferences.Editor sentenceAttributePrefEditor = sentenceAttributePref.edit();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);
         RemoteViews remoteViews = new RemoteViews(mActivityContext.getPackageName(), R.layout.sentence_widget);
         remoteViews.setTextViewText(R.id.SentenceTextView, sentenceCollectionList.get(random.nextInt(sentenceCollectionList.size() + 1)));
-        sentenceListPrefEditer.putStringSet(String.valueOf(mWidgetId), sentenceCollectionSet);
-        sentenceAttributePrefEditer.putFloat(mWidgetId + "textSize", 25);
-        sentenceAttributePrefEditer.putInt(mWidgetId + "textColor", mActivityContext.getColor(R.color.white));
-        sentenceListPrefEditer.apply();
-        sentenceAttributePrefEditer.apply();
+        sentenceListPrefEditor.putStringSet(String.valueOf(mWidgetId), sentenceCollectionSet);
+        sentenceAttributePrefEditor.putFloat(mWidgetId + "textSize", 25);
+        sentenceAttributePrefEditor.putInt(mWidgetId + "textColor", mActivityContext.getColor(R.color.white));
+        sentenceListPrefEditor.apply();
+        sentenceAttributePrefEditor.apply();
         appWidgetManager.updateAppWidget(mWidgetId, remoteViews);
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);

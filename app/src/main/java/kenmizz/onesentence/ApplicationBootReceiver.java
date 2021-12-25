@@ -41,7 +41,7 @@ public class ApplicationBootReceiver extends BroadcastReceiver {
                     Intent NotificationIntent = new Intent(context, NotificationActivity.class)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             .putExtra("id", NotificationId);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, NotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, NotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT|PendingIntent.FLAG_IMMUTABLE);
                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.app_notification_icon_small)
                             .setContentTitle(sentence)
