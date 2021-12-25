@@ -1,0 +1,179 @@
+Index: app/src/main/java/kenmizz/onesentence/adapter/SentenceListAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package kenmizz.onesentence.adapter;\r\n\r\nimport android.annotation.SuppressLint;\r\nimport android.app.Activity;\r\nimport android.appwidget.AppWidgetManager;\r\nimport android.content.Context;\r\nimport android.content.DialogInterface;\r\nimport android.content.Intent;\r\nimport android.content.SharedPreferences;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.RemoteViews;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.google.android.material.dialog.MaterialAlertDialogBuilder;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.HashSet;\r\nimport java.util.Random;\r\nimport java.util.Set;\r\n\r\nimport kenmizz.onesentence.MainActivity;\r\nimport kenmizz.onesentence.R;\r\nimport kenmizz.onesentence.ui.main.SentenceListFragment;\r\nimport kenmizz.onesentence.widget.SentenceListWidgetConfiguration;\r\n\r\n/**\r\n * This adapter is for sentence list\r\n */\r\npublic class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapter.SentenceListViewHolder> {\r\n    private static final String TAG = \"SentenceListAdapter\";\r\n\r\n    private HashMap<String, ArrayList<String>> mSentenceCollection;\r\n    private ArrayList<String> mSentencesList = new ArrayList<>();\r\n\r\n    private SentenceListFragment mSentenceListFragment;\r\n\r\n    private boolean itemOnConfiguration = false;\r\n    private Context mActivityContext;\r\n\r\n    private int mWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;\r\n    private SentenceListWidgetConfiguration mSentenceListWidgetConfiguration;\r\n\r\n    static class SentenceListViewHolder extends RecyclerView.ViewHolder {\r\n        TextView mTextView;\r\n        LinearLayout mLinearLayout;\r\n\r\n        public SentenceListViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            mTextView = itemView.findViewById(R.id.sentenceListNameTextView);\r\n            mLinearLayout = itemView.findViewById(R.id.sentenceListLinearLayout);\r\n        }\r\n    }\r\n\r\n    public SentenceListAdapter(SentenceListFragment sentenceListFragment) {\r\n        mSentenceListFragment = sentenceListFragment;\r\n        mSentenceCollection = mSentenceListFragment.getSentenceCollection();\r\n        mSentencesList = mSentenceListFragment.getSentencesList();\r\n    }\r\n\r\n    public SentenceListAdapter(HashMap<String, ArrayList<String>> configurationSentenceCollection, boolean configuration, SentenceListWidgetConfiguration sentenceListWidgetConfiguration) {\r\n        mSentenceCollection = configurationSentenceCollection;\r\n        itemOnConfiguration = configuration;\r\n        mSentenceListWidgetConfiguration = sentenceListWidgetConfiguration;\r\n        mActivityContext = sentenceListWidgetConfiguration.getApplicationContext();\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public SentenceListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View expansionPanelView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sentence_list_item, parent, false);\r\n        return new SentenceListViewHolder(expansionPanelView);\r\n    }\r\n\r\n    @SuppressLint(\"SetTextI18n\")\r\n    @Override\r\n    public void onBindViewHolder(@NonNull final SentenceListViewHolder holder, int position) {\r\n        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[position];\r\n        holder.mTextView.setText(sentenceListName);\r\n        Button sentenceListItemEditButton = holder.itemView.findViewById(R.id.sentenceListItemEditButton);\r\n        if(!itemOnConfiguration) {\r\n            for(String sentenceListString : mSentenceCollection.get(sentenceListName)) {\r\n                TextView stringView = new TextView(mSentenceListFragment.getContext());\r\n                stringView.setText(sentenceListString);\r\n                holder.mLinearLayout.addView(stringView);\r\n            }\r\n            sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    View sentenceListEditDialogView = mSentenceListFragment.getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);\r\n                    if(!mSentencesList.isEmpty()) {\r\n                        sentenceListEditDialogView.findViewById(R.id.dialogEmptyView).setVisibility(View.INVISIBLE);\r\n                    }\r\n                    RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);\r\n                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mSentenceListFragment.getContext(), LinearLayoutManager.VERTICAL, false);\r\n                    final DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(sentenceListName, mSentenceListFragment, sentenceListEditDialogView);\r\n                    sentenceListEditDialogRecyclerView.setHasFixedSize(true);\r\n                    sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);\r\n                    sentenceListEditDialogRecyclerView.setAdapter(mAdapter);\r\n                    ArrayList<String> mSentenceCollectionList = mSentenceCollection.get(sentenceListName);\r\n                    new MaterialAlertDialogBuilder(mSentenceListFragment.getContext())\r\n                            .setTitle(R.string.edit)\r\n                            .setView(sentenceListEditDialogView)\r\n                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {\r\n                                @Override\r\n                                public void onClick(DialogInterface dialogInterface, int i) {\r\n                                    ArrayList<String> notExistsList = new ArrayList<>();\r\n                                    holder.mLinearLayout.removeAllViews();\r\n                                    if(!mSentenceCollectionList.isEmpty()) {\r\n                                        for (String sentenceListString : mSentenceCollectionList) {\r\n                                            if (mSentencesList.contains(sentenceListString)) {\r\n                                                TextView stringView = new TextView(mSentenceListFragment.getContext());\r\n                                                stringView.setText(sentenceListString);\r\n                                                holder.mLinearLayout.addView(stringView);\r\n                                            } else {\r\n                                                notExistsList.add(sentenceListString);\r\n                                            }\r\n                                        }\r\n                                    }\r\n                                    if(!notExistsList.isEmpty()) {\r\n                                        for(String notExistsString : notExistsList) {\r\n                                            mSentenceCollectionList.remove(notExistsString);\r\n                                        }\r\n                                    }\r\n                                }\r\n                            })\r\n                            .show();\r\n                }\r\n            });\r\n        } else {\r\n            for(String sentenceListString : mSentenceCollection.get(sentenceListName)) {\r\n                TextView stringView = new TextView(mActivityContext);\r\n                stringView.setText(sentenceListString);\r\n                holder.mLinearLayout.addView(stringView);\r\n            }\r\n            sentenceListItemEditButton.setText(R.string.use);\r\n            sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View view) {\r\n                    setUpWidget(position);\r\n                }\r\n            });\r\n        }\r\n    }\r\n\r\n    public void removeSentenceList(String key, int position) {\r\n       notifyItemRemoved(position);\r\n       mSentenceCollection.remove(key);\r\n       if(mSentenceCollection.size() <= 0) {\r\n           mSentenceListFragment.getView().findViewById(R.id.emptyListView).setVisibility(View.VISIBLE);\r\n       }\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return mSentenceCollection.size();\r\n    }\r\n\r\n    public void setUpWidget(int position) {\r\n        Log.d(TAG, \"Setting up widget for \" + position);\r\n        Random random = new Random();\r\n        ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position);\r\n        Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet\r\n        SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);\r\n        SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);\r\n        SharedPreferences.Editor sentenceListPrefEditor = sentenceListPref.edit();\r\n        SharedPreferences.Editor sentenceAttributePrefEditor = sentenceAttributePref.edit();\r\n        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);\r\n        RemoteViews remoteViews = new RemoteViews(mActivityContext.getPackageName(), R.layout.sentence_widget);\r\n        remoteViews.setTextViewText(R.id.SentenceTextView, sentenceCollectionList.get(random.nextInt(sentenceCollectionList.size() + 1)));\r\n        sentenceListPrefEditor.putStringSet(String.valueOf(mWidgetId), sentenceCollectionSet);\r\n        sentenceAttributePrefEditor.putFloat(mWidgetId + \"textSize\", 25);\r\n        sentenceAttributePrefEditor.putInt(mWidgetId + \"textColor\", mActivityContext.getColor(R.color.white));\r\n        sentenceListPrefEditor.apply();\r\n        sentenceAttributePrefEditor.apply();\r\n        appWidgetManager.updateAppWidget(mWidgetId, remoteViews);\r\n        Intent resultValue = new Intent();\r\n        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);\r\n        mSentenceListWidgetConfiguration.setResult(Activity.RESULT_OK, resultValue);\r\n        mSentenceListWidgetConfiguration.finish();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/kenmizz/onesentence/adapter/SentenceListAdapter.java b/app/src/main/java/kenmizz/onesentence/adapter/SentenceListAdapter.java
+--- a/app/src/main/java/kenmizz/onesentence/adapter/SentenceListAdapter.java	
++++ b/app/src/main/java/kenmizz/onesentence/adapter/SentenceListAdapter.java	
+@@ -34,158 +34,31 @@
+ import kenmizz.onesentence.widget.SentenceListWidgetConfiguration;
+ 
+ /**
+- * This adapter is for sentence list
++ * SentenceListAdapter
++ * @author KenMizz
++ * my code is shit:)
+  */
+ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapter.SentenceListViewHolder> {
+     private static final String TAG = "SentenceListAdapter";
+ 
+-    private HashMap<String, ArrayList<String>> mSentenceCollection;
+-    private ArrayList<String> mSentencesList = new ArrayList<>();
+-
+-    private SentenceListFragment mSentenceListFragment;
+-
+-    private boolean itemOnConfiguration = false;
+-    private Context mActivityContext;
+-
+-    private int mWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+-    private SentenceListWidgetConfiguration mSentenceListWidgetConfiguration;
+-
+-    static class SentenceListViewHolder extends RecyclerView.ViewHolder {
+-        TextView mTextView;
+-        LinearLayout mLinearLayout;
+-
+-        public SentenceListViewHolder(@NonNull View itemView) {
+-            super(itemView);
+-            mTextView = itemView.findViewById(R.id.sentenceListNameTextView);
+-            mLinearLayout = itemView.findViewById(R.id.sentenceListLinearLayout);
+-        }
+-    }
+-
+-    public SentenceListAdapter(SentenceListFragment sentenceListFragment) {
+-        mSentenceListFragment = sentenceListFragment;
+-        mSentenceCollection = mSentenceListFragment.getSentenceCollection();
+-        mSentencesList = mSentenceListFragment.getSentencesList();
+-    }
+-
+-    public SentenceListAdapter(HashMap<String, ArrayList<String>> configurationSentenceCollection, boolean configuration, SentenceListWidgetConfiguration sentenceListWidgetConfiguration) {
+-        mSentenceCollection = configurationSentenceCollection;
+-        itemOnConfiguration = configuration;
+-        mSentenceListWidgetConfiguration = sentenceListWidgetConfiguration;
+-        mActivityContext = sentenceListWidgetConfiguration.getApplicationContext();
+-    }
+ 
+     @NonNull
+     @Override
+-    public SentenceListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+-        View expansionPanelView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sentence_list_item, parent, false);
+-        return new SentenceListViewHolder(expansionPanelView);
++    public SentenceListAdapter.SentenceListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        return null;
+     }
+ 
+-    @SuppressLint("SetTextI18n")
+     @Override
+-    public void onBindViewHolder(@NonNull final SentenceListViewHolder holder, int position) {
+-        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[position];
+-        holder.mTextView.setText(sentenceListName);
+-        Button sentenceListItemEditButton = holder.itemView.findViewById(R.id.sentenceListItemEditButton);
+-        if(!itemOnConfiguration) {
+-            for(String sentenceListString : mSentenceCollection.get(sentenceListName)) {
+-                TextView stringView = new TextView(mSentenceListFragment.getContext());
+-                stringView.setText(sentenceListString);
+-                holder.mLinearLayout.addView(stringView);
+-            }
+-            sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {
+-                @Override
+-                public void onClick(View v) {
+-                    View sentenceListEditDialogView = mSentenceListFragment.getLayoutInflater().inflate(R.layout.sentence_list_edit_dialog, null);
+-                    if(!mSentencesList.isEmpty()) {
+-                        sentenceListEditDialogView.findViewById(R.id.dialogEmptyView).setVisibility(View.INVISIBLE);
+-                    }
+-                    RecyclerView sentenceListEditDialogRecyclerView = sentenceListEditDialogView.findViewById(R.id.sentenceListEditDialogRecyclerView);
+-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mSentenceListFragment.getContext(), LinearLayoutManager.VERTICAL, false);
+-                    final DialogSentenceListAdapter mAdapter = new DialogSentenceListAdapter(sentenceListName, mSentenceListFragment, sentenceListEditDialogView);
+-                    sentenceListEditDialogRecyclerView.setHasFixedSize(true);
+-                    sentenceListEditDialogRecyclerView.setLayoutManager(mLayoutManager);
+-                    sentenceListEditDialogRecyclerView.setAdapter(mAdapter);
+-                    ArrayList<String> mSentenceCollectionList = mSentenceCollection.get(sentenceListName);
+-                    new MaterialAlertDialogBuilder(mSentenceListFragment.getContext())
+-                            .setTitle(R.string.edit)
+-                            .setView(sentenceListEditDialogView)
+-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+-                                @Override
+-                                public void onClick(DialogInterface dialogInterface, int i) {
+-                                    ArrayList<String> notExistsList = new ArrayList<>();
+-                                    holder.mLinearLayout.removeAllViews();
+-                                    if(!mSentenceCollectionList.isEmpty()) {
+-                                        for (String sentenceListString : mSentenceCollectionList) {
+-                                            if (mSentencesList.contains(sentenceListString)) {
+-                                                TextView stringView = new TextView(mSentenceListFragment.getContext());
+-                                                stringView.setText(sentenceListString);
+-                                                holder.mLinearLayout.addView(stringView);
+-                                            } else {
+-                                                notExistsList.add(sentenceListString);
+-                                            }
+-                                        }
+-                                    }
+-                                    if(!notExistsList.isEmpty()) {
+-                                        for(String notExistsString : notExistsList) {
+-                                            mSentenceCollectionList.remove(notExistsString);
+-                                        }
+-                                    }
+-                                }
+-                            })
+-                            .show();
+-                }
+-            });
+-        } else {
+-            for(String sentenceListString : mSentenceCollection.get(sentenceListName)) {
+-                TextView stringView = new TextView(mActivityContext);
+-                stringView.setText(sentenceListString);
+-                holder.mLinearLayout.addView(stringView);
+-            }
+-            sentenceListItemEditButton.setText(R.string.use);
+-            sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {
+-                @Override
+-                public void onClick(View view) {
+-                    setUpWidget(position);
+-                }
+-            });
+-        }
+-    }
+-
+-    public void removeSentenceList(String key, int position) {
+-       notifyItemRemoved(position);
+-       mSentenceCollection.remove(key);
+-       if(mSentenceCollection.size() <= 0) {
+-           mSentenceListFragment.getView().findViewById(R.id.emptyListView).setVisibility(View.VISIBLE);
+-       }
++    public void onBindViewHolder(@NonNull SentenceListAdapter.SentenceListViewHolder holder, int position) {
++
+     }
+ 
+     @Override
+     public int getItemCount() {
+-        return mSentenceCollection.size();
++        return 0;
+     }
+ 
+-    public void setUpWidget(int position) {
+-        Log.d(TAG, "Setting up widget for " + position);
+-        Random random = new Random();
+-        ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position);
+-        Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet
+-        SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);
+-        SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
+-        SharedPreferences.Editor sentenceListPrefEditor = sentenceListPref.edit();
+-        SharedPreferences.Editor sentenceAttributePrefEditor = sentenceAttributePref.edit();
+-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);
+-        RemoteViews remoteViews = new RemoteViews(mActivityContext.getPackageName(), R.layout.sentence_widget);
+-        remoteViews.setTextViewText(R.id.SentenceTextView, sentenceCollectionList.get(random.nextInt(sentenceCollectionList.size() + 1)));
+-        sentenceListPrefEditor.putStringSet(String.valueOf(mWidgetId), sentenceCollectionSet);
+-        sentenceAttributePrefEditor.putFloat(mWidgetId + "textSize", 25);
+-        sentenceAttributePrefEditor.putInt(mWidgetId + "textColor", mActivityContext.getColor(R.color.white));
+-        sentenceListPrefEditor.apply();
+-        sentenceAttributePrefEditor.apply();
+-        appWidgetManager.updateAppWidget(mWidgetId, remoteViews);
+-        Intent resultValue = new Intent();
+-        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);
+-        mSentenceListWidgetConfiguration.setResult(Activity.RESULT_OK, resultValue);
+-        mSentenceListWidgetConfiguration.finish();
++    static class SentenceListViewHolder extends RecyclerView.ViewHolder {
++        //TODO: redo this crap:)
+     }
+ }
