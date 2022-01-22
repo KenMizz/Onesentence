@@ -23,6 +23,7 @@ import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.SentenceAttributeDialog;
 import kenmizz.onesentence.ui.main.SentenceFragment;
+import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -125,7 +126,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
     public void setUpWidget(int position) {
         Log.d(TAG, "Click " + mSentenceList.get(position));
         SharedPreferences sharedPreferences = mActivityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
-        SharedPreferences sentencesAttrPreferences = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesAttrPreferences = mActivityContext.getSharedPreferences(Constants.SENATTR_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initialize
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);

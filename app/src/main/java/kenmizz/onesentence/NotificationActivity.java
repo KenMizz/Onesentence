@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import kenmizz.onesentence.utils.Constants;
+
 public class NotificationActivity extends Activity {
 
     @Override
@@ -16,7 +18,7 @@ public class NotificationActivity extends Activity {
         int notification_id = extras.getInt("id");
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(notification_id);
-        SharedPreferences NotificationPrefs = getSharedPreferences(MainActivity.NOTIFICATION_PREFS, MODE_PRIVATE);
+        SharedPreferences NotificationPrefs = getSharedPreferences(Constants.NOTIFICATION_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
         notificationPrefsEditor.remove(String.valueOf(notification_id));
         notificationPrefsEditor.apply();

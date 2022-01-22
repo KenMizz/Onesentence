@@ -1,7 +1,5 @@
 package kenmizz.onesentence.widget;
 
-import static kenmizz.onesentence.MainActivity.SENTENCE_LIST_FILE;
-
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +27,7 @@ import java.util.Iterator;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceListAdapter;
+import kenmizz.onesentence.utils.Constants;
 
 public class SentenceListWidgetConfiguration extends AppCompatActivity {
 
@@ -42,7 +41,7 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences config = getSharedPreferences(MainActivity.CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences config = getSharedPreferences(Constants.CONFIG_PREFS, MODE_PRIVATE);
         if(!config.contains("themeOptions")) {
             SharedPreferences.Editor configEdit = config.edit();
             configEdit.putInt("themeOptions", themeOptions);
@@ -92,7 +91,7 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
     }
 
     public void loadSentenceCollection() {
-        File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+        File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
         try {
             FileInputStream fileInputStream = new FileInputStream(SentenceCollectionJsonFile);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));

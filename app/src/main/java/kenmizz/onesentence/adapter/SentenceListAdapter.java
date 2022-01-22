@@ -31,6 +31,7 @@ import java.util.Set;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.ui.main.SentenceListFragment;
+import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceListWidgetConfiguration;
 
 /**
@@ -84,7 +85,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final SentenceListViewHolder holder, int position) {
-        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[position];
+        final String sentenceListName = (String) mSentenceCollection.keySet().toArray()[holder.getAdapterPosition()];
         holder.mTextView.setText(sentenceListName);
         Button sentenceListItemEditButton = holder.itemView.findViewById(R.id.sentenceListItemEditButton);
         if(!itemOnConfiguration) {
@@ -146,7 +147,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
             sentenceListItemEditButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setUpWidget(position);
+                    setUpWidget(holder.getAdapterPosition());
                 }
             });
         }
@@ -171,7 +172,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position);
         Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet
         SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(Constants.SENATTR_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor sentenceListPrefEditor = sentenceListPref.edit();
         SharedPreferences.Editor sentenceAttributePrefEditor = sentenceAttributePref.edit();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);

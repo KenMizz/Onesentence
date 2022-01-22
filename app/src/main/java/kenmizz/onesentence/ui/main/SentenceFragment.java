@@ -29,10 +29,9 @@ import kenmizz.onesentence.NotificationActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
 import kenmizz.onesentence.controller.SwipeController;
+import kenmizz.onesentence.utils.Constants;
 
 import static android.content.Context.MODE_PRIVATE;
-import static kenmizz.onesentence.MainActivity.CHANNEL_ID;
-import static kenmizz.onesentence.MainActivity.NOTIFICATION_PREFS;
 
 public class SentenceFragment extends Fragment {
 
@@ -107,7 +106,7 @@ public class SentenceFragment extends Fragment {
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 .putExtra("id", NotificationId);
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT|PendingIntent.FLAG_IMMUTABLE);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext(), Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.app_notification_icon_small)
                 .setContentTitle(sentence)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -115,7 +114,7 @@ public class SentenceFragment extends Fragment {
                 .setOngoing(true)
                 .addAction(R.drawable.app_icon_round, getContext().getString(R.string.remove), pendingIntent);
         notificationManager.notify(NotificationId, notificationBuilder.build());
-        SharedPreferences NotificationPrefs = getContext().getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
+        SharedPreferences NotificationPrefs = getContext().getSharedPreferences(Constants.NOTIFICATION_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
         notificationPrefsEditor.putString(String.valueOf(NotificationId), sentence);
         notificationPrefsEditor.apply();

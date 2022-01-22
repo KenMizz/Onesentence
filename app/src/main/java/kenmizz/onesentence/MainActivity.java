@@ -1,5 +1,7 @@
 package kenmizz.onesentence;
 
+import static kenmizz.onesentence.utils.Constants.CHANNEL_ID;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -43,19 +45,15 @@ import java.util.Map;
 import java.util.Objects;
 
 import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
+import kenmizz.onesentence.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<>();
     HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<>();
 
-    public static final String SENTENCES_PREFS = "sentencesPref";
-    public static final String CONFIG_PREFS = "configsPref";
-    public static final String SENATTR_PREFS = "SentencesAttributePref";
-    public static final String NOTIFICATION_PREFS = "NotificationsPref";
-    public static final String SENTENCE_LIST_FILE = "sentenceList.json";
     private static final String TAG = "MainActivity";
-    public static final String CHANNEL_ID = "OneSentence_NotificationChannel";
+
     private int themeOptions = ThemeMode.DEFAULT.ordinal();
     private int newThemeOptions = 0;
 
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            setUpConfigurations(CONFIG_PREFS);
+            setUpConfigurations(Constants.CONFIG_PREFS);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
         try {
-            setUpConfigurations(SENTENCES_PREFS);
-            setUpConfigurations(SENTENCE_LIST_FILE);
+            setUpConfigurations(Constants.SENTENCES_PREFS);
+            setUpConfigurations(Constants.SENTENCE_LIST_FILE);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
-        SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
-        SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
+        SharedPreferences configsPrefs = getSharedPreferences(Constants.CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesPrefs = getSharedPreferences(Constants.SENTENCES_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor configEditor = configsPrefs.edit();
         SharedPreferences.Editor sentencesEditor = sentencesPrefs.edit();
         configEditor.putInt("themeOptions", themeOptions);
@@ -170,23 +168,23 @@ public class MainActivity extends AppCompatActivity {
         sentencesEditor.apply();
         JSONObject SentenceListToJson = new JSONObject(sentenceCollection);
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(SENTENCE_LIST_FILE, MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(Constants.SENTENCE_LIST_FILE, MODE_PRIVATE));
             outputStreamWriter.write(SentenceListToJson.toString());
             outputStreamWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File jsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+        File jsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
         if(jsonFile.exists()) {
-            Log.d(TAG, SENTENCE_LIST_FILE + " created");
+            Log.d(TAG, Constants.SENTENCE_LIST_FILE + " created");
         }
         Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
     public void setUpConfigurations(String PreferencesName) throws IOException {
         switch (PreferencesName) {
-            case CONFIG_PREFS:
+            case Constants.CONFIG_PREFS:
                 SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
                 if(!config.contains("themeOptions")) {
                     SharedPreferences.Editor configEdit = config.edit();
@@ -196,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 themeOptions = config.getInt("themeOptions", ThemeMode.DEFAULT.ordinal());
                 break;
 
-            case SENTENCES_PREFS:
+            case Constants.SENTENCES_PREFS:
                 SharedPreferences sentences = getSharedPreferences(PreferencesName, MODE_PRIVATE);
                 Map<String, ?> Sentences = sentences.getAll();
                 if(!Sentences.isEmpty()) {
@@ -206,8 +204,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             break;
 
-            case SENTENCE_LIST_FILE:
-                File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + SENTENCE_LIST_FILE);
+            case Constants.SENTENCE_LIST_FILE:
+                File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
                 if(!SentenceCollectionJsonFile.exists()) {
                     boolean createStatus = SentenceCollectionJsonFile.createNewFile();
                     if(!createStatus) {
