@@ -1,7 +1,5 @@
 package kenmizz.onesentence;
 
-import static kenmizz.onesentence.utils.Constants.CHANNEL_ID;
-
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -72,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         }
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+            if(notificationManager.getNotificationChannel(Constants.CHANNEL_ID) == null) {
                 //create new channel if channel not exists
-                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(Constants.CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(getString(R.string.channel_description));
                 notificationManager.createNotificationChannel(channel);
             }
