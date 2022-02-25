@@ -13,6 +13,7 @@ public class NotificationActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //cancel the notification
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         int notification_id = extras.getInt("id");

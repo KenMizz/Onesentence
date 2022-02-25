@@ -12,7 +12,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="?attr/colorSurface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="4dp"
                         android:text="@string/add"
-                        android:textColor="@color/dark"
+                        android:textColor="?android:textColorPrimary"
                         tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </com.github.florent37.expansionpanel.ExpansionLayout>

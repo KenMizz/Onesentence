@@ -1,5 +1,6 @@
 package kenmizz.onesentence.ui.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ public class NoSwipeViewPager extends ViewPager {
         super(context, attrs);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return false;

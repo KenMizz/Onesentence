@@ -72,7 +72,7 @@ public class SentenceFragment extends Fragment {
         RecyclerView mRecylerView = getView().findViewById(R.id.RecyclerView);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         SentenceAdapter mAdapter = new SentenceAdapter(mSentenceList, (TextView)getView().findViewById(R.id.emptyView), this);
-        mRecylerView.setHasFixedSize(true);
+        //mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(mLayoutManager);
         mRecylerView.setAdapter(mAdapter);
         SwipeController swipeController = new SwipeController(mAdapter, getView().getRootView());
