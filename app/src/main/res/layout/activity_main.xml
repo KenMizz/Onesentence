@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             app:title="@string/app_name"
             app:menu="@menu/options_menu"
-            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary">
+            style="@style/ThemeOverlay.Material3.Toolbar.Surface">
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
