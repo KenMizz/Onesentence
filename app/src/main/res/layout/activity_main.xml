@@ -13,18 +13,17 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mainToolbar"
+            style="@style/ThemeOverlay.Material3.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/app_name"
-            app:menu="@menu/options_menu"
-            style="@style/ThemeOverlay.Material3.Toolbar.Surface">
+            app:menu="@menu/options_menu">
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mainTabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <kenmizz.onesentence.ui.main.NoSwipeViewPager

@@ -1,50 +1,50 @@
 <resources>
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyle</item>
         <item name="errorTextColor">@color/dark</item>
     </style>
 
-    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
     </style>
 
-    <style name="AlertDialogThemeDark" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="AlertDialogThemeDark" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
         <item name="errorTextColor">@color/white</item>
     </style>
 
-    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="PositiveButtonStyle" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
-    <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="NegativeButtonStyle" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
-    <style name="NeturalButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="NeturalButtonStyle" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
-    <style name="PositiveButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="PositiveButtonStyleDark" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/white</item>
         <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
 
-    <style name="NegativeButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="NegativeButtonStyleDark" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/white</item>
         <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
 
-    <style name="NeturalButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="NeturalButtonStyleDark" parent="@style/Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/white</item>
         <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
@@ -74,17 +74,17 @@
         <item name="android:popupBackground">@color/dark</item>
     </style>
 
-    <style name="PopupMenuStyleGrey" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <style name="PopupMenuStyleGrey" parent="Widget.Material3.PopupMenu.Overflow">
         <item name="overlapAnchor">true</item>
         <item name="android:popupBackground">@color/grey</item>
     </style>
 
-    <style name="TabLayoutLight" parent="Widget.MaterialComponents.TabLayout">
+    <style name="TabLayoutLight" parent="Widget.Material3.TabLayout">
         <item name="tabTextColor">@color/dark</item>
         <item name="tabIndicatorColor">@color/dark</item>
     </style>
 
-    <style name="TabLayoutDark" parent="Widget.MaterialComponents.TabLayout">
+    <style name="TabLayoutDark" parent="Widget.Material3.TabLayout">
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
     </style>
