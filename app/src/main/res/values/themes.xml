@@ -15,7 +15,7 @@
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
-    <style name="AppThemeGrey" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="AppThemeGrey" parent="ThemeOverlay.Material3.Dark">
         <item name="colorPrimary">@color/grey</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimaryDark">@color/dark_grey</item>
@@ -33,7 +33,7 @@
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
 
-    <style name="AppThemeDark" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="AppThemeDark" parent="ThemeOverlay.Material3.Dark">
         <item name="android:windowBackground">@color/dark</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimary">@color/dark</item>
@@ -51,7 +51,7 @@
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
 
-    <style name="AppConfigurationTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppConfigurationTheme" parent="Theme.Material3.Light">
         <item name="colorPrimary">@color/white</item>
         <item name="android:textColor">@color/dark</item>
         <item name="colorPrimaryDark">@color/grey_300</item>
@@ -61,7 +61,7 @@
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
-    <style name="AppConfigurationTheme.Grey" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="AppConfigurationTheme.Grey" parent="ThemeOverlay.Material3.Dark">
         <item name="colorPrimary">@color/grey</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimaryDark">@color/dark_grey</item>
@@ -74,7 +74,7 @@
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
 
-    <style name="AppConfigurationTheme.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="AppConfigurationTheme.Dark" parent="ThemeOverlay.Material3.Dark">
         <item name="android:windowBackground">@color/dark</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimary">@color/dark</item>
