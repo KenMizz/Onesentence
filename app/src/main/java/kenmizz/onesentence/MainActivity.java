@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 setTheme(R.style.AppThemeDark);
         }
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_main);
         try {
             setUpConfigurations(SENTENCES_PREFS);
@@ -255,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(sentencesList.contains(charSequence.toString())) {
-                    editText.setError(charSequence.toString() + getString(R.string.sentenceExists));
+                    editText.setError(charSequence + getString(R.string.sentenceExists));
                 }
             }
 
