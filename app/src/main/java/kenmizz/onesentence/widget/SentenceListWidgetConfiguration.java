@@ -53,7 +53,7 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
             case 0:
                 switch(getUiMode()) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppConfigurationTheme_Grey);
+                        setTheme(R.style.AppConfigurationThemeGrey);
                         break;
 
                     case Configuration.UI_MODE_NIGHT_NO:
@@ -65,11 +65,11 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
                 break;
 
             case 2:
-                setTheme(R.style.AppConfigurationTheme_Grey);
+                setTheme(R.style.AppConfigurationThemeGrey);
                 break;
 
             case 3:
-                setTheme(R.style.AppConfigurationTheme_Dark);
+                setTheme(R.style.AppConfigurationThemeDark);
         }
         setContentView(R.layout.activity_sentence_list_widget_configuration);
         Intent intent = getIntent();
@@ -108,7 +108,7 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
             while(stringIterator.hasNext()) {
                 String key = stringIterator.next();
                 JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
-                ArrayList<String> value = new ArrayList<String>();
+                ArrayList<String> value = new ArrayList<>();
                 for(int i = 0; i < valueArray.length(); i++) {
                     value.add(valueArray.getString(i));
                 }

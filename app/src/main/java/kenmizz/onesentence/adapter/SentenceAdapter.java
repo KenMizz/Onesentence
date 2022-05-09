@@ -81,19 +81,11 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         final String currentSentence = mSentenceList.get(holder.getAdapterPosition());
         holder.mTextView.setText(currentSentence);
         if(mIsItemClickable) {
-            holder.mCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setUpWidget(holder.getAdapterPosition());
-                }
-            });
+            holder.mCardView.setOnClickListener(v -> setUpWidget(holder.getAdapterPosition()));
         } else {
-            holder.mCardView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    mSentenceFragment.setNotificationDialog(currentSentence);
-                    return true;
-                }
+            holder.mCardView.setOnLongClickListener(view -> {
+                mSentenceFragment.setNotificationDialog(currentSentence);
+                return true;
             });
             if(mSentenceList.size() <= 0) {
                 mEmptyView.setVisibility(View.VISIBLE);
@@ -139,7 +131,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         sentencesAttributesEditor.apply();
         Intent attributeDialog = new Intent(mActivityContext, SentenceAttributeDialog.class);
         attributeDialog.putExtra("widgetId", mWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
         appWidgetManager.updateAppWidget(mWidgetId, views);
         Intent resultValue = new Intent();
