@@ -23,6 +23,7 @@ import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.SentenceAttributeDialog;
 import kenmizz.onesentence.ui.main.SentenceFragment;
+import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -77,14 +78,14 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SentenceAdapter.SentenceViewHolder holder, final int position) {
-        final String currentSentence = mSentenceList.get(position);
+    public void onBindViewHolder(@NonNull SentenceAdapter.SentenceViewHolder holder, int position) {
+        final String currentSentence = mSentenceList.get(holder.getAdapterPosition());
         holder.mTextView.setText(currentSentence);
         if(mIsItemClickable) {
             holder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setUpWidget(position);
+                    setUpWidget(holder.getAdapterPosition());
                 }
             });
         } else {
@@ -118,12 +119,14 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         }
     }
 
-
+    public String getSentence(int position) {
+        return mSentenceList.get(position);
+    }
 
     public void setUpWidget(int position) {
         Log.d(TAG, "Click " + mSentenceList.get(position));
         SharedPreferences sharedPreferences = mActivityContext.getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
-        SharedPreferences sentencesAttrPreferences = mActivityContext.getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesAttrPreferences = mActivityContext.getSharedPreferences(Constants.SENATTR_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         SharedPreferences.Editor sentencesAttributesEditor = sentencesAttrPreferences.edit(); //Sentences Attr for initialize
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mActivityContext);
@@ -137,7 +140,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         sentencesAttributesEditor.apply();
         Intent attributeDialog = new Intent(mActivityContext, SentenceAttributeDialog.class);
         attributeDialog.putExtra("widgetId", mWidgetId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mActivityContext, mWidgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
         appWidgetManager.updateAppWidget(mWidgetId, views);
         Intent resultValue = new Intent();

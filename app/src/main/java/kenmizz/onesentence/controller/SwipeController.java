@@ -6,10 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.RecyclerView;
 
+import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class SwipeController extends Callback {
 
@@ -34,6 +37,7 @@ public class SwipeController extends Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
+        Snackbar.make(activityView.findViewById(R.id.addFloatingButton), activityView.getResources().getText(R.string.remove) + " " + sentenceAdapter.getSentence(position), Snackbar.LENGTH_SHORT).show();
         sentenceAdapter.removeSentence(position);
     }
 }

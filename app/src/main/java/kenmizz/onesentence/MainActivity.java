@@ -27,27 +27,31 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
 import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
+import kenmizz.onesentence.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<>();
     HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<>();
 
-    public static final String SENTENCES_PREFS = "sentencesPref";
-    public static final String CONFIG_PREFS = "configsPref";
-    public static final String SENATTR_PREFS = "SentencesAttributePref";
-    public static final String NOTIFICATION_PREFS = "NotificationsPref";
-    public static final String SENTENCE_LIST_FILE = "sentenceList.json";
     private static final String TAG = "MainActivity";
-    public static final String CHANNEL_ID = "OneSentence_NotificationChannel";
+
     private int themeOptions = ThemeMode.DEFAULT.ordinal();
     private int newThemeOptions = 0;
 
@@ -59,12 +63,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUpConfigurations(CONFIG_PREFS);
+        try {
+            setUpConfigurations(Constants.CONFIG_PREFS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
+            if(notificationManager.getNotificationChannel(Constants.CHANNEL_ID) == null) {
                 //create new channel if channel not exists
-                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(Constants.CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(getString(R.string.channel_description));
                 notificationManager.createNotificationChannel(channel);
             }
@@ -93,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 setTheme(R.style.AppThemeDark);
         }
         setContentView(R.layout.activity_main);
-        setUpConfigurations(SENTENCES_PREFS);
+        try {
+            setUpConfigurations(Constants.SENTENCES_PREFS);
+            setUpConfigurations(Constants.SENTENCE_LIST_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         final ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -140,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
-        SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
-        SharedPreferences sentencesPrefs = getSharedPreferences(SENTENCES_PREFS, MODE_PRIVATE);
+        SharedPreferences configsPrefs = getSharedPreferences(Constants.CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences sentencesPrefs = getSharedPreferences(Constants.SENTENCES_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor configEditor = configsPrefs.edit();
         SharedPreferences.Editor sentencesEditor = sentencesPrefs.edit();
         configEditor.putInt("themeOptions", themeOptions);
@@ -151,23 +164,25 @@ public class MainActivity extends AppCompatActivity {
             sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
-        File sentenceListFile = new File(getApplicationContext().getFilesDir(), SENTENCE_LIST_FILE);
-        //TODO: sentenceCollection save/load
+        JSONObject SentenceListToJson = new JSONObject(sentenceCollection);
         try {
-            if(!sentenceListFile.isFile()) {
-                boolean fileCreate = sentenceListFile.createNewFile();
-                if(!fileCreate) {
-                    Log.e(TAG, "Can't create sentenceListFile!");
-                }
-            }
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(Constants.SENTENCE_LIST_FILE, MODE_PRIVATE));
+            outputStreamWriter.write(SentenceListToJson.toString());
+            outputStreamWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        File jsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
+        if(jsonFile.exists()) {
+            Log.d(TAG, Constants.SENTENCE_LIST_FILE + " created");
+        }
+        Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
-    public void setUpConfigurations(String PreferencesName) {
+    public void setUpConfigurations(String PreferencesName) throws IOException {
         switch (PreferencesName) {
-            case CONFIG_PREFS:
+            case Constants.CONFIG_PREFS:
                 SharedPreferences config = getSharedPreferences(PreferencesName, MODE_PRIVATE);
                 if(!config.contains("themeOptions")) {
                     SharedPreferences.Editor configEdit = config.edit();
@@ -177,13 +192,47 @@ public class MainActivity extends AppCompatActivity {
                 themeOptions = config.getInt("themeOptions", ThemeMode.DEFAULT.ordinal());
                 break;
 
-            case SENTENCES_PREFS:
+            case Constants.SENTENCES_PREFS:
                 SharedPreferences sentences = getSharedPreferences(PreferencesName, MODE_PRIVATE);
                 Map<String, ?> Sentences = sentences.getAll();
                 if(!Sentences.isEmpty()) {
                     for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
                         sentencesList.add(Sentence.getValue().toString());
                     }
+                }
+            break;
+
+            case Constants.SENTENCE_LIST_FILE:
+                File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
+                if(!SentenceCollectionJsonFile.exists()) {
+                    boolean createStatus = SentenceCollectionJsonFile.createNewFile();
+                    if(!createStatus) {
+                        Log.e(TAG, "sentenceList.json create failed");
+                    }
+                }
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(SentenceCollectionJsonFile);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+                    StringBuilder contentBuilder = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        contentBuilder.append(line).append("\n");
+                    }
+                    fileInputStream.close();
+                    reader.close();
+                    JSONObject SentenceCollectionJsonObject = new JSONObject(contentBuilder.toString());
+                    Iterator<String> stringIterator = SentenceCollectionJsonObject.keys();
+                    while(stringIterator.hasNext()) {
+                        String key = stringIterator.next();
+                        JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
+                        ArrayList<String> value = new ArrayList<>();
+                        for(int i = 0; i < valueArray.length(); i++) {
+                            value.add(valueArray.getString(i));
+                        }
+                        sentenceCollection.put(key, value);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             break;
         }
@@ -287,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, null)
                         .show();
                 TextView textView = view.findViewById(R.id.versionView);
-                textView.setText(BuildConfig.VERSION_NAME);
+                textView.setText("v" + BuildConfig.VERSION_NAME); //comment this when first compile
                 break;
 
 
@@ -298,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                             if(newThemeOptions != themeOptions) {
                                 themeOptions = newThemeOptions;
                                 syncAllSharedPrefs();
-                                recreate(); //FIXME: this cause could not find Fragment constructor :(
+                                recreate();
                             }
                         })
                         .show();
@@ -349,4 +398,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public HashMap<String, ArrayList<String>> getSentenceCollection() { return sentenceCollection; }
+
 }

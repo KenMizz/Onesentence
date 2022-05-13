@@ -3,7 +3,7 @@
     <string name="app_name">一句话</string>
     <string name="about">关于</string>
     <string name="confirmButton">确认</string>
-    <string name="ListEmpty">试着加一条新句子吧</string>
+    <string name="ListEmpty">加一条新句子吧</string>
     <string name="newsentence">新的句子</string>
     <string name="add">"添加 "</string>
     <string name="sentence">句子</string>
@@ -37,8 +37,10 @@
     <string name="list_name">句子列表名</string>
     <string name="successfully_add_sentence_list">成功创建句子列表 _key_</string>
     <string name="fail_add_sentence_list">句子列表 _key_ 已经存在了</string>
-    <string name="SentenceListEmpty">试着加一条新句子列表吧</string>
+    <string name="SentenceListEmpty">加一条新的句子列表吧</string>
     <string name="edit">编辑</string>
     <string name="dialog_sentence_list_empty">你需要先添加一条句子才能把它放到句子列表里来哦</string>
     <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
+    <string name="remove_sentence_list">句子列表 _key_ 移除成功</string>
+    <string name="use">使用</string>
 </resources>

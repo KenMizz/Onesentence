@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="kenmizz.onesentence">
 
+    <!--purpose for restore long time notification after user reboot its device-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,7 +17,8 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,13 +37,15 @@
         <activity
             android:name=".widget.SentenceWidgetConfiguration"
             android:label="@string/widget_configure"
-            android:theme="@style/AppConfigurationTheme">
+            android:theme="@style/AppConfigurationTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SentenceAppWidgetProvider">
+        <receiver android:name=".provider.SentenceAppWidgetProvider"
+            android:exported="true" android:label="@string/sentence">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -51,7 +54,33 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
         </receiver>
-        <receiver android:name=".ApplicationBootReceiver">
+        
+        <receiver android:name=".provider.SentenceListAppWidgetTestProvider"
+            android:exported="true" android:label="@string/sentence_list">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/sentence_list_appwidget_test_info"/>
+        </receiver>
+        
+        <receiver android:name=".provider.SentenceListAppWidgetProvider"
+            android:exported="true" android:label="@string/sentence_list">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/sentence_list_appwidget_info"/>
+        </receiver>
+
+        <receiver android:name=".ApplicationBootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -18,6 +18,7 @@ import java.util.Map;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.adapter.SentenceAdapter;
+import kenmizz.onesentence.utils.Constants;
 
 public class SentenceWidgetConfiguration extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences config = getSharedPreferences(MainActivity.CONFIG_PREFS, MODE_PRIVATE);
+        SharedPreferences config = getSharedPreferences(Constants.CONFIG_PREFS, MODE_PRIVATE);
         if(!config.contains("themeOptions")) {
             SharedPreferences.Editor configEdit = config.edit();
             configEdit.putInt("themeOptions", themeOptions);

@@ -2,7 +2,7 @@
     <string name="app_name">Onesentence</string>
     <string name="about">about</string>
     <string name="confirmButton">Confirm</string>
-    <string name="ListEmpty">Let\'s add a new sentence</string>
+    <string name="ListEmpty">add a new sentence to start</string>
     <string name="newsentence">New sentence</string>
     <string name="add">"Add "</string>
     <string name="sentence">Sentence</string>
@@ -36,8 +36,10 @@
     <string name="list_name">Sentence list name</string>
     <string name="successfully_add_sentence_list">Successfully create sentence list _key_</string>
     <string name="fail_add_sentence_list">Sentence list _key_ has already exists</string>
-    <string name="SentenceListEmpty">Let\'s add a new sentence list</string>
+    <string name="SentenceListEmpty">add a new sentence list to start</string>
     <string name="edit">Edit</string>
     <string name="dialog_sentence_list_empty">You will need to add sentence first before you put it in the list</string>
     <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
+    <string name="remove_sentence_list">Sentence list _key_ removed</string>
+    <string name="use">use</string>
 </resources>

@@ -16,13 +16,15 @@ import kenmizz.onesentence.ui.main.SentenceListFragment;
 import static androidx.recyclerview.widget.ItemTouchHelper.LEFT;
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class SentenceListSwipeController extends Callback {
 
-    private SentenceListFragment mSentenceListFragment;
+    private View mActivityView;
     private SentenceListAdapter mSentenceListAdapter;
 
-    public SentenceListSwipeController(SentenceListFragment sentenceListFragment, SentenceListAdapter sentenceListAdapter) {
-        mSentenceListFragment = sentenceListFragment;
+    public SentenceListSwipeController(View activityView, SentenceListAdapter sentenceListAdapter) {
+        mActivityView = activityView;
         mSentenceListAdapter = sentenceListAdapter;
     }
 
@@ -39,10 +41,7 @@ public class SentenceListSwipeController extends Callback {
     @Override
     public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
         String key = ((TextView)viewHolder.itemView.findViewById(R.id.sentenceListNameTextView)).getText().toString();
-        mSentenceListFragment.removeSentenceCollectionList(key);
-        mSentenceListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-        if(mSentenceListFragment.getSentenceCollection().isEmpty()) {
-            mSentenceListFragment.getView().findViewById(R.id.emptyListView).setVisibility(View.VISIBLE);
-        }
+        mSentenceListAdapter.removeSentenceList(key, viewHolder.getAdapterPosition());
+        Snackbar.make(mActivityView.findViewById(R.id.addFloatingButton), mActivityView.getResources().getString(R.string.remove_sentence_list).replace("_key_", key), Snackbar.LENGTH_SHORT).show();
     }
 }
