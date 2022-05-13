@@ -6,13 +6,13 @@
         <item name="errorTextColor">@color/dark</item>
     </style>
 
-    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.Material3.Dialog.Alert">
+    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
     </style>
 
-    <style name="AlertDialogThemeDark" parent="ThemeOverlay.Material3.Dialog.Alert">
+    <style name="AlertDialogThemeDark" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
@@ -84,8 +84,18 @@
         <item name="tabIndicatorColor">@color/dark</item>
     </style>
 
-    <style name="TabLayoutDark" parent="Widget.Material3.TabLayout">
+    <style name="TabLayoutGrey" parent="Widget.Material3.TabLayout">
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
+    </style>
+
+    <style name="TabLayoutDark" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/dark</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+    </style>
+
+    <style name="ToolBarDark" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:background">@color/dark</item>
     </style>
 </resources>
