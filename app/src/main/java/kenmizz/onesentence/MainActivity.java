@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 notificationManager.createNotificationChannel(channel);
             }
         }
+        DynamicColors.applyToActivitiesIfAvailable(getApplication());
+        //DynamicColors.applyToActivityIfAvailable(this);
         configureTheme(themeOptions);
         setContentView(R.layout.activity_main);
         try {
@@ -221,11 +223,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Configure AppTheme
+     * Android S+ Device uses Material3 Theme as default
+     * @param themeOptions themeOptions
+     */
     public void configureTheme(int themeOptions) {
         boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
-        if(MaterialYou) {
-            DynamicColors.applyToActivityIfAvailable(this);
-        }
         switch(themeOptions) {
             case 0: //Default Day/Night Mode
                 switch(getUiMode()) {
@@ -249,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
             case 1: //Light Mode
                 if(MaterialYou) {
-                    setTheme(R.style.AppTheme_md3_Grey);
+                    setTheme(R.style.AppTheme_md3_Light);
                     return;
                 }
                 setTheme(R.style.AppTheme_md2_Light);
