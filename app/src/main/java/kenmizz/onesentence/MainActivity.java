@@ -82,30 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 notificationManager.createNotificationChannel(channel);
             }
         }
-        switch(themeOptions) {
-            case 0:
-                switch(getUiMode()) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppThemeGrey);
-                        break;
-
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        setTheme(R.style.AppTheme);
-                }
-                break;
-
-            case 1:
-                setTheme(R.style.AppTheme);
-                break;
-
-            case 2:
-                setTheme(R.style.AppThemeGrey);
-                break;
-
-            case 3:
-                setTheme(R.style.AppThemeDark);
-        }
-        DynamicColors.applyToActivityIfAvailable(this);
+        configureTheme(themeOptions);
         setContentView(R.layout.activity_main);
         try {
             setUpConfigurations(SENTENCES_PREFS);
@@ -241,6 +218,57 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             break;
+        }
+    }
+
+    public void configureTheme(int themeOptions) {
+        boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+        if(MaterialYou) {
+            DynamicColors.applyToActivityIfAvailable(this);
+        }
+        switch(themeOptions) {
+            case 0: //Default Day/Night Mode
+                switch(getUiMode()) {
+
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppTheme_md3_Grey);
+                            return;
+                        }
+                        setTheme(R.style.AppTheme_md2_Grey);
+                    break;
+
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppTheme_md3_Light);
+                            return;
+                        }
+                        setTheme(R.style.AppTheme_md2_Light);
+                }
+                break;
+
+            case 1: //Light Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Grey);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Light);
+            break;
+
+            case 2: //Grey Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Grey);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Grey);
+            break;
+
+            case 3: //AMOLED Dark Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Dark);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Dark);
         }
     }
 
