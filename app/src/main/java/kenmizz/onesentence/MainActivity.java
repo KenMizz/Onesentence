@@ -82,9 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 notificationManager.createNotificationChannel(channel);
             }
         }
-        DynamicColors.applyToActivitiesIfAvailable(getApplication());
-        //DynamicColors.applyToActivityIfAvailable(this);
         configureTheme(themeOptions);
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_main);
         try {
             setUpConfigurations(SENTENCES_PREFS);
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.themes:
-                    showAppDialog(R.layout.themes);
+                    showAppDialog(R.layout.theme_options);
             }
             return true;
         });
@@ -230,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void configureTheme(int themeOptions) {
         boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+        Log.d(TAG, "DC yes: " + DynamicColors.isDynamicColorAvailable());
         switch(themeOptions) {
             case 0: //Default Day/Night Mode
                 switch(getUiMode()) {
@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
-            case R.layout.themes:
+            case R.layout.theme_options:
                 dialog.setTitle(R.string.theme)
                         .setView(view)
                         .setPositiveButton(R.string.confirmButton, (dialogInterface, i) -> {

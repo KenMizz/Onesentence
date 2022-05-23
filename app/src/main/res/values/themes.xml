@@ -27,10 +27,10 @@
         <item name="colorPrimary">@color/dark</item>
         <item name="colorPrimaryContainer">@color/grey</item>
         <item name="colorSurface">@color/dark</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogThemeDark</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
         <item name="toolbarStyle">@style/ToolBarDark</item>
+        <item name="tabStyle">@style/TabLayoutDark</item>
         <!--status bar color-->
         <item name="android:statusBarColor">@color/dark</item>
         <!--navigation bar color-->

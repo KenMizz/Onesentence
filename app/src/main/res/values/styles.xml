@@ -91,11 +91,10 @@
 
     <style name="TabLayoutDark" parent="Widget.Material3.TabLayout">
         <item name="android:background">@color/dark</item>
-        <item name="tabTextColor">@color/white</item>
-        <item name="tabIndicatorColor">@color/white</item>
     </style>
 
     <style name="ToolBarDark" parent="Widget.Material3.Toolbar.OnSurface">
         <item name="android:background">@color/dark</item>
     </style>
+
 </resources>
