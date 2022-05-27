@@ -4,8 +4,6 @@
     <style name="AppTheme.md3.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/white</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlay</item>
         <item name="android:statusBarColor">?attr/colorSurfaceVariant</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
@@ -13,12 +11,7 @@
     <style name="AppTheme.md3.Grey" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/grey</item>
         <item name="colorPrimaryContainer">@color/dark</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogThemeGrey</item>
-        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
-        <!--status bar color-->
         <item name="android:statusBarColor">?attr/colorSurface</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
@@ -27,17 +20,14 @@
         <item name="colorPrimary">@color/dark</item>
         <item name="colorPrimaryContainer">@color/grey</item>
         <item name="colorSurface">@color/dark</item>
-        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
         <item name="toolbarStyle">@style/ToolBarDark</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
-        <!--status bar color-->
         <item name="android:statusBarColor">@color/dark</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
 
-    <style name="AppConfigurationTheme.md3.Light" parent="Theme.Material3.Light">
+    <style name="AppConfigurationTheme.md3.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorPrimaryContainer">@color/white</item>
@@ -45,18 +35,18 @@
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
-    <style name="AppConfigurationTheme.md3.Grey" parent="Theme.Material3.Dark">
+    <style name="AppConfigurationTheme.md3.Grey" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/grey</item>
         <item name="colorPrimaryContainer">@color/dark</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
 
-    <style name="AppConfigurationTheme.md3.Dark" parent="Theme.Material3.Dark">
+    <style name="AppConfigurationTheme.md3.Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowBackground">@color/dark</item>
         <item name="colorPrimary">@color/dark</item>
         <item name="colorPrimaryContainer">@color/grey</item>
-        <item name="colorSurface">@color/dark</item>
+        <item name="toolbarStyle">@style/ToolBarDark</item>
         <item name="android:statusBarColor">@color/dark</item>
         <item name="android:navigationBarColor">@color/dark</item>
     </style>

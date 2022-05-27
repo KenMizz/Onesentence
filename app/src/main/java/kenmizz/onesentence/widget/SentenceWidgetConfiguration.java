@@ -1,5 +1,7 @@
 package kenmizz.onesentence.widget;
 
+import android.app.WallpaperInfo;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +63,7 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         if(widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
         }
+
         loadSentencesList();
         setUpSentencesView();
     }
