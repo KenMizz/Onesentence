@@ -229,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void configureTheme(int themeOptions) {
         boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
-        Log.d(TAG, "DC yes: " + DynamicColors.isDynamicColorAvailable());
         switch(themeOptions) {
             case 0: //Default Day/Night Mode
                 switch(getUiMode()) {

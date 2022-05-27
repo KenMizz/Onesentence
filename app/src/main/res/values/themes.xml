@@ -17,7 +17,7 @@
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
         <!--status bar color-->
-        <item name="android:statusBarColor">?attr/colorSurfaceVariant</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
         <!--navigation bar color-->
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
@@ -37,6 +37,30 @@
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
 
+    <style name="AppConfigurationTheme.md3.Light" parent="Theme.Material3.Light">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorPrimaryContainer">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorSurfaceVariant</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="AppConfigurationTheme.md3.Grey" parent="Theme.Material3.Dark">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryContainer">@color/dark</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="AppConfigurationTheme.md3.Dark" parent="Theme.Material3.Dark">
+        <item name="android:windowBackground">@color/dark</item>
+        <item name="colorPrimary">@color/dark</item>
+        <item name="colorPrimaryContainer">@color/grey</item>
+        <item name="colorSurface">@color/dark</item>
+        <item name="android:statusBarColor">@color/dark</item>
+        <item name="android:navigationBarColor">@color/dark</item>
+    </style>
+
     <!--Material 2 Theme-->
     <style name="AppTheme.md2.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
@@ -49,7 +73,6 @@
         <item name="android:textColor">@color/dark</item>
         <item name="android:colorControlActivated">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
@@ -67,7 +90,6 @@
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
         <item name="android:colorControlActivated">@color/white</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
 
@@ -85,21 +107,19 @@
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
         <item name="android:colorControlActivated">@color/white</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
 
-    <style name="AppConfigurationTheme" parent="Theme.Material3.Light">
+    <style name="AppConfigurationTheme.md2.Light" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/white</item>
         <item name="android:textColor">@color/dark</item>
         <item name="colorPrimaryDark">@color/grey_300</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorAccent">@color/dark</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
-    <style name="AppConfigurationThemeGrey" parent="ThemeOverlay.Material3.Dark">
+    <style name="AppConfigurationTheme.md2.Grey" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="colorPrimary">@color/grey</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimaryDark">@color/dark_grey</item>
@@ -108,11 +128,10 @@
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorAccent">@color/white</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
 
-    <style name="AppConfigurationThemeDark" parent="ThemeOverlay.Material3.Dark">
+    <style name="AppConfigurationTheme.md2.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="android:windowBackground">@color/dark</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorPrimary">@color/dark</item>
@@ -121,7 +140,6 @@
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorAccent">@color/white</item>
-        <!--navigation bar color-->
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
 

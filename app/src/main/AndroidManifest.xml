@@ -34,7 +34,7 @@
         <activity
             android:name=".widget.SentenceWidgetConfiguration"
             android:label="@string/widget_configure"
-            android:theme="@style/AppConfigurationTheme"
+            android:theme="@style/AppConfigurationTheme.md3.Light"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
