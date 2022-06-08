@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity {
         syncAllSharedPrefs();
     }
 
+    /**
+     * sync up all configs when app is on the background or close
+     */
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
         SharedPreferences configsPrefs = getSharedPreferences(CONFIG_PREFS, MODE_PRIVATE);
@@ -164,6 +167,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
+    /**
+     * set up configurations
+     * @param PreferencesName fileName
+     * @throws IOException fileNotFound
+     */
     public void setUpConfigurations(String PreferencesName) throws IOException {
         switch (PreferencesName) {
             case CONFIG_PREFS:
@@ -275,10 +283,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * shows addSentenceDialog
+     */
     public void addSentenceDialog() {
         final MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
-        final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
+        View editTextView;
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_edittext_md3, null);
+        } else {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_edittext_md2, null);
+        }
+        final TextInputEditText editText = editTextView.findViewById(R.id.sentenceAddEditText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -298,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        dialog.setView(view);
+        dialog.setView(editTextView);
         dialog.setTitle(R.string.newsentence)
                 .setPositiveButton(R.string.add, (dialog1, which) -> {
                     String text = Objects.requireNonNull(editText.getText()).toString();
@@ -314,6 +330,9 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * shows addSentenceListDialog
+     */
     public void addSentenceListDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext, null);
         final TextInputEditText editText = view.findViewById(R.id.sentenceListAddEditText);
@@ -353,6 +372,10 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.show();
     }
 
+    /**
+     * show app dialogs
+     * @param layoutId dialogLayout
+     */
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
     public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
@@ -424,6 +447,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * this indicates that night mode is on or off
+     * @return int
+     */
     public int getUiMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
