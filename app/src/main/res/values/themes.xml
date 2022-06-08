@@ -4,6 +4,7 @@
     <style name="AppTheme.md3.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/white</item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
         <item name="android:statusBarColor">?attr/colorSurfaceVariant</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
@@ -11,6 +12,7 @@
     <style name="AppTheme.md3.Grey" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/grey</item>
         <item name="colorPrimaryContainer">@color/dark</item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
     </style>
@@ -20,6 +22,7 @@
         <item name="colorPrimary">@color/dark</item>
         <item name="colorPrimaryContainer">@color/grey</item>
         <item name="colorSurface">@color/dark</item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
         <item name="toolbarStyle">@style/ToolBarDark</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
@@ -54,16 +57,14 @@
     <!--Material 2 Theme-->
     <style name="AppTheme.md2.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/grey_300</item>
         <item name="colorSecondary">@color/white</item>
-        <item name="colorAccent">@color/dark</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/style.md2.AlertDialogTheme</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlay</item>
         <item name="tabStyle">@style/TabLayoutLight</item>
-        <item name="android:textColor">@color/dark</item>
-        <item name="android:colorControlActivated">@color/dark</item>
-        <item name="rippleColor">@color/ripple_material_light</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="android:statusBarColor">@color/grey_300</item>
         <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:textColor">@color/dark</item>
     </style>
 
     <style name="AppTheme.md2.Grey" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -75,10 +76,11 @@
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorAccent">@color/white</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogThemeGrey</item>
+        <item name="materialAlertDialogTheme">@style/style.md2.AlertDialogTheme.Grey</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="android:colorControlActivated">@color/white</item>
         <item name="android:navigationBarColor">@color/grey</item>
     </style>
@@ -92,10 +94,11 @@
         <item name="colorSecondary">@color/dark</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorAccent">@color/white</item>
-        <item name="materialAlertDialogTheme">@style/AlertDialogThemeDark</item>
+        <item name="materialAlertDialogTheme">@style/style.md2.AlertDialogTheme.Dark</item>
         <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayDark</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyleDark</item>
         <item name="tabStyle">@style/TabLayoutDark</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="android:colorControlActivated">@color/white</item>
         <item name="android:navigationBarColor">@color/dark</item>
     </style>
