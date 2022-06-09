@@ -334,8 +334,13 @@ public class MainActivity extends AppCompatActivity {
      * shows addSentenceListDialog
      */
     public void addSentenceListDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext, null);
-        final TextInputEditText editText = view.findViewById(R.id.sentenceListAddEditText);
+        View editTextView;
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md3, null);
+        } else {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md2, null);
+        }
+        final TextInputEditText editText = editTextView.findViewById(R.id.sentenceListAddEditText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -357,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
         });
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.new_sentence_list)
-                .setView(view)
+                .setView(editTextView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
                     if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
                         sentenceCollection.put(editText.getText().toString(), new ArrayList<>());
