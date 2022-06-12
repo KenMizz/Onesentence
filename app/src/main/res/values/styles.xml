@@ -21,6 +21,14 @@
         <item name="errorTextColor">@color/white</item>
     </style>
 
+    <style name="style.md2.TextInputLayoutStyleLight" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinputlayout_md2_light</item>
+    </style>
+
+    <style name="style.md2.TextInputLayoutStyleDark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinputlayout_md2_dark</item>
+    </style>
+
     <style name="DefaultButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>

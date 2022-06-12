@@ -286,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * shows addSentenceDialog
      */
+    @SuppressLint("InflateParams")
     public void addSentenceDialog() {
         final MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         View editTextView;
@@ -333,6 +334,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * shows addSentenceListDialog
      */
+    @SuppressLint("InflateParams")
     public void addSentenceListDialog() {
         View editTextView;
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
