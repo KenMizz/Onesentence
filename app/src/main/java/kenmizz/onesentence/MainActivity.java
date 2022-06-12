@@ -394,8 +394,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView githubLinkView = view.findViewById(R.id.githubLinkView);
                 coolApkLinkView.setMovementMethod(LinkMovementMethod.getInstance());
                 githubLinkView.setMovementMethod(LinkMovementMethod.getInstance());
-                coolApkLinkView.setLinkTextColor(Color.BLUE);
-                githubLinkView.setLinkTextColor(Color.BLUE);
+                coolApkLinkView.setLinkTextColor(getColor(R.color.dark_blue));
+                githubLinkView.setLinkTextColor(getColor(R.color.dark_blue));
                 dialog.setTitle(R.string.about)
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
