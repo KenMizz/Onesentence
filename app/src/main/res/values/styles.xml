@@ -23,10 +23,20 @@
 
     <style name="style.md2.TextInputLayoutStyleLight" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/textinputlayout_md2_light</item>
+        <item name="android:theme">@style/style.md2.editTextCursorDark</item>
     </style>
 
     <style name="style.md2.TextInputLayoutStyleDark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/textinputlayout_md2_dark</item>
+        <item name="android:theme">@style/style.md2.editTextCursorWhite</item>
+    </style>
+
+    <style name="style.md2.editTextCursorWhite" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="style.md2.editTextCursorDark" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="colorControlActivated">@color/dark</item>
     </style>
 
     <style name="DefaultButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">

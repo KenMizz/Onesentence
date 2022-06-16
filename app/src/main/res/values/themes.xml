@@ -76,7 +76,7 @@
             <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
             <item name="tabStyle">@style/TabLayoutGrey</item>
             <item name="textInputOutlinedStyle">@style/style.md2.TextInputLayoutStyleDark</item>
-            <item name="android:statusBarColor">@color/grey_800</item>
+            <item name="android:statusBarColor">?attr/colorPrimary</item>
             <item name="android:navigationBarColor">?attr/colorPrimary</item>
     </style>
 
