@@ -66,18 +66,18 @@
     </style>
 
     <style name="AppTheme.md2.Grey" parent="Theme.MaterialComponents.NoActionBar">
-            <item name="android:textColor">@color/white</item>
-            <item name="colorPrimary">@color/grey</item>
-            <item name="colorOnSecondary">@color/white</item>
-            <item name="colorSecondary">@color/dark</item>
-            <item name="colorOnSurface">@color/white</item>
-            <item name="materialAlertDialogTheme">@style/style.md2.AlertDialogTheme.Grey</item>
-            <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
-            <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
-            <item name="tabStyle">@style/TabLayoutGrey</item>
-            <item name="textInputOutlinedStyle">@style/style.md2.TextInputLayoutStyleDark</item>
-            <item name="android:statusBarColor">?attr/colorPrimary</item>
-            <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/dark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="materialAlertDialogTheme">@style/style.md2.AlertDialogTheme.Grey</item>
+        <item name="radioButtonStyle">@style/MaterialRadioButtonOverlayGrey</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenuStyleGrey</item>
+        <item name="tabStyle">@style/TabLayoutGrey</item>
+        <item name="textInputOutlinedStyle">@style/style.md2.TextInputLayoutStyleDark</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
     </style>
 
     <style name="AppTheme.md2.Dark" parent="Theme.MaterialComponents.NoActionBar">

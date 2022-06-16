@@ -25,8 +25,7 @@
         <activity
             android:name=".SentenceAttributeDialog"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:theme="@style/MaterialAlertDialogWithNoTitle" />
+            android:launchMode="singleInstance" />
         <activity
             android:name=".NotificationActivity"
             android:excludeFromRecents="true"

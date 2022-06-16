@@ -43,6 +43,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.style_md3_SentenceEditDialogLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
