@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <color name="white">#FFFFFF</color>
     <color name="grey_300">#CCCCCC</color>
     <color name="dark">#000000</color>
-    <color name="grey">#303030</color>
-    <color name="dark_grey">#212121</color>
+    <color name="grey">#121212</color>
+    <color name="grey_800">#323232</color>
     <color name="dark_blue">#2A87D4</color>
 </resources>
