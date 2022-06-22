@@ -39,6 +39,10 @@
         <item name="colorControlActivated">@color/dark</item>
     </style>
 
+    <style name="style.md2.MaterialToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
     <style name="DefaultButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
