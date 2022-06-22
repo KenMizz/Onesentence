@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
@@ -43,8 +44,8 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.style_md3_SentenceEditDialogLight);
         super.onCreate(savedInstanceState);
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);

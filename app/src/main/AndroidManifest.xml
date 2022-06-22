@@ -25,6 +25,7 @@
         <activity
             android:name=".SentenceAttributeDialog"
             android:excludeFromRecents="true"
+            android:theme="@style/SentenceAttributeDialogTheme.md2.Grey"
             android:launchMode="singleInstance" />
         <activity
             android:name=".NotificationActivity"
