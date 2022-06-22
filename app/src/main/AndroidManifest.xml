@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="kenmizz.onesentence">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -25,7 +24,7 @@
         <activity
             android:name=".SentenceAttributeDialog"
             android:excludeFromRecents="true"
-            android:theme="@style/SentenceAttributeDialogTheme.md2.Grey"
+            android:theme="@style/SentenceAttributeDialogTheme.md3.Grey"
             android:launchMode="singleInstance" />
         <activity
             android:name=".NotificationActivity"

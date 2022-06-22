@@ -3,12 +3,12 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -31,6 +31,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     SharedPreferences widgetPreferences;
 
     private static final String TAG = "SentenceAttribute";
+
     TextInputEditText SentenceAttributeSentenceEditText;
     TextView SentenceAttributeTextView;
     Slider SentenceAttributeSlider;
@@ -45,7 +46,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DynamicColors.applyToActivityIfAvailable(this);
+        configureTheme();
         setContentView(R.layout.activity_sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
@@ -60,6 +61,14 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         SentenceAttributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
         SentenceAttributeSentenceEditText = findViewById(R.id.SentenceAttributeEditText);
         setUpDialog();
+    }
+
+    public void configureTheme() {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            setTheme(R.style.SentenceAttributeDialogTheme_md2_Grey);
+        } else {
+            DynamicColors.applyToActivityIfAvailable(this);
+        }
     }
 
     @SuppressLint("SetTextI18n")

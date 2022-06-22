@@ -138,7 +138,7 @@
 
     <style name="SentenceAttributeDialogTheme.md2.Grey" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="windowNoTitle">true</item>
-        <item name="textInputOutlinedStyle">@style/style.md2.TextInputLayoutStyleDark</item>
+        <item name="textInputStyle">@style/style.md2.SentenceAttributeTextInputLayoutStyle</item>
     </style>
 
 </resources>

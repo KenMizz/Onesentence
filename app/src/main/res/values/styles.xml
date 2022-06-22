@@ -31,6 +31,11 @@
         <item name="android:theme">@style/style.md2.editTextCursorWhite</item>
     </style>
 
+    <style name="style.md2.SentenceAttributeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/dark_blue</item>
+        <item name="android:textColorHint">@color/dark_blue</item>
+    </style>
+
     <style name="style.md2.editTextCursorWhite" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
         <item name="colorControlActivated">@color/white</item>
     </style>
