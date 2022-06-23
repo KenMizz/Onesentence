@@ -34,6 +34,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
     TextInputEditText SentenceAttributeSentenceEditText;
     TextView SentenceAttributeTextView;
+    TextView SentenceAttributeTextSizeView;
     Slider SentenceAttributeSlider;
     Button SentenceAttributeColorPicker;
     Button SentenceAttributeConfirmButton;
@@ -56,6 +57,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         textSize = sentenceAttrPreferences.getFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 20);
         textColor = sentenceAttrPreferences.getInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", getColor(R.color.white));
         SentenceAttributeTextView = findViewById(R.id.SentenceAttributeTextView);
+        SentenceAttributeTextSizeView = findViewById(R.id.SentenceAttributeTextSizeView);
         SentenceAttributeSlider = findViewById(R.id.SentenceAttributeSlider);
         SentenceAttributeColorPicker = findViewById(R.id.SentenceAttributeColorPicker);
         SentenceAttributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
@@ -79,6 +81,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         SentenceAttributeSentenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        SentenceAttributeTextSizeView.setText(textSize.toString());
         SentenceAttributeTextView.setTextColor(textColor);
         SentenceAttributeColorPicker.setBackgroundColor(textColor);
         SentenceAttributeSlider.setValue(textSize);
@@ -93,8 +96,10 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
-                SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, slider.getValue());
-                Log.d(TAG, "wigetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
+                float sliderValue = slider.getValue();
+                SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sliderValue);
+                SentenceAttributeTextSizeView.setText(String.valueOf(sliderValue));
+                Log.d(TAG, "widgetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
             }
         });
         SentenceAttributeSentenceEditText.addTextChangedListener(new TextWatcher() {
