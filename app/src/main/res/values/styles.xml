@@ -1,50 +1,60 @@
 <resources>
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyle</item>
+
+    <!--Material 2 styles-->
+    <style name="style.md2.AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/DefaultButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DefaultButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DefaultButtonStyle</item>
         <item name="errorTextColor">@color/dark</item>
     </style>
 
-    <style name="AlertDialogThemeGrey" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
-        <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
+    <style name="style.md2.AlertDialogTheme.Grey" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/DefaultButtonStyleDark</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DefaultButtonStyleDark</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DefaultButtonStyleDark</item>
     </style>
 
-    <style name="AlertDialogThemeDark" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyleDark</item>
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyleDark</item>
-        <item name="buttonBarNeutralButtonStyle">@style/NeturalButtonStyleDark</item>
+    <style name="style.md2.AlertDialogTheme.Dark" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/DefaultButtonStyleDark</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DefaultButtonStyleDark</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DefaultButtonStyleDark</item>
         <item name="errorTextColor">@color/white</item>
     </style>
 
-    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="style.md2.TextInputLayoutStyleLight" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinputlayout_md2_light</item>
+        <item name="android:theme">@style/style.md2.editTextCursorDark</item>
+    </style>
+
+    <style name="style.md2.TextInputLayoutStyleDark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinputlayout_md2_dark</item>
+        <item name="android:theme">@style/style.md2.editTextCursorWhite</item>
+    </style>
+
+    <style name="style.md2.SentenceAttributeTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinputlayout_md2_dark</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+    </style>
+
+    <style name="style.md2.editTextCursorWhite" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="style.md2.editTextCursorDark" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="colorControlActivated">@color/dark</item>
+    </style>
+
+    <style name="style.md2.MaterialToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="DefaultButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/dark</item>
         <item name="rippleColor">@color/ripple_material_light</item>
     </style>
 
-    <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/dark</item>
-        <item name="rippleColor">@color/ripple_material_light</item>
-    </style>
-
-    <style name="NeturalButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/dark</item>
-        <item name="rippleColor">@color/ripple_material_light</item>
-    </style>
-
-    <style name="PositiveButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/white</item>
-        <item name="rippleColor">@color/ripple_material_dark</item>
-    </style>
-
-    <style name="NegativeButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/white</item>
-        <item name="rippleColor">@color/ripple_material_dark</item>
-    </style>
-
-    <style name="NeturalButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
+    <style name="DefaultButtonStyleDark" parent="@style/Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/white</item>
         <item name="rippleColor">@color/ripple_material_dark</item>
     </style>
@@ -64,6 +74,10 @@
         <item name="colorSecondary">@color/white</item>
     </style>
 
+    <style name="style.md3.SentenceEditDialogLight" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="MaterialAlertDialogWithNoTitle" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/white</item>
@@ -74,18 +88,32 @@
         <item name="android:popupBackground">@color/dark</item>
     </style>
 
-    <style name="PopupMenuStyleGrey" parent="Widget.AppCompat.PopupMenu.Overflow">
-        <item name="overlapAnchor">true</item>
-        <item name="android:popupBackground">@color/grey</item>
-    </style>
-
     <style name="TabLayoutLight" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabTextColor">@color/dark</item>
         <item name="tabIndicatorColor">@color/dark</item>
     </style>
 
-    <style name="TabLayoutDark" parent="Widget.MaterialComponents.TabLayout">
+    <style name="TabLayoutGrey" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
+    </style>
+
+    <style name="style.md2.TabLayoutDark" parent="TabLayoutGrey">
+        <item name="android:background">@color/dark</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+    </style>
+
+    <style name="style.md3.TabLayoutDark" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/dark</item>
+    </style>
+
+    <style name="ToolBarDark" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:background">@color/dark</item>
+    </style>
+
+    <style name="PopupMenuStyleGrey" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="overlapAnchor">true</item>
+        <item name="android:popupBackground">@color/grey</item>
     </style>
 </resources>

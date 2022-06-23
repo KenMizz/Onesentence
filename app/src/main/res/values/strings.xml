@@ -42,4 +42,5 @@
     <string name="github_hyperlink"><a href="https://github.com/KenMizz/Onesentence/tree/master">Github</a></string>
     <string name="remove_sentence_list">Sentence list _key_ removed</string>
     <string name="use">use</string>
+    <string name="text_size">Text Size:</string>
 </resources>

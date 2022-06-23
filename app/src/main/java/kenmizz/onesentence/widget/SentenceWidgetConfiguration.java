@@ -1,16 +1,23 @@
 package kenmizz.onesentence.widget;
 
+import android.app.WallpaperInfo;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.color.DynamicColors;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -41,28 +48,8 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
             configEdit.apply();
         }
         themeOptions = config.getInt("themeOptions", MainActivity.ThemeMode.DEFAULT.ordinal());
-        switch(themeOptions) {
-            case 0:
-                switch(getUiMode()) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppConfigurationTheme_Grey);
-                        break;
-
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        setTheme(R.style.AppConfigurationTheme);
-                }
-                break;
-            case 1:
-                setTheme(R.style.AppConfigurationTheme);
-                break;
-
-            case 2:
-                setTheme(R.style.AppConfigurationTheme_Grey);
-                break;
-
-            case 3:
-                setTheme(R.style.AppConfigurationTheme_Dark);
-        }
+        configureTheme(themeOptions);
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_sentence_widget_configuration);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -77,8 +64,62 @@ public class SentenceWidgetConfiguration extends AppCompatActivity {
         if(widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
         }
+
         loadSentencesList();
         setUpSentencesView();
+    }
+
+    /**
+     * Configure AppTheme
+     * Android S+ Device uses Material3 Theme as default
+     * @param themeOptions themeOptions
+     */
+    public void configureTheme(int themeOptions) {
+        boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+        switch(themeOptions) {
+            case 0: //Default Day/Night Mode
+                switch(getUiMode()) {
+
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppConfigurationTheme_md3_Grey);
+                            return;
+                        }
+                        setTheme(R.style.AppConfigurationTheme_md2_Grey);
+                        break;
+
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppConfigurationTheme_md3_Light);
+                            return;
+                        }
+                        setTheme(R.style.AppConfigurationTheme_md2_Light);
+                }
+                break;
+
+            case 1: //Light Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppConfigurationTheme_md3_Light);
+                    return;
+                }
+                setTheme(R.style.AppConfigurationTheme_md2_Light);
+                break;
+
+            case 2: //Grey Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppConfigurationTheme_md3_Grey);
+                    return;
+                }
+                setTheme(R.style.AppConfigurationTheme_md2_Grey);
+                break;
+
+            case 3: //AMOLED Dark Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppConfigurationTheme_md3_Dark);
+                    return;
+                }
+                setTheme(R.style.AppConfigurationTheme_md2_Dark);
+        }
     }
 
     public int getUiMode() {

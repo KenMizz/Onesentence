@@ -14,20 +14,18 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mainToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
-            app:menu="@menu/options_menu"
-            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary">
+            app:menu="@menu/options_menu">
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mainTabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <kenmizz.onesentence.ui.main.NoSwipeViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

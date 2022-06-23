@@ -3,6 +3,7 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,12 +17,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
-import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 public class SentenceAttributeDialog extends AppCompatActivity implements ColorPickerDialogListener{
@@ -30,8 +31,10 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     SharedPreferences widgetPreferences;
 
     private static final String TAG = "SentenceAttribute";
+
     TextInputEditText SentenceAttributeSentenceEditText;
     TextView SentenceAttributeTextView;
+    TextView SentenceAttributeTextSizeView;
     Slider SentenceAttributeSlider;
     Button SentenceAttributeColorPicker;
     Button SentenceAttributeConfirmButton;
@@ -44,8 +47,9 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sentence_attribute_dialog);
-        sentenceAttrPreferences = getSharedPreferences(Constants.SENATTR_PREFS, MODE_PRIVATE);
+        configureTheme();
+        setContentView(R.layout.activity_sentence_attribute_dialog);
+        sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();
         widgetId = extras.getInt("widgetId");
@@ -53,6 +57,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         textSize = sentenceAttrPreferences.getFloat(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textSize", 20);
         textColor = sentenceAttrPreferences.getInt(widgetId + SentenceWidgetConfiguration.SENTENCE_TEXT + "textColor", getColor(R.color.white));
         SentenceAttributeTextView = findViewById(R.id.SentenceAttributeTextView);
+        SentenceAttributeTextSizeView = findViewById(R.id.SentenceAttributeTextSizeView);
         SentenceAttributeSlider = findViewById(R.id.SentenceAttributeSlider);
         SentenceAttributeColorPicker = findViewById(R.id.SentenceAttributeColorPicker);
         SentenceAttributeConfirmButton = findViewById(R.id.SentenceAttributeConfirmButton);
@@ -60,14 +65,23 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         setUpDialog();
     }
 
+    public void configureTheme() {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            setTheme(R.style.SentenceAttributeDialogTheme_md2_Grey);
+        } else {
+            DynamicColors.applyToActivityIfAvailable(this);
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     public void setUpDialog() {
-        Log.d(TAG, "Setting up dialog for widgetId: " + widgetId + "\nSentence: " + sentence + "\ntextSize: " + textSize + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
+        Log.d(TAG, "Setting up dialog for widgetId: " + widgetId + "\nSentence: " + sentence + "\ntextSize: " + textSize + "\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
         TextView textView = findViewById(R.id.SentenceAttributeEditTextToolTip);
         textView.setText(getResources().getString(R.string.sentence) + ":"); //So it will be like SentenceString:
         SentenceAttributeSentenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        SentenceAttributeTextSizeView.setText(textSize.toString());
         SentenceAttributeTextView.setTextColor(textColor);
         SentenceAttributeColorPicker.setBackgroundColor(textColor);
         SentenceAttributeSlider.setValue(textSize);
@@ -82,8 +96,10 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
 
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
-                SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, slider.getValue());
-                Log.d(TAG, "wigetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
+                float sliderValue = slider.getValue();
+                SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, sliderValue);
+                SentenceAttributeTextSizeView.setText(String.valueOf(sliderValue));
+                Log.d(TAG, "widgetId: " + widgetId +" SliderValue: " + slider.getValue() +"");
             }
         });
         SentenceAttributeSentenceEditText.addTextChangedListener(new TextWatcher() {

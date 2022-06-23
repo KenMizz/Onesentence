@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -77,29 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 notificationManager.createNotificationChannel(channel);
             }
         }
-        switch(themeOptions) {
-            case 0:
-                switch(getUiMode()) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        setTheme(R.style.AppThemeGrey);
-                        break;
-
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        setTheme(R.style.AppTheme);
-                }
-                break;
-
-            case 1:
-                setTheme(R.style.AppTheme);
-                break;
-
-            case 2:
-                setTheme(R.style.AppThemeGrey);
-                break;
-
-            case 3:
-                setTheme(R.style.AppThemeDark);
-        }
+        configureTheme(themeOptions);
+        DynamicColors.applyToActivityIfAvailable(this);
         setContentView(R.layout.activity_main);
         try {
             setUpConfigurations(Constants.SENTENCES_PREFS);
@@ -126,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.themes:
-                    showAppDialog(R.layout.themes);
+                    showAppDialog(R.layout.theme_options);
             }
             return true;
         });
@@ -151,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
         syncAllSharedPrefs();
     }
 
+    /**
+     * sync up all configs when app is on the background or close
+     */
     public void syncAllSharedPrefs() {
         Log.d(TAG, "syncing with all SharedPrefs");
         SharedPreferences configsPrefs = getSharedPreferences(Constants.CONFIG_PREFS, MODE_PRIVATE);
@@ -180,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
+    /**
+     * set up configurations
+     * @param PreferencesName fileName
+     * @throws IOException fileNotFound
+     */
     public void setUpConfigurations(String PreferencesName) throws IOException {
         switch (PreferencesName) {
             case Constants.CONFIG_PREFS:
@@ -238,10 +226,72 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Configure AppTheme
+     * Android S+ Device uses Material3 Theme as default
+     * @param themeOptions themeOptions
+     */
+    public void configureTheme(int themeOptions) {
+        boolean MaterialYou = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+        switch(themeOptions) {
+            case 0: //Default Day/Night Mode
+                switch(getUiMode()) {
+
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppTheme_md3_Grey);
+                            return;
+                        }
+                        setTheme(R.style.AppTheme_md2_Grey);
+                    break;
+
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        if(MaterialYou) {
+                            setTheme(R.style.AppTheme_md3_Light);
+                            return;
+                        }
+                        setTheme(R.style.AppTheme_md2_Light);
+                }
+                break;
+
+            case 1: //Light Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Light);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Light);
+            break;
+
+            case 2: //Grey Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Grey);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Grey);
+            break;
+
+            case 3: //AMOLED Dark Mode
+                if(MaterialYou) {
+                    setTheme(R.style.AppTheme_md3_Dark);
+                    return;
+                }
+                setTheme(R.style.AppTheme_md2_Dark);
+        }
+    }
+
+    /**
+     * shows addSentenceDialog
+     */
+    @SuppressLint("InflateParams")
     public void addSentenceDialog() {
         final MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.sentence_edittext, null);
-        final TextInputEditText editText = view.findViewById(R.id.sentenceAddEditText);
+        View editTextView;
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_edittext_md3, null);
+        } else {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_edittext_md2, null);
+        }
+        final TextInputEditText editText = editTextView.findViewById(R.id.sentenceAddEditText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -251,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(sentencesList.contains(charSequence.toString())) {
-                    editText.setError(charSequence.toString() + getString(R.string.sentenceExists));
+                    editText.setError(charSequence + getString(R.string.sentenceExists));
                 }
             }
 
@@ -261,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        dialog.setView(view);
+        dialog.setView(editTextView);
         dialog.setTitle(R.string.newsentence)
                 .setPositiveButton(R.string.add, (dialog1, which) -> {
                     String text = Objects.requireNonNull(editText.getText()).toString();
@@ -277,9 +327,18 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * shows addSentenceListDialog
+     */
+    @SuppressLint("InflateParams")
     public void addSentenceListDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext, null);
-        final TextInputEditText editText = view.findViewById(R.id.sentenceListAddEditText);
+        View editTextView;
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md3, null);
+        } else {
+            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md2, null);
+        }
+        final TextInputEditText editText = editTextView.findViewById(R.id.sentenceListAddEditText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -301,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
         });
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.new_sentence_list)
-                .setView(view)
+                .setView(editTextView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
                     if(!Objects.requireNonNull(editText.getText()).toString().isEmpty()) {
                         if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
@@ -318,6 +377,10 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.show();
     }
 
+    /**
+     * show app dialogs
+     * @param layoutId dialogLayout
+     */
     @SuppressLint({"InflateParams", "NonConstantResourceId", "SetTextI18n"})
     public void showAppDialog(int layoutId) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
@@ -329,8 +392,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView githubLinkView = view.findViewById(R.id.githubLinkView);
                 coolApkLinkView.setMovementMethod(LinkMovementMethod.getInstance());
                 githubLinkView.setMovementMethod(LinkMovementMethod.getInstance());
-                coolApkLinkView.setLinkTextColor(Color.BLUE);
-                githubLinkView.setLinkTextColor(Color.BLUE);
+                coolApkLinkView.setLinkTextColor(getColor(R.color.dark_blue));
+                githubLinkView.setLinkTextColor(getColor(R.color.dark_blue));
                 dialog.setTitle(R.string.about)
                         .setView(view)
                         .setPositiveButton(R.string.ok, null)
@@ -340,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
-            case R.layout.themes:
+            case R.layout.theme_options:
                 dialog.setTitle(R.string.theme)
                         .setView(view)
                         .setPositiveButton(R.string.confirmButton, (dialogInterface, i) -> {
@@ -389,6 +452,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * this indicates that night mode is on or off
+     * @return int
+     */
     public int getUiMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }

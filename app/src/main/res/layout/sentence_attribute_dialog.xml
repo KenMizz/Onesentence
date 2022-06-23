@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
     tools:context=".SentenceAttributeDialog"
     tools:ignore="HardcodedText">
 
@@ -12,37 +11,64 @@
         android:id="@+id/SentenceAttributeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="句"
-        android:singleLine="true"
-        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40sp"/>
+        android:layout_marginTop="40sp"
+        android:singleLine="true"
+        android:text="句"
+        android:textSize="20sp" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/SentenceAttributeEditText"
+    <TextView
+        android:id="@+id/SentenceAttributeTextSizeViewToolTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/SentenceAttributeTextView"
+        android:layout_toStartOf="@id/SentenceAttributeTextSizeView"
+        android:text="@string/text_size"/>
+
+    <TextView
+        android:id="@+id/SentenceAttributeTextSizeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/SentenceAttributeTextView"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/SentenceAttributeTextInputLayout"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/SentenceAttributeTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10sp"
-        android:hint="@string/sentence"
-        android:minHeight="48dp"
-        tools:ignore="DuplicateSpeakableTextCheck" />
+        android:layout_marginStart="10sp"
+        android:layout_below="@id/SentenceAttributeTextSizeViewToolTip">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SentenceAttributeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/sentence"
+            android:minHeight="48dp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/SentenceAttributeEditTextToolTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sentence"
-        android:layout_toStartOf="@id/SentenceAttributeEditText"
-        android:layout_below="@id/SentenceAttributeTextView"
-        android:layout_marginTop="30dp" />
+        android:layout_below="@id/SentenceAttributeTextSizeViewToolTip"
+        android:layout_marginTop="30dp"
+        android:layout_toStartOf="@id/SentenceAttributeTextInputLayout"
+        android:text="@string/sentence" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/SentenceAttributeSlider"
-        android:layout_width="189sp"
-        android:layout_height="49sp"
-        android:layout_below="@id/SentenceAttributeEditText"
+        android:layout_width="230sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SentenceAttributeTextInputLayout"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/sentence_size"
         android:stepSize="1.0"
@@ -50,18 +76,15 @@
         android:valueFrom="10.0"
         android:valueTo="100.0"
         app:labelBehavior="floating"
-        app:thumbColor="@color/white"
-        app:trackColor="@color/grey"
-        app:tickColor="@color/white"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sentence_size"
-        android:layout_toStartOf="@id/SentenceAttributeSlider"
+        android:layout_below="@id/SentenceAttributeTextInputLayout"
         android:layout_marginTop="15sp"
-        android:layout_below="@id/SentenceAttributeEditText" />
+        android:layout_toStartOf="@id/SentenceAttributeSlider"
+        android:text="@string/sentence_size" />
 
     <Button
         android:id="@+id/SentenceAttributeColorPicker"
@@ -84,13 +107,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/SentenceAttributeConfirmButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:text="@string/confirmButton"
-        android:textColor="@color/white"
         android:layout_below="@id/SentenceAttributeColorPicker"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16sp"/>
+        android:layout_marginEnd="16sp"
+        android:text="@string/confirmButton" />
 
 </RelativeLayout>

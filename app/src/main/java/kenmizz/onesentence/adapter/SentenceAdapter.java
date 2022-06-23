@@ -82,19 +82,11 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         final String currentSentence = mSentenceList.get(holder.getAdapterPosition());
         holder.mTextView.setText(currentSentence);
         if(mIsItemClickable) {
-            holder.mCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setUpWidget(holder.getAdapterPosition());
-                }
-            });
+            holder.mCardView.setOnClickListener(v -> setUpWidget(holder.getAdapterPosition()));
         } else {
-            holder.mCardView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    mSentenceFragment.setNotificationDialog(currentSentence);
-                    return true;
-                }
+            holder.mCardView.setOnLongClickListener(view -> {
+                mSentenceFragment.setNotificationDialog(currentSentence);
+                return true;
             });
             if(mSentenceList.size() <= 0) {
                 mEmptyView.setVisibility(View.VISIBLE);
