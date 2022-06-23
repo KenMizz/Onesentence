@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 
+import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
 public class SentenceAttributeDialog extends AppCompatActivity implements ColorPickerDialogListener{
@@ -49,7 +50,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
         super.onCreate(savedInstanceState);
         configureTheme();
         setContentView(R.layout.activity_sentence_attribute_dialog);
-        sentenceAttrPreferences = getSharedPreferences(MainActivity.SENATTR_PREFS, MODE_PRIVATE);
+        sentenceAttrPreferences = getSharedPreferences(Constants.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();
         widgetId = extras.getInt("widgetId");
