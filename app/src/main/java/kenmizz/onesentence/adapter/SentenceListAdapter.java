@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.ui.main.SentenceListFragment;
 import kenmizz.onesentence.utils.Constants;
@@ -171,7 +170,7 @@ public class SentenceListAdapter extends RecyclerView.Adapter<SentenceListAdapte
         Random random = new Random();
         ArrayList<String> sentenceCollectionList = mSentenceCollection.get(position);
         Set<String> sentenceCollectionSet = new HashSet<String>(sentenceCollectionList); //convert to StringSet
-        SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(SentenceListWidgetConfiguration.SENLIST_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sentenceListPref = mActivityContext.getSharedPreferences(Constants.SENTENCE_COLLECTION_PREFS, Context.MODE_PRIVATE);
         SharedPreferences sentenceAttributePref = mActivityContext.getSharedPreferences(Constants.SENATTR_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor sentenceListPrefEditor = sentenceListPref.edit();
         SharedPreferences.Editor sentenceAttributePrefEditor = sentenceAttributePref.edit();

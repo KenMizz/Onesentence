@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,8 +37,6 @@ public class SentenceListWidgetConfiguration extends AppCompatActivity {
 
     private int themeOptions = MainActivity.ThemeMode.DEFAULT.ordinal();
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-    public static String SENLIST_PREFS = "sentenceCollectionPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
