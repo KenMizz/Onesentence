@@ -11,10 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
@@ -29,9 +25,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
-            return SentenceListFragment.newInstance(mActivity.getSentenceCollection(), mActivity.getSentencesList());
-        }
+        if (position == 1) return SentenceListFragment.newInstance(mActivity.getSentenceCollection(), mActivity.getSentencesList());
         return SentenceFragment.newInstance(mActivity.getSentencesList());
     }
 

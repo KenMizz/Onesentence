@@ -5,7 +5,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -40,6 +41,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -410,6 +412,13 @@ public class MainActivity extends AppCompatActivity {
                             if(newThemeOptions != themeOptions) {
                                 themeOptions = newThemeOptions;
                                 syncAllSharedPrefs();
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                List<Fragment> fragments = fragmentManager.getFragments();
+                                for(Fragment fragment: fragments) {
+                                    fragmentManager.beginTransaction()
+                                            .remove(fragment)
+                                            .commit();
+                                }
                                 recreate();
                             }
                         })

@@ -1,5 +1,7 @@
 package kenmizz.onesentence.ui.main;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -31,13 +33,9 @@ import kenmizz.onesentence.adapter.SentenceAdapter;
 import kenmizz.onesentence.controller.SwipeController;
 import kenmizz.onesentence.utils.Constants;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class SentenceFragment extends Fragment {
 
     private ArrayList<String> mSentenceList;
-
-    public SentenceFragment() {}
 
     public static SentenceFragment newInstance(ArrayList<String> sentenceList) {
         SentenceFragment fragment = new SentenceFragment();
