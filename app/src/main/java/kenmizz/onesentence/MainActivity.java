@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setShowWhen(false)
                 .setOngoing(true)
-                .addAction(R.drawable.app_icon_round, getString(R.string.remove), pendingIntent);
+                .addAction(R.drawable.app_notification_icon_small, getString(R.string.remove), pendingIntent);
         notificationManager.notify(NotificationId, notificationBuilder.build());
         SharedPreferences NotificationPrefs = getSharedPreferences(Constants.NOTIFICATION_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();

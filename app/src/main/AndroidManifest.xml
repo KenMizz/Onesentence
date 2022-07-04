@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".provider.SentenceAppWidgetProvider"
+        <receiver android:name=".SentenceAppWidgetProvider"
             android:exported="true" android:label="@string/sentence">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

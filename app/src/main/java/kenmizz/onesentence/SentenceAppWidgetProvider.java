@@ -1,4 +1,4 @@
-package kenmizz.onesentence.provider;
+package kenmizz.onesentence;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
