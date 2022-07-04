@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.themes:
                     showAppDialog(R.layout.theme_options);
+                    break;
             }
             return true;
         });
