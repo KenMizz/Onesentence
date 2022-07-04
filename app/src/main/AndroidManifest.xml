@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.md3.Light">
-        <activity android:name=".widget.SentenceListWidgetConfiguration" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -50,30 +49,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/sentence_appwidget_info" />
-        </receiver>
-        
-        <receiver android:name=".provider.SentenceListAppWidgetTestProvider"
-            android:exported="true" android:label="@string/sentence_list">
-
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/sentence_list_appwidget_test_info"/>
-        </receiver>
-        
-        <receiver android:name=".provider.SentenceListAppWidgetProvider"
-            android:exported="true" android:label="@string/sentence_list">
-
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/sentence_list_appwidget_info"/>
         </receiver>
 
         <receiver android:name=".ApplicationBootReceiver"
