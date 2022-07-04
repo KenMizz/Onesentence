@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, ?> Sentences = sentences.getAll();
                 if(!Sentences.isEmpty()) {
                     for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                        sentencesList.add(Sentence.getValue().toString());
+                        sentencesList.add(sentencesList.size(), Sentence.getValue().toString());
                     }
                 }
         }
@@ -258,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
                     String text = Objects.requireNonNull(editText.getText()).toString();
                     if(!text.isEmpty()) {
                         if(!sentencesList.contains(text)) {
-                            sentencesList.add(sentencesList.size(), text);
+                            //sentencesList.add(sentencesList.size(), text);
+                            sentencesList.add(text);
                             Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(findViewById(R.id.addFloatingButton), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
