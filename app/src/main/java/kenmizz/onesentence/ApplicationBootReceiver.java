@@ -48,7 +48,7 @@ public class ApplicationBootReceiver extends BroadcastReceiver {
                             .setContentTitle(sentence)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setOngoing(true)
-                            .addAction(R.drawable.app_icon_round, context.getString(R.string.remove), pendingIntent);
+                            .addAction(R.drawable.app_notification_icon_small, context.getString(R.string.remove), pendingIntent);
                     notificationManager.notify(NotificationId, notificationBuilder.build());
                 }
             }

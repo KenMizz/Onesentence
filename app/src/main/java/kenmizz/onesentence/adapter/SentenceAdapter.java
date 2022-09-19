@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import kenmizz.onesentence.MainActivity;
 import kenmizz.onesentence.R;
 import kenmizz.onesentence.SentenceAttributeDialog;
-import kenmizz.onesentence.ui.main.SentenceFragment;
 import kenmizz.onesentence.utils.Constants;
 import kenmizz.onesentence.widget.SentenceWidgetConfiguration;
 
@@ -37,12 +36,12 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
 
     private ArrayList<String> mSentenceList;
     private TextView mEmptyView;
-    private SentenceFragment mSentenceFragment;
 
     private boolean mIsItemClickable = false;
     private int mWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private Context mActivityContext;
-    private SentenceWidgetConfiguration mActivity;
+    private SentenceWidgetConfiguration mSentenceWidgetConfigurationActivity;
+    private MainActivity mActivity;
 
 
     static class SentenceViewHolder extends RecyclerView.ViewHolder {
@@ -56,10 +55,10 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         }
     }
 
-    public SentenceAdapter(ArrayList<String> sentenceList, TextView emptyView, SentenceFragment sentenceFragment) {
+    public SentenceAdapter(ArrayList<String> sentenceList, TextView emptyView, MainActivity mActivity) {
         mSentenceList = sentenceList;
         mEmptyView = emptyView;
-        mSentenceFragment = sentenceFragment;
+        this.mActivity = mActivity;
     }
 
     public SentenceAdapter(ArrayList<String> sentenceList, int widgetId, boolean isItemClickable, Context activityContext, SentenceWidgetConfiguration activity) {
@@ -67,7 +66,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         mWidgetId = widgetId;
         mIsItemClickable = isItemClickable;
         mActivityContext = activityContext;
-        mActivity = activity;
+        mSentenceWidgetConfigurationActivity = activity;
     }
 
     @NonNull
@@ -85,7 +84,7 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
             holder.mCardView.setOnClickListener(v -> setUpWidget(holder.getAdapterPosition()));
         } else {
             holder.mCardView.setOnLongClickListener(view -> {
-                mSentenceFragment.setNotificationDialog(currentSentence);
+                mActivity.setNotificationDialog(currentSentence);
                 return true;
             });
             if(mSentenceList.size() <= 0) {
@@ -137,8 +136,8 @@ public class SentenceAdapter extends RecyclerView.Adapter<SentenceAdapter.Senten
         appWidgetManager.updateAppWidget(mWidgetId, views);
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);
-        mActivity.setResult(Activity.RESULT_OK, resultValue);
-        mActivity.finish();
+        mSentenceWidgetConfigurationActivity.setResult(Activity.RESULT_OK, resultValue);
+        mSentenceWidgetConfigurationActivity.finish();
     }
 
 

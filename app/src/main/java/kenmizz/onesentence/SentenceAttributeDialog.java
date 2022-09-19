@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Button;
@@ -49,7 +50,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         configureTheme();
-        setContentView(R.layout.activity_sentence_attribute_dialog);
+        setContentView(R.layout.sentence_attribute_dialog);
         sentenceAttrPreferences = getSharedPreferences(Constants.SENATTR_PREFS, MODE_PRIVATE);
         widgetPreferences = getSharedPreferences(SentenceWidgetConfiguration.WIDGET_PREFS, MODE_PRIVATE);
         Bundle extras = getIntent().getExtras();

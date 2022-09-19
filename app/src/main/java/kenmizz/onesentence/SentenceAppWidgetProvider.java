@@ -1,4 +1,4 @@
-package kenmizz.onesentence.provider;
+package kenmizz.onesentence;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -45,8 +45,8 @@ public class SentenceAppWidgetProvider extends AppWidgetProvider {
         Intent attributeDialog = new Intent(context, SentenceAttributeDialog.class);
         attributeDialog.putExtra("widgetId", widgetId);
         attributeDialog.putExtra("sentence", sentence);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
-        views.setOnClickPendingIntent(R.id.SentenceTextView, pendingIntent);
+        PendingIntent attributeDialogPendingIntent = PendingIntent.getActivity(context, widgetId, attributeDialog, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+        views.setOnClickPendingIntent(R.id.SentenceTextView, attributeDialogPendingIntent);
         views.setTextViewText(R.id.SentenceTextView, sentence);
         views.setTextViewTextSize(R.id.SentenceTextView, TypedValue.COMPLEX_UNIT_SP, sentenceTextSize);
         views.setTextColor(R.id.SentenceTextView, sentenceTextColor);

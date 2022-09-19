@@ -2,9 +2,9 @@ name: Android Build
 
 on:
   push:
-    branches: [ master, md3 ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, md3 ]
+    branches: [ master ]
 
 jobs:
   build:

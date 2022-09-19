@@ -3,6 +3,9 @@ package kenmizz.onesentence;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -17,41 +20,34 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
-import kenmizz.onesentence.ui.main.SectionsPagerAdapter;
+import kenmizz.onesentence.adapter.SentenceAdapter;
+import kenmizz.onesentence.controller.SwipeController;
 import kenmizz.onesentence.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> sentencesList = new ArrayList<>();
-    HashMap<String, ArrayList<String>> sentenceCollection = new HashMap<>();
 
     private static final String TAG = "MainActivity";
 
@@ -85,15 +81,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         try {
             setUpConfigurations(Constants.SENTENCES_PREFS);
-            setUpConfigurations(Constants.SENTENCE_LIST_FILE);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        final ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.mainTabs);
-        tabs.setupWithViewPager(viewPager);
+        setUpSentencesView();
         MaterialToolbar mainToolbar = findViewById(R.id.mainToolbar);
         final FloatingActionButton addButton = findViewById(R.id.addFloatingButton);
         mainToolbar.setOnMenuItemClickListener(item -> {
@@ -109,15 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.themes:
                     showAppDialog(R.layout.theme_options);
+                    break;
             }
             return true;
         });
         addButton.setOnClickListener(view -> {
-            if(viewPager.getCurrentItem() == 1) {
-                addSentenceListDialog();
-            } else {
                 addSentenceDialog();
-            }
         });
     }
 
@@ -149,20 +137,6 @@ public class MainActivity extends AppCompatActivity {
             sentencesEditor.putString(sentence, sentence);
         }
         sentencesEditor.apply();
-        JSONObject SentenceListToJson = new JSONObject(sentenceCollection);
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(Constants.SENTENCE_LIST_FILE, MODE_PRIVATE));
-            outputStreamWriter.write(SentenceListToJson.toString());
-            outputStreamWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File jsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
-        if(jsonFile.exists()) {
-            Log.d(TAG, Constants.SENTENCE_LIST_FILE + " created");
-        }
-        Log.d(TAG, "jsonFile path:" + jsonFile.getAbsolutePath());
     }
 
     /**
@@ -187,44 +161,9 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, ?> Sentences = sentences.getAll();
                 if(!Sentences.isEmpty()) {
                     for (Map.Entry<String, ?> Sentence : Sentences.entrySet()) {
-                        sentencesList.add(Sentence.getValue().toString());
+                        sentencesList.add(sentencesList.size(), Sentence.getValue().toString());
                     }
                 }
-            break;
-
-            case Constants.SENTENCE_LIST_FILE:
-                File SentenceCollectionJsonFile = new File(getFilesDir().getAbsolutePath() + File.separator + Constants.SENTENCE_LIST_FILE);
-                if(!SentenceCollectionJsonFile.exists()) {
-                    boolean createStatus = SentenceCollectionJsonFile.createNewFile();
-                    if(!createStatus) {
-                        Log.e(TAG, "sentenceList.json create failed");
-                    }
-                }
-                try {
-                    FileInputStream fileInputStream = new FileInputStream(SentenceCollectionJsonFile);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
-                    StringBuilder contentBuilder = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        contentBuilder.append(line).append("\n");
-                    }
-                    fileInputStream.close();
-                    reader.close();
-                    JSONObject SentenceCollectionJsonObject = new JSONObject(contentBuilder.toString());
-                    Iterator<String> stringIterator = SentenceCollectionJsonObject.keys();
-                    while(stringIterator.hasNext()) {
-                        String key = stringIterator.next();
-                        JSONArray valueArray = SentenceCollectionJsonObject.getJSONArray(key);
-                        ArrayList<String> value = new ArrayList<>();
-                        for(int i = 0; i < valueArray.length(); i++) {
-                            value.add(valueArray.getString(i));
-                        }
-                        sentenceCollection.put(key, value);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            break;
         }
     }
 
@@ -319,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
                     String text = Objects.requireNonNull(editText.getText()).toString();
                     if(!text.isEmpty()) {
                         if(!sentencesList.contains(text)) {
-                            sentencesList.add(sentencesList.size(), text);
+                            //sentencesList.add(sentencesList.size(), text);
+                            sentencesList.add(text);
                             Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.AlreadyAdd) + text, Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(findViewById(R.id.addFloatingButton), text + getString(R.string.KeyExists), Snackbar.LENGTH_SHORT).show();
@@ -327,56 +267,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
-
-    /**
-     * shows addSentenceListDialog
-     */
-    @SuppressLint("InflateParams")
-    public void addSentenceListDialog() {
-        View editTextView;
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
-            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md3, null);
-        } else {
-            editTextView = LayoutInflater.from(this).inflate(R.layout.sentence_list_edittext_md2, null);
-        }
-        final TextInputEditText editText = editTextView.findViewById(R.id.sentenceListAddEditText);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String text = charSequence.toString();
-                if(sentenceCollection.containsKey(text)) {
-                    editText.setError(text + getString(R.string.sentenceExists));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.new_sentence_list)
-                .setView(editTextView)
-                .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    if(!Objects.requireNonNull(editText.getText()).toString().isEmpty()) {
-                        if(!sentenceCollection.containsKey(Objects.requireNonNull(editText.getText()).toString())) {
-                            sentenceCollection.put(editText.getText().toString(), new ArrayList<>());
-                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.successfully_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
-                        } else {
-                            Snackbar.make(findViewById(R.id.addFloatingButton), getString(R.string.fail_add_sentence_list).replace("_key_", editText.getText().toString()), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                    if(!sentenceCollection.isEmpty()) {
-                        findViewById(R.id.emptyListView).setVisibility(View.INVISIBLE);
-                    }
-                });
-        dialogBuilder.show();
     }
 
     /**
@@ -461,6 +351,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setUpSentencesView() {
+        RecyclerView mRecyclerView = findViewById(R.id.RecyclerView);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        SentenceAdapter mAdapter = new SentenceAdapter(sentencesList, findViewById(R.id.emptyView), this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        SwipeController swipeController = new SwipeController(mAdapter, getWindow().getDecorView());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        if(!sentencesList.isEmpty()) {
+            findViewById(R.id.emptyView).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void setNotificationDialog(final String sentence) {
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.set_long_time_notification)
+                .setMessage(getString(R.string.set_setence_notification).replace("sentence", sentence))
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> createLongTimeNotification(sentence))
+                .setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
+        dialogBuilder.show();
+    }
+
+    public void createLongTimeNotification(String sentence) {
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        int NotificationId = new Random().nextInt();
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .putExtra("id", NotificationId);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), Constants.CHANNEL_ID)
+                .setSmallIcon(R.drawable.app_notification_icon_small)
+                .setContentTitle(sentence)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setShowWhen(false)
+                .setOngoing(true)
+                .addAction(R.drawable.app_notification_icon_small, getString(R.string.remove), pendingIntent);
+        notificationManager.notify(NotificationId, notificationBuilder.build());
+        SharedPreferences NotificationPrefs = getSharedPreferences(Constants.NOTIFICATION_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor notificationPrefsEditor = NotificationPrefs.edit();
+        notificationPrefsEditor.putString(String.valueOf(NotificationId), sentence);
+        notificationPrefsEditor.apply();
+    }
+
     /**
      * this indicates that night mode is on or off
      * @return int
@@ -468,11 +402,4 @@ public class MainActivity extends AppCompatActivity {
     public int getUiMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
-
-    public ArrayList<String> getSentencesList() {
-        return sentencesList;
-    }
-
-    public HashMap<String, ArrayList<String>> getSentenceCollection() { return sentenceCollection; }
-
 }
