@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         DEFAULT, LIGHT, GREY, DARK
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

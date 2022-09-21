@@ -25,9 +25,9 @@ public class ApplicationBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            Log.i(TAG, "BootReceiver received");
+            //Log.i(TAG, "BootReceiver received");
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-            Log.i(TAG, "Device's SDK version: " + Build.VERSION.SDK_INT);
+            //Log.i(TAG, "Device's SDK version: " + Build.VERSION.SDK_INT);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //create new channel
                 NotificationChannel channel = new NotificationChannel(Constants.CHANNEL_ID, context.getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(context.getString(R.string.channel_description));

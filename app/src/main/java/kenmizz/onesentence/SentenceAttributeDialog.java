@@ -32,7 +32,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     SharedPreferences sentenceAttrPreferences;
     SharedPreferences widgetPreferences;
 
-    private static final String TAG = "SentenceAttribute";
+    private static final String TAG = "SentenceAttributeDialog";
 
     TextInputEditText SentenceAttributeSentenceEditText;
     TextView SentenceAttributeTextView;
@@ -79,7 +79,7 @@ public class SentenceAttributeDialog extends AppCompatActivity implements ColorP
     public void setUpDialog() {
         Log.d(TAG, "Setting up dialog for widgetId: " + widgetId + "\nSentence: " + sentence + "\ntextSize: " + textSize + "\ntextColor: " + textColor + "\ntextColor(toHex): " + String.format("#%06X", (0xFFFFFF & textColor)) + "");
         TextView textView = findViewById(R.id.SentenceAttributeEditTextToolTip);
-        textView.setText(getResources().getString(R.string.sentence) + ":"); //So it will be like SentenceString:
+        textView.setText(getResources().getString(R.string.sentence) + ":");
         SentenceAttributeSentenceEditText.setText(sentence);
         SentenceAttributeTextView.setText(sentence);
         SentenceAttributeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
